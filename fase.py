@@ -21,19 +21,19 @@ MAXIMO_X_JUGADOR = ANCHO_PANTALLA - 100
 # Clase Fase
 
 class Fase(Escena):
-    def __init__(self, director, jugador1, jugador2):
+    def __init__(self, director, jugador1):
 
         # Primero invocamos al constructor de la clase padre
         Escena.__init__(self, director)
 
         # Guardamos los jugadores
         self.jugador1 = jugador1
-        self.jugador2 = jugador2
-        self.grupoJugadores = pygame.sprite.Group( jugador1, jugador2 )
+        #self.jugador2 = jugador2
+        self.grupoJugadores = pygame.sprite.Group( jugador1)
 
         # Ponemos a los jugadores en sus posiciones iniciales
         jugador1.establecerPosicion(200, 551)
-        jugador2.establecerPosicion(400, 551)
+        #jugador2.establecerPosicion(400, 551)
 
         # Habria que pasarle como parámetro el número de fase, a partir del cual se cargue
         #  un fichero donde este la configuracion de esa fase en concreto, con cosas como
@@ -46,14 +46,14 @@ class Fase(Escena):
         # De esta forma, se podrian tener muchas fases distintas con esta clase
 
         # Cargamos el decorado
-        self.image = load_image('decorado.png', -1)
+        self.image = load_image('field_bg.jpg', -1)
         self.image = pygame.transform.scale(self.image, (1200, 300))
 
         self.rect = self.image.get_rect()
         self.rect.bottom = ALTO_PANTALLA
 
         # Creamos el fondo
-        self.sol = Fondo('sol.png')
+        #self.sol = Fondo('sol.png')
 
         # Que parte del decorado estamos visualizando
         self.posicionx = 0
@@ -69,14 +69,14 @@ class Fase(Escena):
         self.grupoPlataformas = pygame.sprite.Group( plataformaSuelo, plataformaCasa )
 
         # Y los enemigos que tendran en este decorado
-        enemigo1 = Sniper()
-        enemigo1.establecerPosicion(1000, 418)
+        #enemigo1 = Sniper()
+        #enemigo1.establecerPosicion(1000, 418)
 
         # Creamos un grupo con los enemigos
-        self.grupoEnemigos = pygame.sprite.Group( enemigo1 )
+        #self.grupoEnemigos = pygame.sprite.Group( enemigo1 )
 
     def posicionesInicioJugadores(self):
-        return self.inicioJugador1, self.inicioJugador2
+        return self.inicioJugador1#, self.inicioJugador2
 
     # Desplaza todo el decorado y los objetos (plataformas, enemigos) que hay en el
     def desplazarDecorado(self, desplazamiento, jugadorAMover):
@@ -84,18 +84,18 @@ class Fase(Escena):
         jugadorAMover.posicionx -= desplazamiento
         jugadorAMover.rect.left = jugadorAMover.posicionx
         # La imagen que se muestra hacia ese lado
-        self.posicionx += desplazamiento
+        #self.posicionx += desplazamiento
 
         # Actualizamos el grupo de plataformas para que tambien se desplacen al lado contrario
-        self.grupoPlataformas.update(-desplazamiento)
+        #self.grupoPlataformas.update(-desplazamiento)
 
         # Actualizamos el grupo de enemigos para que tambien se desplacen al lado contrario
-        for enemigo in list(self.grupoEnemigos):
-            enemigo.posicionx -= desplazamiento
-            enemigo.rect.left = enemigo.posicionx
+        #for enemigo in list(self.grupoEnemigos):
+        #    enemigo.posicionx -= desplazamiento
+        #    enemigo.rect.left = enemigo.posicionx
 
         # Actualizamos cual es la parte de la imagen del decorado que se muestra en pantalla
-        self.rectSubimagen.left = self.posicionx
+        #self.rectSubimagen.left = self.posicionx
 
         
     def actualizarScrollOrdenados(self, jugadorIzq, jugadorDcha):
@@ -150,30 +150,30 @@ class Fase(Escena):
         # Actualizamos los jugadores actualizando el grupo
         self.grupoJugadores.update(self.grupoPlataformas, tiempo)
         # Actualizamos la posicion del sol y el color del cielo
-        self.sol.update(tiempo)
+        #self.sol.update(tiempo)
         # Indicamos la accion a realizar para cada enemigo segun como esten los jugadores
-        for enemigo in iter(self.grupoEnemigos):
-            enemigo.mover_cpu(self.jugador1, self.jugador2)
+        #for enemigo in iter(self.grupoEnemigos):
+        #    enemigo.mover_cpu(self.jugador1, self.jugador2)
         #  y la realizamos
-        self.grupoEnemigos.update(self.grupoPlataformas, tiempo)
+        #self.grupoEnemigos.update(self.grupoPlataformas, tiempo)
         # Comprobamos si hay colision entre algun jugador y algun enemigo
         # Si la hay, le indicamos al director que se ha finalizado esa escena
-        if pygame.sprite.spritecollideany(self.jugador1, self.grupoEnemigos) != None:
-            self.director.salirEscena()
-        if pygame.sprite.spritecollideany(self.jugador2, self.grupoEnemigos) != None:
-            self.director.salirEscena()
+        #if pygame.sprite.spritecollideany(self.jugador1, self.grupoEnemigos) != None:
+        #    self.director.salirEscena()
+        #if pygame.sprite.spritecollideany(self.jugador2, self.grupoEnemigos) != None:
+        #    self.director.salirEscena()
         # Actualizamos el scroll
-        self.actualizarScroll(self.jugador1, self.jugador2)
+        #self.actualizarScroll(self.jugador1, self.jugador2)
 
 
         
     def dibujar(self, pantalla):
         # Ponemos primero el sol y cielo
-        self.sol.dibujar(pantalla)
+        #self.sol.dibujar(pantalla)
         # Después la imagen de fondo
         pantalla.blit(self.image, self.rect, self.rectSubimagen)
         # Luego los enemigos
-        self.grupoEnemigos.draw(pantalla)
+        #self.grupoEnemigos.draw(pantalla)
         # Por ultimo, los jugadores
         self.grupoJugadores.draw(pantalla)
 
@@ -182,7 +182,7 @@ class Fase(Escena):
         # Indicamos la acción a realizar segun la tecla pulsada para cada jugador
         teclasPulsadas = pygame.key.get_pressed()
         self.jugador1.mover(teclasPulsadas, K_UP, K_DOWN, K_LEFT, K_RIGHT)
-        self.jugador2.mover(teclasPulsadas, K_w,  K_s,    K_a,    K_d)
+        #self.jugador2.mover(teclasPulsadas, K_w,  K_s,    K_a,    K_d)
 
 # -------------------------------------------------
 # Clase Plataforma
