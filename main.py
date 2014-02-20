@@ -37,10 +37,11 @@ class AplicacionJuego():
        
             # Creamos los jugadores
             jugador1 = Jugador()
-            jugador2 = Jugador()
+            #jugador2 = Jugador()
 
             # Creamos la escena con la fase
-            escena = Fase(self.director, jugador1, jugador2)
+            #escena = Fase(self.director, jugador1, jugador2)
+            escena = Fase(self.director, jugador1)
             # Le decimos al director en que escena estamos
             self.director.cambiarEscena(escena)
             # Y ejecutamos el bucle
