@@ -34,7 +34,8 @@ class InitScene():
 		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 		pygame.display.set_caption("The white square adventures")
 		self.player = Characters.Square(200, 200, 20, 20)
-		self.bg = load_image("field_bg.jpg")
+		self.bg = load_image("bg_test.png")
+		self.collisioBg = self.bg.copy()
 		# Yeah, this part is ok, trust me
 		self.bgRect = self.bg.get_rect()
 		self.screenRect = pygame.Rect(0, 0, SCREEN_W, SCREEN_H)
@@ -91,7 +92,7 @@ class InitScene():
 			if event.type == pygame.QUIT:
 				return True
 
-		self.player.update(time)
+		self.player.update(time, self.collisioBg, self.screenRect)
 		self.updateScroll()
 
 		return False
