@@ -72,3 +72,28 @@ class Square():
 
 	def draw(self, screen):
 		pygame.draw.rect(screen, 0xFFFFFF, self.rect)
+
+
+# Yea, bullet is a character for now :-)
+class Bullet():
+	def __init__(self, x, y, speedX, speedY):
+		self.x = x
+		self.y = y
+		self.speedX = speedX
+		self.speedY = speedY
+		self.rect = pygame.Rect(self.x, self.y, 2, 2)
+
+		print "Bullet created at %f %f with speed %f %f" % (x, y, speedX, speedY)
+
+
+	def move(self, time):
+		self.x += self.speedX * time
+		self.y += self.speedY * time
+		self.rect.left = self.x
+		self.rect.top = self.y
+
+	def update(self, time):
+		self.move(time)
+
+	def draw(self, screen):
+		pygame.draw.rect(screen, 0xFFFFFF, self.rect)

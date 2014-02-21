@@ -13,6 +13,7 @@ import os
 SCREEN_W = 800
 SCREEN_H = 600
 BORDER = 50
+BULLET_SPEED = 0.5
 
 def load_image(name, colorkey=None):
 	fullname = os.path.join('images', name)
@@ -41,6 +42,9 @@ class InitScene():
 		self.screenRect = pygame.Rect(0, 0, SCREEN_W, SCREEN_H)
 		self.x = 0
 		self.y = 0
+
+		# Just one bullet at a time for now. In the future, they'll be sprites in groups...
+		self.bullet = None
 
 	# This is a bad way of doing this, but it's like in the examples.
 	def scrollScreen(self, shiftX, shiftY):
@@ -92,7 +96,20 @@ class InitScene():
 			if event.type == pygame.QUIT:
 				return True
 
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+				(posX, posY) = event.pos
+				posX = float(posX)
+				posY = float(posY)
+				xdist = posX - self.player.x
+				ydist = posY - self.player.y
+				module = abs(xdist) + abs(ydist)
+				self.bullet = Characters.Bullet(self.player.x, self.player.y, BULLET_SPEED * xdist / module , BULLET_SPEED * ydist / module)
+
 		self.player.update(time, self.collisioBg, self.screenRect)
+
+		if self.bullet != None:
+			self.bullet.update(time)
+
 		self.updateScroll()
 
 		return False
@@ -100,5 +117,9 @@ class InitScene():
 	def draw(self):
 		self.screen.fill(0x000000)
 		self.screen.blit(self.bg, self.bgRect, self.screenRect)
+
+		if self.bullet != None:
+			self.bullet.draw(self.screen)
+
 		self.player.draw(self.screen)
 		pygame.display.flip()
