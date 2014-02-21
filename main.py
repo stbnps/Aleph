@@ -7,7 +7,6 @@ Created on 20/02/2014
 '''
 
 import pygame
-import sys
 import InitScene
 
 class GameApp():
@@ -17,12 +16,12 @@ class GameApp():
 		self.clock = pygame.time.Clock()
 
 	def run(self):
-		exit = False
+		exitGame = False
 
-		while not exit:
+		while not exitGame:
 			elapsedTime = self.clock.tick(60)
 
-			exit = self.scene.update(elapsedTime)
+			exitGame = self.scene.update(elapsedTime)
 			self.scene.draw()
 
 
