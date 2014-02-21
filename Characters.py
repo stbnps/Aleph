@@ -59,13 +59,13 @@ class Square():
 		self.speedX = 0
 		self.speedY = 0
 
-		if keys[pygame.K_DOWN]:
+		if keys[pygame.K_s]:
 			self.speedY = PLAYER_SPEED
-		if keys[pygame.K_UP]:
+		elif keys[pygame.K_w]:
 			self.speedY = -PLAYER_SPEED
-		if keys[pygame.K_LEFT]:
+		if keys[pygame.K_a]:
 			self.speedX = -PLAYER_SPEED
-		elif keys[pygame.K_RIGHT]:
+		elif keys[pygame.K_d]:
 			self.speedX = PLAYER_SPEED
 
 		self.move(time, collisionMap, screenRect)
