@@ -11,23 +11,22 @@ import Characters
 
 class InitScene():
 	def __init__(self):
-		self.screen = pygame.display.set_mode((600,400))
-		self.square = Characters.Square(200,200,50,50)
-	
-	def update(self):
+		self.screen = pygame.display.set_mode((800, 600))
+		pygame.display.set_caption("The white square adventures")
+		self.player = Characters.Square(200, 200, 20, 20)
+
+	def update(self, time):
 		for event in pygame.event.get():
 
 			# Si se sale del programa
 			if event.type == pygame.QUIT:
 				return True
-			
-		self.square.update()
-		#self.square.draw(self.screen)
-		
+
+		self.player.update(time)
+
 		return False
-	
+
 	def draw(self):
 		self.screen.fill(0x000000)
-		#pygame.draw.rect(self.screen, 0xFFFFFF, pygame.Rect(0,0,600,400))
-		self.square.draw(self.screen)
+		self.player.draw(self.screen)
 		pygame.display.flip()
