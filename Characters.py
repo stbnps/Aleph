@@ -35,18 +35,18 @@ class Square():
 		# Not the best way of doing this
 		if isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + screenRect.top)))):
+			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))):
 			shiftX = 0
 
 		if isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + self.w + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h / 2 + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + self.w + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))):
+			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))):
 			shiftY = 0
 
 		self.x += shiftX
