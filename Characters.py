@@ -18,11 +18,14 @@ class Square():
 		self.h = h
 		self.speedX = 0
 		self.speedY = 0
+		self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
 
 	# No acceleration :-)
 	def move(self, time):
 		self.x += self.speedX * time
 		self.y += self.speedY * time
+		self.rect.left = self.x
+		self.rect.bottom = self.y
 
 	def update(self, time):
 		keys = pygame.key.get_pressed()
@@ -41,4 +44,4 @@ class Square():
 		self.move(time)
 
 	def draw(self, screen):
-		pygame.draw.rect(screen, 0xFFFFFF, pygame.Rect(self.x, self.y, self.w, self.h))
+		pygame.draw.rect(screen, 0xFFFFFF, self.rect)
