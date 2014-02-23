@@ -35,18 +35,18 @@ class Square():
 		# Not the best way of doing this
 		if isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + screenRect.top)))):
+			isSolid(collisionMap.get_at((roundToInt(self.x + shiftX + self.w + screenRect.left), roundToInt(self.y + self.h / 2 + screenRect.top)))):
 			shiftX = 0
 
 		if isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + self.w + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h / 2 + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + screenRect.top)))) or\
+			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
 			isSolid(collisionMap.get_at((roundToInt(self.x + self.w + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))) or\
-			isSolid(collisionMap.get_at((roundToInt(self.x + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))):
+			isSolid(collisionMap.get_at((roundToInt(self.x + self.w / 2 + screenRect.left), roundToInt(self.y + shiftY + self.h + screenRect.top)))):
 			shiftY = 0
 
 		self.x += shiftX
@@ -59,16 +59,41 @@ class Square():
 		self.speedX = 0
 		self.speedY = 0
 
-		if keys[pygame.K_DOWN]:
+		if keys[pygame.K_s]:
 			self.speedY = PLAYER_SPEED
-		if keys[pygame.K_UP]:
+		elif keys[pygame.K_w]:
 			self.speedY = -PLAYER_SPEED
-		if keys[pygame.K_LEFT]:
+		if keys[pygame.K_a]:
 			self.speedX = -PLAYER_SPEED
-		elif keys[pygame.K_RIGHT]:
+		elif keys[pygame.K_d]:
 			self.speedX = PLAYER_SPEED
 
 		self.move(time, collisionMap, screenRect)
+
+	def draw(self, screen):
+		pygame.draw.rect(screen, 0xFFFFFF, self.rect)
+
+
+# Yea, bullet is a character for now :-)
+class Bullet():
+	def __init__(self, x, y, speedX, speedY):
+		self.x = x
+		self.y = y
+		self.speedX = speedX
+		self.speedY = speedY
+		self.rect = pygame.Rect(self.x, self.y, 2, 2)
+
+		print "Bullet created at %f %f with speed %f %f" % (x, y, speedX, speedY)
+
+
+	def move(self, time):
+		self.x += self.speedX * time
+		self.y += self.speedY * time
+		self.rect.left = self.x
+		self.rect.top = self.y
+
+	def update(self, time):
+		self.move(time)
 
 	def draw(self, screen):
 		pygame.draw.rect(screen, 0xFFFFFF, self.rect)

@@ -24,6 +24,8 @@ class GameApp():
 			exitGame = self.scene.update(elapsedTime)
 			self.scene.draw()
 
+		pygame.quit()
+
 
 if __name__ == "__main__":
 	print "Hello world!"
