@@ -6,48 +6,27 @@ Created on 20/02/2014
 @author: DaGal
 '''
 
-import pygame
-import Characters
-import os
+from Layer import *
+from Camera import *
+from Bullet import Bullet
 
-SCREEN_W = 800
-SCREEN_H = 600
 BORDER = 50
-BULLET_SPEED = 0.5
 
-def load_image(name, colorkey=None):
-	fullname = os.path.join('images', name)
-	try:
-		image = pygame.image.load(fullname)
-	except pygame.error, message:
-		print 'Cannot load image:', fullname
-		raise SystemExit, message
-	image = image.convert()
-	if colorkey is not None:
-		if colorkey is -1:
-			colorkey = image.get_at((0, 0))
-		image.set_colorkey(colorkey, pygame.RLEACCEL)
-	return image
-
-
-class InitScene():
-	def __init__(self):
-		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
-		pygame.display.set_caption("The white square adventures")
-		self.player = Characters.Square(200, 200, 20, 20)
-		self.bg = load_image("bg_test.png")
-		self.collisioBg = self.bg.copy()
-		# Yeah, this part is ok, trust me
+class InitScene(Layer):
+	def __init__(self, director, player):
+		Layer.__init__(self, director)
+		self.player = player
+		self.bg = load_image("map_newton.png")
+		self.collisionBg = load_image("map_newton_bg.png")
+		# self.collisioBg = self.bg.copy()
 		self.bgRect = self.bg.get_rect()
-		self.screenRect = pygame.Rect(0, 0, SCREEN_W, SCREEN_H)
-		self.x = 0
-		self.y = 0
+		self.camera = Camera()
 
 		# Just one bullet at a time for now. In the future, they'll be sprites in groups...
 		self.bullet = None
 
-	# This is a bad way of doing this, but it's like in the examples.
 	def scrollScreen(self, shiftX, shiftY):
+		# This is a bad way of doing this, but it's like in the examples.
 		self.x += shiftX
 		self.y += shiftY
 
@@ -90,36 +69,30 @@ class InitScene():
 				self.scrollScreen(0, shift)
 
 	def update(self, time):
-		for event in pygame.event.get():
-
-			# Si se sale del programa
-			if event.type == pygame.QUIT:
-				return True
-
-			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-				(posX, posY) = event.pos
-				posX = float(posX)
-				posY = float(posY)
-				xdist = posX - self.player.x
-				ydist = posY - self.player.y
-				module = abs(xdist) + abs(ydist)
-				self.bullet = Characters.Bullet(self.player.x, self.player.y, BULLET_SPEED * xdist / module , BULLET_SPEED * ydist / module)
-
-		self.player.update(time, self.collisioBg, self.screenRect)
+		self.player.update(time, self.collisionBg)
 
 		if self.bullet != None:
 			self.bullet.update(time)
 
-		self.updateScroll()
+		# self.updateScroll()
+		self.camera.update(self.player)
 
-		return False
+	def event(self, event):
+		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+				(posX, posY) = event.pos
+				posX = float(posX) - self.camera.state.left
+				posY = float(posY) - self.camera.state.top
+				xdist = posX - self.player.rect.left
+				ydist = posY - self.player.rect.top
+				mag = abs(xdist) + abs(ydist)
+				self.bullet = Bullet(self.player.rect.left, self.player.rect.top, xdist / mag , ydist / mag)
 
-	def draw(self):
-		self.screen.fill(0x000000)
-		self.screen.blit(self.bg, self.bgRect, self.screenRect)
+	def draw(self, screen):
+		screen.fill(0x000000)
+		# screen.blit(self.bg, self.bgRect, self.screenRect)
+		screen.blit(self.bg, self.camera.state)
 
 		if self.bullet != None:
-			self.bullet.draw(self.screen)
+			self.bullet.draw(screen, self.camera)
 
-		self.player.draw(self.screen)
-		pygame.display.flip()
+		self.player.draw(screen, self.camera)

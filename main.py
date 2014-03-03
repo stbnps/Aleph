@@ -8,22 +8,15 @@ Created on 20/02/2014
 
 import pygame
 import InitScene
+from Director import *
 
 class GameApp():
 	def __init__(self):
 		pygame.init()
-		self.scene = InitScene.InitScene()
-		self.clock = pygame.time.Clock()
+		self.director = Director()
 
 	def run(self):
-		exitGame = False
-
-		while not exitGame:
-			elapsedTime = self.clock.tick(60)
-
-			exitGame = self.scene.update(elapsedTime)
-			self.scene.draw()
-
+		self.director.loop()
 		pygame.quit()
 
 
