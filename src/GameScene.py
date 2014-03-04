@@ -11,6 +11,7 @@ from Bullet import Bullet
 import pygame
 from Scene import Layer, Scene
 from Util import load_image
+import Constants
 
 BORDER = 50
 
@@ -18,8 +19,8 @@ class GameScene(Scene):
 	def __init__(self, director, player):
 		Scene.__init__(self, director)
 		self.player = player
-		self.bg = load_image("map_newton.png")
-		self.collisionBg = load_image("map_newton_bg.png")
+		self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
+		self.collisionBg = load_image("map_newton_bg.png", Constants.BG_MAP_DIR)
 		# self.collisioBg = self.bg.copy()
 		self.bgRect = self.bg.get_rect()
 		self.camera = Camera()
@@ -79,7 +80,7 @@ class GameScene(Scene):
 		# self.updateScroll()
 		self.camera.update(self.player)
 
-	def event(self, event):
+	def processEvent(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				(posX, posY) = event.pos
 				posX = float(posX) - self.camera.state.left

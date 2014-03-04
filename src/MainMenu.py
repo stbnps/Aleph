@@ -6,6 +6,7 @@ from Player import Player
 import ImageButton
 import Util
 
+
 class MainMenu(Scene):
     def __init__(self, director):
         Scene.__init__(self, director)

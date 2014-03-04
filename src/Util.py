@@ -4,8 +4,8 @@ import os
 
 import Constants
 
-def load_image(name, colorkey=None):
-    fullname = os.path.join(Constants.IMAGE_DIR , name)
+def load_image(name, path = Constants.IMAGE_DIR, colorkey=None):
+    fullname = os.path.join(path , name)
     try:
         image = pygame.image.load(fullname)
     except pygame.error, message:
