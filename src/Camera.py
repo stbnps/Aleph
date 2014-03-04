@@ -8,8 +8,7 @@ Created on 03/03/2014
 
 from pygame import Rect
 
-SCREEN_W = 800
-SCREEN_H = 600
+from Constants import SCREEN_W, SCREEN_H
 
 class Camera():
 	def __init__(self, width=SCREEN_W, height=SCREEN_H):

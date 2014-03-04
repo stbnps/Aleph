@@ -6,15 +6,17 @@ Created on 20/02/2014
 @author: DaGal
 '''
 
-from Layer import *
 from Camera import *
 from Bullet import Bullet
+import pygame
+from Scene import Layer, Scene
+from Util import load_image
 
 BORDER = 50
 
-class InitScene(Layer):
+class GameScene(Scene):
 	def __init__(self, director, player):
-		Layer.__init__(self, director)
+		Scene.__init__(self, director)
 		self.player = player
 		self.bg = load_image("map_newton.png")
 		self.collisionBg = load_image("map_newton_bg.png")

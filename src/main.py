@@ -7,12 +7,10 @@ Created on 20/02/2014
 '''
 
 import pygame
-import InitScene
 from Director import *
 
 class GameApp():
-	def __init__(self):
-		pygame.init()
+	def __init__(self):		
 		self.director = Director()
 
 	def run(self):
@@ -21,6 +19,5 @@ class GameApp():
 
 
 if __name__ == "__main__":
-	print "Hello world!"
 	game = GameApp()
 	game.run()

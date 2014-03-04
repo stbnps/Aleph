@@ -8,18 +8,21 @@ Created on 03/03/2014
 
 import pygame
 import sys
-from InitScene import *
+from GameScene import *
 from Camera import *
 from Player import Player
+from MainMenu import MainMenu
 
 class Director():
 
 	def __init__(self):
-		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
+		pygame.init()
+		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H), 0, 32)
 		pygame.display.set_caption("The white square adventures")
 		self.player = Player(200, 200)
 		# It's good to have player here because we can preserve it easily between levels
-		self.scene = InitScene(self, self.player)
+# 		self.scene = GameScene(self, self.player)
+		self.scene = MainMenu(self)
 		self.clock = pygame.time.Clock()
 
 	def loop(self):
@@ -30,7 +33,7 @@ class Director():
 
 			for event in pygame.event.get():
 				exitGame = event.type == pygame.QUIT
-				self.scene.event(event)
+				self.scene.processEvent(event)
 
 			self.scene.update(elapsedTime)
 			self.scene.draw(self.screen)
@@ -40,3 +43,6 @@ class Director():
 
 	def enqueueEvent(self, event):
 		pygame.event.post(event)
+	
+	def setScene(self, scene):
+		self.scene = scene
