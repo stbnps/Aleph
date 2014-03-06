@@ -72,7 +72,7 @@ class GameScene(Scene):
 				self.scrollScreen(0, shift)
 
 	def update(self, time):
-		self.player.update(time, self.collisionBg)
+		self.player.controller.update(time, self.collisionBg)
 
 		if self.bullet != None:
 			self.bullet.update(time)
@@ -82,13 +82,13 @@ class GameScene(Scene):
 
 	def processEvent(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-				(posX, posY) = event.pos
-				posX = float(posX) - self.camera.state.left
-				posY = float(posY) - self.camera.state.top
-				xdist = posX - self.player.rect.left
-				ydist = posY - self.player.rect.top
-				mag = abs(xdist) + abs(ydist)
-				self.bullet = Bullet(self.player.rect.left, self.player.rect.top, xdist / mag , ydist / mag)
+			(posX, posY) = event.pos
+			posX = float(posX) - self.camera.state.left
+			posY = float(posY) - self.camera.state.top
+			xdist = posX - self.player.rect.left
+			ydist = posY - self.player.rect.top
+			mag = abs(xdist) + abs(ydist)
+			self.bullet = Bullet(self.player.rect.left, self.player.rect.top, xdist / mag , ydist / mag)
 
 	def draw(self, screen):
 		screen.fill(0x000000)
