@@ -21,6 +21,7 @@ def isSolid(collisionMap, x, y):
 class Character(Entity):
 	def __init__(self, x, y, *args):
 		Entity.__init__(self, x, y)
+		self.controller = None
 		self.speedX = 0
 		self.speedY = 0
 
