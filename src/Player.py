@@ -10,6 +10,7 @@ Created on 03/03/2014
 
 from Character import Character
 import pygame
+from Constants import DOWN, UP, LEFT, RIGHT
 
 PLAYER_SPEED = 0.25
 
@@ -24,13 +25,13 @@ class Player(Character):
 		self.speedX = 0
 		self.speedY = 0
 
-		if keys[pygame.K_s]:
+		if keys[DOWN]:
 			self.speedY = PLAYER_SPEED
-		elif keys[pygame.K_w]:
+		elif keys[UP]:
 			self.speedY = -PLAYER_SPEED
-		if keys[pygame.K_a]:
+		if keys[LEFT]:
 			self.speedX = -PLAYER_SPEED
-		elif keys[pygame.K_d]:
+		elif keys[RIGHT]:
 			self.speedX = PLAYER_SPEED
 
 		self.move(time, collisionMap)
