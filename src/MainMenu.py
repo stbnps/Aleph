@@ -21,14 +21,14 @@ class MainMenu(Scene):
         # put this way loadNewGame can take parameters too
         self.newGameButton.onMouseDown = lambda: self.loadNewGame()
         layer.append(self.newGameButton)
-        
+
         self.layers.append(layer)
-        
+
     def loadNewGame(self):
-        player = Player(200, 200)
+        player = Player(200, 200, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3])
         scene = GameScene(self.director, player)
         self.director.setScene(scene)
-    
+
     def draw(self, surface):
         surface.blit(self.backgroundImage, (0, 0))
         surface.blit(self.leftCoverImage, (0, 0))
