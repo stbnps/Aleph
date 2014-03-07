@@ -16,14 +16,14 @@ def isSolid(collisionMap, x, y):
 	if (x >= clipRect.w) or (x < 0) or (y >= clipRect.h) or (y < 0):
 		return True
 
-	return collisionMap.get_at((x, y)) != (0, 0, 0, 255)
+	return collisionMap.get_at((x, y)) == (255, 0, 0, 255)
 
 class Character(Entity):
 	def __init__(self, x, y, *args):
 		Entity.__init__(self, x, y)
-		self.controller = None
 		self.speedX = 0
 		self.speedY = 0
+		self.controller = None
 
 	def move(self, time, collisionMap):
 		shiftX = self.speedX * time
@@ -47,7 +47,7 @@ class Character(Entity):
 			isSolid(collisionMap, rect.x + rect.w / 2, rect.y + shiftY + rect.h):
 			shiftY = 0
 
-		self.rect.move_ip(shiftX, shiftY)
+		rect.move_ip(shiftX, shiftY)
 
 	def update(self, time, collisionMap, *args):
 		Entity.update(self, time, collisionMap)
