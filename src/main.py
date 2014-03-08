@@ -10,7 +10,7 @@ import pygame
 from Director import *
 
 class GameApp():
-	def __init__(self):		
+	def __init__(self):
 		self.director = Director()
 
 	def run(self):
