@@ -17,4 +17,10 @@ UP = pygame.K_w
 LEFT = pygame.K_a
 RIGHT = pygame.K_d
 
+POS_UP = 0
+POS_RIGHT = 1
+POS_DOWN = 2
+POS_LEFT = 3
+POS_NUM = 4
+
 TIME_TO_ROTATE_POS = 50

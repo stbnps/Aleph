@@ -16,9 +16,10 @@ import Constants
 BORDER = 50
 
 class GameScene(Scene):
-	def __init__(self, director, player):
+	def __init__(self, director, player, enemy):
 		Scene.__init__(self, director)
 		self.player = player
+		self.enemy = enemy
 		self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("map_newton_bg.png", Constants.BG_MAP_DIR)
 		# self.collisioBg = self.bg.copy()
@@ -29,8 +30,9 @@ class GameScene(Scene):
 		self.bullet = None
 
 	def update(self, time):
-		# self.player.controller.update(time, self.collisionBg)
-		self.player.update(time, self.collisionBg)
+		self.player.controller.update(time, self.collisionBg)
+		self.enemy.controller.update(time, self.collisionBg)
+		# self.player.update(time, self.collisionBg)
 
 		if self.bullet != None:
 			self.bullet.update(time)
@@ -57,3 +59,4 @@ class GameScene(Scene):
 			self.bullet.draw(screen, self.camera)
 
 		self.player.draw(screen, self.camera)
+		self.enemy.draw(screen, self.camera)
