@@ -29,14 +29,13 @@ class PlayerController(Controller):
 			self.character.speedX = self.player_speed
 			self.character.posIndex = POS_RIGHT
 
-		if self.character.speedX != 0 or self.character.speedX != 0:
-			mag = math.sqrt(self.character.speedX**2 + self.character.speedY**2)
+		if self.character.speedX != 0 or self.character.speedY != 0:
+			mag = math.sqrt(self.character.speedX ** 2 + self.character.speedY ** 2)
 			coef = float(self.player_speed) / mag
 
 			self.character.speedX = self.character.speedX * coef
 			self.character.speedY = self.character.speedY * coef
 
-		if (self.character.speedX != 0) or (self.character.speedY != 0):
 			self.character.rotatePosImage(time)
 
-		self.character.move(time, collisionMap)
+		Controller.update(self, time, collisionMap)

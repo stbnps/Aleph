@@ -12,14 +12,16 @@ import pygame
 from Scene import Layer, Scene
 from Util import load_image
 import Constants
+from Enemy import Enemy
+from WpnBlade import WpnBlade
 
 BORDER = 50
 
 class GameScene(Scene):
-	def __init__(self, director, player, enemy):
+	def __init__(self, director, player):
 		Scene.__init__(self, director)
 		self.player = player
-		self.enemy = enemy
+		self.enemy = Enemy(300, 250, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3], player)
 		self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("map_newton_bg.png", Constants.BG_MAP_DIR)
 		# self.collisioBg = self.bg.copy()
@@ -28,6 +30,7 @@ class GameScene(Scene):
 
 		# Just one bullet at a time for now. In the future, they'll be sprites in groups...
 		self.bullet = None
+		self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "wpns.png", -1, pygame.Rect(218, 110, 21, 21)))
 
 	def update(self, time):
 		self.player.controller.update(time, self.collisionBg)

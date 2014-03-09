@@ -43,7 +43,7 @@ class EnemyController(Controller):
 
 
 		if a != 0 or b != 0:
-			mag = math.sqrt(a*a + b*b)
+			mag = math.sqrt(a * a + b * b)
 			coef = float(self.enemy_speed) / mag
 
 			self.character.speedX = a * coef
@@ -51,4 +51,4 @@ class EnemyController(Controller):
 
 			self.character.rotatePosImage(time)
 
-		self.character.move(time, collisionMap)
+		Controller.update(self, time, collisionMap)

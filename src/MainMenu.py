@@ -3,7 +3,6 @@ import pygame
 from Scene import Scene, Layer
 from GameScene import GameScene
 from Player import Player
-from Enemy import Enemy
 import ImageButton
 import Util
 
@@ -27,8 +26,7 @@ class MainMenu(Scene):
 
     def loadNewGame(self):
         player = Player(200, 200, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3])
-        enemy = Enemy(300, 250, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3], player)
-        scene = GameScene(self.director, player, enemy)
+        scene = GameScene(self.director, player)
         self.director.setScene(scene)
 
     def draw(self, surface):
