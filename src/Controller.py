@@ -6,4 +6,4 @@ class Controller():
 		self.character = character
 
 	def update(self, time, collisionMap):
-		pass
+		self.character.update(time, collisionMap)
