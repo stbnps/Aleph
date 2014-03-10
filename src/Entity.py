@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from pygame.sprite import *
-import Util
+from Resources import load_image
 from Constants import *
 import os
-
-# Memory
-loadedSprites = {}
 
 class Entity(Sprite):
 	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, *args):
 		Sprite.__init__(self)
 
 		if imageName:
-			self.sheet = loadedSprites.get(imageName)
-
-			if not self.sheet:
-				self.sheet = Util.load_image(imageName, SPRITES_DIR, colorkey)
+			self.sheet = load_image(imageName, SPRITES_DIR, colorkey)
 
 			if coordsName:
 				coordFile = open(os.path.join(SPRITES_DIR, coordsName), "r")
@@ -49,7 +43,7 @@ class Entity(Sprite):
 				self.numImages = [1]
 				self.posIndex = 0
 				self.posImageIndex = 0
-				self.rect = self.sheet.get_rect
+				self.rect = self.sheet.get_rect()
 				self.sheetCoord = [[self.rect]]
 				self.timeLeftToRotate = None
 		else:
@@ -58,6 +52,8 @@ class Entity(Sprite):
 			self.rect = pygame.Rect(x, y, 0, 0)
 
 		self.flipH = False
+		self.flipV = False
+		self.angle = 0
 
 	def rotatePosImage(self, time):
 		if self.timeLeftToRotate:
@@ -75,7 +71,9 @@ class Entity(Sprite):
 
 	def draw(self, screen, camera):
 		if self.sheet:
-			# screen.blit(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), camera.apply(self))
-			screen.blit(pygame.transform.flip(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), self.flipH, False), camera.apply(self))
+			# screen.blit(pygame.transform.flip(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), self.flipH, False), camera.apply(self))
+			screen.blit(pygame.transform.flip(pygame.transform.rotate(\
+				self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), self.angle), \
+				self.flipH, self.flipV), camera.apply(self))
 		else:
 			pygame.draw.rect(screen, 0xFFFFFF, camera.apply(self))
