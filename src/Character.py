@@ -27,6 +27,7 @@ class Character(Entity):
 		self.speedY = 0
 		self.controller = None
 		self.equipedWpn = None
+		self.attacking = False
 
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
@@ -63,16 +64,7 @@ class Character(Entity):
 		self.move(time, collisionMap)
 
 		if self.equipedWpn:
-			self.equipedWpn.rect.clamp_ip(self.rect)
-			self.equipedWpn.rect.move_ip(0, 2)
-
-			# It would be nice to also rotate it a little bit.
-			if self.posIndex == POS_RIGHT or self.posIndex == POS_UP:
-				self.equipedWpn.rect.move_ip(10, 0)
-				self.equipedWpn.flipH = True
-			elif self.posIndex == POS_LEFT or self.posIndex == POS_DOWN:
-				self.equipedWpn.rect.move_ip(-10, 0)
-				self.equipedWpn.flipH = False
+			self.equipedWpn.update(time, self)
 
 	def draw(self, screen, camera):
 		Entity.draw(self, screen, camera)

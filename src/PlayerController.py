@@ -38,4 +38,12 @@ class PlayerController(Controller):
 
 			self.character.rotatePosImage(time)
 
+		self.character.attacking = pygame.mouse.get_pressed()[0]
+
+
 		Controller.update(self, time, collisionMap)
+
+	def processEvent(self, event):
+		# if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+			# self.character.attacking = True
+		pass

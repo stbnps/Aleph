@@ -7,3 +7,6 @@ class Controller():
 
 	def update(self, time, collisionMap):
 		self.character.update(time, collisionMap)
+
+	def processEvent(self, event):
+		pass
