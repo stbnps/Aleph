@@ -4,16 +4,16 @@ from Scene import Scene, Layer
 from GameScene import GameScene
 from Player import Player
 import ImageButton
-import Util
+from Resources import load_image
 
 
 class MainMenu(Scene):
     def __init__(self, director):
         Scene.__init__(self, director)
         layer = Layer(director)
-        self.backgroundImage = Util.load_image("main_menu_background.png")
-        self.leftCoverImage = Util.load_image("left_cover.png")
-        newGameImage = Util.load_image("new_game.png")
+        self.backgroundImage = load_image("main_menu_background.png")
+        self.leftCoverImage = load_image("left_cover.png")
+        newGameImage = load_image("new_game.png")
         buttonWidth = 214
         style = ImageButton.createImageButtonStyle(newGameImage, buttonWidth)
         self.newGameButton = ImageButton.ImageButton((60, 110), style)

@@ -10,7 +10,7 @@ from Camera import *
 from Bullet import Bullet
 import pygame
 from Scene import Layer, Scene
-from Util import load_image
+from Resources import load_image
 import Constants
 from Enemy import Enemy
 from WpnBlade import WpnBlade

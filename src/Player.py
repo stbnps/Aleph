@@ -11,7 +11,6 @@ Created on 03/03/2014
 from Character import Character
 from PlayerController import PlayerController
 import pygame
-import Util
 from Constants import POS_DOWN
 
 PLAYER_SPEED = 0.25

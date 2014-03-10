@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from pygame.sprite import *
-import Util
+from Resources import load_image
 from Constants import *
 import os
-
-# Memory
-loadedSprites = {}
 
 class Entity(Sprite):
 	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, *args):
 		Sprite.__init__(self)
 
 		if imageName:
-			self.sheet = loadedSprites.get(imageName)
-
-			if not self.sheet:
-				self.sheet = Util.load_image(imageName, SPRITES_DIR, colorkey)
+			self.sheet = load_image(imageName, SPRITES_DIR, colorkey)
 
 			if coordsName:
 				coordFile = open(os.path.join(SPRITES_DIR, coordsName), "r")

@@ -2,7 +2,6 @@
 
 from Entity import Entity
 import pygame
-import Util
 from Constants import *
 import os
 

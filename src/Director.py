@@ -42,6 +42,6 @@ class Director():
 
 	def enqueueEvent(self, event):
 		pygame.event.post(event)
-	
+
 	def setScene(self, scene):
 		self.scene = scene
