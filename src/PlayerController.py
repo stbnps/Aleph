@@ -40,6 +40,23 @@ class PlayerController(Controller):
 
 		self.character.attacking = pygame.mouse.get_pressed()[0]
 
+		# Look where we are trying to hit:
+		if self.character.attacking:
+			(posX, posY) = pygame.mouse.get_pos()
+			posX += (-SCREEN_W - self.character.rect.w) / 2
+			posY += (-SCREEN_H - self.character.rect.h) / 2
+
+			if abs(posX) > abs(posY):
+				if posX < 0:
+					self.character.posIndex = POS_LEFT
+				else:
+					self.character.posIndex = POS_RIGHT
+			else:
+				if posY < 0:
+					self.character.posIndex = POS_UP
+				else:
+					self.character.posIndex = POS_DOWN
+
 
 		Controller.update(self, time, collisionMap)
 

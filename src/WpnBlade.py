@@ -18,27 +18,26 @@ class WpnBlade(Item):
 
 	def update(self, time, char):
 		self.rect.clamp_ip(char.rect)
-		self.rect.move_ip(0, 2)
 
-		# It would be nice to also rotate it a little bit.
+		# This magic numbers could be offsets specified for each character
 		if char.posIndex == POS_RIGHT:
 			self.angle = 0
-			self.rect.move_ip(10, 0)
+			self.rect.center = (char.rect.right - 4, char.rect.centery + 8)
 			self.flipH = True
 			self.flipV = False
 		elif char.posIndex == POS_LEFT:
 			self.angle = 0
-			self.rect.move_ip(-8, 0)
+			self.rect.center = (char.rect.left + 4, char.rect.centery + 6)
 			self.flipH = False
 			self.flipV = False
 		elif char.posIndex == POS_UP:
 			self.angle = -25
-			self.rect.move_ip(8, -4)
+			self.rect.center = (char.rect.right - 2, char.rect.centery + 8)
 			self.flipH = True
 			self.flipV = False
 		elif char.posIndex == POS_DOWN:
 			self.angle = -25
-			self.rect.move_ip(-4, 12)
+			self.rect.center = (char.rect.left, char.rect.centery + 8)
 			self.flipH = True
 			self.flipV = True
 
@@ -50,9 +49,10 @@ class WpnBlade(Item):
 			self.attackAngle += BLADE_SWING_SPEED * time
 			self.angle += self.attackAngle - (BLADE_SWING_ANGLE / 2)
 
-			# Compensate a weird rotation effect
-			hitler = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
-			self.rect.move_ip((self.rect.w - self.hip) * hitler, (self.rect.h - self.hip) * hitler)
 
 		else:
 			self.attackAngle = 0
+
+		# Compensate a weird rotation effect
+		hitler = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
+		self.rect.move_ip((self.rect.w - self.hip) * hitler, (self.rect.h - self.hip) * hitler)
