@@ -30,8 +30,8 @@ class GameScene(Scene):
 
 		# Just one bullet at a time for now. In the future, they'll be sprites in groups...
 		self.bullet = None
-		# self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "wpns.png", -1, pygame.Rect(218, 110, 20, 20)))
-		self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 24, 27)))
+		self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "wpns.png", -1, pygame.Rect(218, 110, 20, 20)))
+		# self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 24, 27)))
 
 	def update(self, time):
 		self.player.controller.update(time, self.collisionBg)

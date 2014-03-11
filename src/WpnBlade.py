@@ -8,11 +8,13 @@ Created on 09/03/2014
 
 from Item import *
 from Constants import *
+import math
 
 class WpnBlade(Item):
 	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
 		Item.__init__(self, x, y, imageName, colorkey, clipRect)
 		self.attackAngle = 0
+		self.hip = math.sqrt(self.rect.w * self.rect.w + self.rect.h * self.rect.h)
 
 	def update(self, time, char):
 		self.rect.clamp_ip(char.rect)
@@ -46,12 +48,11 @@ class WpnBlade(Item):
 				self.attackAngle = 0
 
 			self.attackAngle += BLADE_SWING_SPEED * time
-			self.angle += self.attackAngle - BLADE_SWING_ANGLE / 2
+			self.angle += self.attackAngle - (BLADE_SWING_ANGLE / 2)
 
 			# Compensate a weird rotation effect
-			if char.posIndex == POS_RIGHT or char.posIndex == POS_LEFT:
-				self.rect.move_ip(-4 + 0.02 * self.attackAngle, -0.05 * (BLADE_SWING_ANGLE - self.attackAngle))
-			else:
-				self.rect.move_ip(-4 + 0.08 * self.attackAngle, -4 + 0.06 * (BLADE_SWING_ANGLE - self.attackAngle))
+			hitler = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
+			self.rect.move_ip((self.rect.w - self.hip) * hitler, (self.rect.h - self.hip) * hitler)
+
 		else:
 			self.attackAngle = 0
