@@ -32,6 +32,7 @@ class Character(Entity):
         self.controller = None
         self.equipedWpn = None
         self.attacking = False
+        self.atk_cooldown = 0  # Starts without cooldown
 
         if not imageName:
             self.rect = pygame.Rect(x, y, 15, 25)
@@ -43,20 +44,9 @@ class Character(Entity):
         rectY = self.rect.move(0, shiftY)
 
         # Not the best way of doing this
-        if isSolid(collisionMap, rectX.x, rectX.y) or\
-                isSolid(collisionMap, rectX.x, rectX.bottom) or\
-                isSolid(collisionMap, rectX.x, rectX.centery) or\
-                isSolid(collisionMap, rectX.right, rectX.y) or\
-                isSolid(collisionMap, rectX.right, rectX.bottom) or\
-                isSolid(collisionMap, rectX.right, rectX.centery):
+        if self.is_coliding_x(collisionMap, rectX):
             shiftX = 0
-
-        if isSolid(collisionMap, rectY.x, rectY.y) or\
-                isSolid(collisionMap, rectY.x, rectY.bottom) or\
-                isSolid(collisionMap, rectY.centerx, rectY.y) or\
-                isSolid(collisionMap, rectY.right, rectY.y) or\
-                isSolid(collisionMap, rectY.right, rectY.bottom) or\
-                isSolid(collisionMap, rectY.centerx, rectY.bottom):
+        if self.is_coliding_y(collisionMap, rectY):
             shiftY = 0
 
         self.rect.move_ip(shiftX, shiftY)
@@ -66,15 +56,38 @@ class Character(Entity):
 
     def update(self, time, collisionMap):
         self.move(time, collisionMap)
-
         if self.equipedWpn:
             self.equipedWpn.update(time, self)
+
+        self.update_attack_cooldown()
 
     def draw(self, screen, camera):
         Entity.draw(self, screen, camera)
 
         if self.equipedWpn:
             self.equipedWpn.draw(screen, camera)
+
+    def update_attack_cooldown(self, cooldown_reduction=1):
+        """ Reduces time remaining to next attack.
+        """
+        if self.atk_cooldown > 0:
+            self.atk_cooldown = self.atk_cooldown - cooldown_reduction
+
+    def is_atacking(self):
+        """ Returns true if player is atacking.
+        """
+        if self.can_attack() and self.attacking:
+            self.atk_cooldown = 10
+            return True
+        else:
+            return False
+
+    def can_attack(self):
+        """ Returns true when the character can attack
+        """
+        # De momento solo tenemos enfriamientos para no atacar chorrecientasmil veces
+        # con un solo click.
+        return self.atk_cooldown == 0
 
     def has_melee_weapon(self):
         """ Returns true if the player has equipped melee weapons.
@@ -87,3 +100,23 @@ class Character(Entity):
         """
         # De momento si es a distancia no puede ser cuerpo a cuerpo.
         return not self.has_melee_weapon()
+
+    def is_coliding_x(self, collisionMap, rectX):
+        """ Returns true if colides in x axis.
+        """
+        return  isSolid(collisionMap, rectX.x, rectX.y) or\
+            isSolid(collisionMap, rectX.x, rectX.bottom) or\
+            isSolid(collisionMap, rectX.x, rectX.centery) or\
+            isSolid(collisionMap, rectX.right, rectX.y) or\
+            isSolid(collisionMap, rectX.right, rectX.bottom) or\
+            isSolid(collisionMap, rectX.right, rectX.centery)
+
+    def is_coliding_y(self, collisionMap, rectY):
+        """ Returns true if colides in y axis.
+        """
+        return isSolid(collisionMap, rectY.x, rectY.y) or\
+            isSolid(collisionMap, rectY.x, rectY.bottom) or\
+            isSolid(collisionMap, rectY.centerx, rectY.y) or\
+            isSolid(collisionMap, rectY.right, rectY.y) or\
+            isSolid(collisionMap, rectY.right, rectY.bottom) or\
+            isSolid(collisionMap, rectY.centerx, rectY.bottom)
