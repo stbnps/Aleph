@@ -48,5 +48,5 @@ class ImageButton(Widget):
             else:
                 suffix = "-normal"
             
-            surface.blit(self.style['image' + suffix], self.position)
+            surface.blit(self.style['image' + suffix], self.getPosition())
             

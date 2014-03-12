@@ -14,7 +14,6 @@ from Resources import load_image
 import Constants
 from Enemy import Enemy
 from WpnBlade import WpnBlade
-import MessageScene
 
 BORDER = 50
 
@@ -46,9 +45,6 @@ class GameScene(Scene):
 		self.camera.update(self.player)
 
 	def processEvent(self, event):
-		if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-			m = MessageScene.MessageScene(self.director, self)
-			self.director.setScene(m)
 		'''
 		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 			(posX, posY) = event.pos
