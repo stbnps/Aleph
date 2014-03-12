@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import pygame
 from Controller import Controller
 from Constants import *
 import math
@@ -16,43 +15,9 @@ class EnemyController(Controller):
 	def update(self, time, collisionMap):
 		self.character.speedX = 0
 		self.character.speedY = 0
-
+		self.follow_player(time)
 		if self.check_melee_hit():		
-			print "man dao una ostia!"
-
-		# a = self.player.rect.x - self.character.rect.x
-		# a += random.gauss(0, float(a) / 3)
-
-		# b = self.player.rect.y - self.character.rect.y
-		# b += random.gauss(0, float(b) / 3)
-
-		# if a > 0:
-		# 	if abs(a) > abs(b):
-		# 		self.character.posIndex = POS_RIGHT
-		# 	else:
-		# 		if b > 0:
-		# 			self.character.posIndex = POS_DOWN
-		# 		else:
-		# 			self.character.posIndex = POS_UP
-		# else:
-		# 	if abs(a) > abs(b):
-		# 		self.character.posIndex = POS_LEFT
-		# 	else:
-		# 		if b > 0:
-		# 			self.character.posIndex = POS_DOWN
-		# 		else:
-		# 			self.character.posIndex = POS_UP
-
-
-		# if a != 0 or b != 0:
-		# 	mag = math.sqrt(a * a + b * b)
-		# 	coef = float(self.enemy_speed) / mag
-
-		# 	self.character.speedX = a * coef
-		# 	self.character.speedY = b * coef
-
-		# 	self.character.rotatePosImage(time)
-
+			print "%s man dao una ostia!" % self
 		Controller.update(self, time, collisionMap)
 
 	
@@ -60,8 +25,7 @@ class EnemyController(Controller):
 	def check_melee_hit(self):
 		""" Returns true when been atacked with a melee weapon.
 		"""
-		is_mouse_clicked = (pygame.mouse.get_pressed() == (1,0,0))
-		return is_mouse_clicked and self.colides_with_player() and self.player.has_melee_weapon()
+		return self.player.is_atacking() and self.colides_with_player() and self.player.has_melee_weapon()
 
 
 	def colides_with_player(self):
@@ -72,3 +36,59 @@ class EnemyController(Controller):
 		overlaps_x = abs(self.player.rect.x - self.character.rect.x) < 30
 		return  overlaps_x and overlaps_y
 	
+	
+
+	def detect_player(self, detection_range=80):
+		""" The enemy only detects player in range.
+		"""
+
+		delta_x = self.player.rect.x - self.character.rect.x
+		delta_y = self.player.rect.y - self.character.rect.y		
+		delta_x += random.gauss(0, float(delta_x) / 3)
+		delta_y += random.gauss(0, float(delta_y) / 3)
+
+		distance = math.sqrt(delta_x * delta_x + delta_y * delta_y)
+
+		return distance < detection_range
+
+
+	def follow_player(self, time):
+		""" Makes the enemy follow the player if the player is near.
+		"""
+		if not self.detect_player():
+			return
+		
+		# Calculatelayer relative position
+		delta_x = self.player.rect.x - self.character.rect.x
+		delta_x += random.gauss(0, float(delta_x) / 3)
+
+		delta_y = self.player.rect.y - self.character.rect.y
+		delta_y += random.gauss(0, float(delta_y) / 3)
+
+		#Update sprite
+		if delta_x > 0:
+			if abs(delta_x) > abs(delta_y):
+				self.character.posIndex = POS_RIGHT
+			else:
+				if delta_y > 0:
+					self.character.posIndex = POS_DOWN
+				else:
+					self.character.posIndex = POS_UP
+		else:
+			if abs(delta_x) > abs(delta_y):
+				self.character.posIndex = POS_LEFT
+			else:
+				if delta_y > 0:
+					self.character.posIndex = POS_DOWN
+				else:
+					self.character.posIndex = POS_UP
+
+		# Move enemy			
+		if abs(delta_x) > 30 or abs(delta_y) > 30:
+			mag = math.sqrt(delta_x * delta_x + delta_y * delta_y)
+			coef = float(self.enemy_speed) / mag
+
+			self.character.speedX = delta_x * coef
+			self.character.speedY = delta_y * coef
+
+			self.character.rotatePosImage(time)
