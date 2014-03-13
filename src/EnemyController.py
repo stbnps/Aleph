@@ -24,7 +24,8 @@ class EnemyController(Controller):
 		self.follow_player(time, collisionMap)
 		if self.check_melee_hit():		
 			print "%s man dao una ostia!" % self
-		Controller.update(self, time, collisionMap)
+			
+		self.character.move(time, collisionMap)
 
 
 	def check_melee_hit(self):
