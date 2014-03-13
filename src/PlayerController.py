@@ -58,7 +58,11 @@ class PlayerController(Controller):
 					self.character.posIndex = POS_DOWN
 
 
-		Controller.update(self, time, collisionMap)
+		self.character.move(time, collisionMap)
+		
+		if self.character.equippedWpn:
+			self.character.equippedWpn.update(time, self.character)
+			self.character.update_attack_cooldown(time)
 
 	def processEvent(self, event):
 		# if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:

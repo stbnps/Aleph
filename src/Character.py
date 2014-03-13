@@ -55,10 +55,7 @@ class Character(Entity):
 		self.equippedWpn = weapon
 
 	def update(self, time, collisionMap):
-		self.move(time, collisionMap)
-		if self.equippedWpn:
-			self.equippedWpn.update(time, self)
-			self.update_attack_cooldown(time)
+		pass
 
 	def draw(self, screen, camera):
 		Entity.draw(self, screen, camera)
@@ -87,7 +84,7 @@ class Character(Entity):
 		"""
 		# De momento solo tenemos enfriamientos para no atacar chorrecientasmil veces
 		# con un solo click.
-		if self.atk_cooldown <= 0:
+		if self.atk_cooldown <= 0.0:
 			self.atk_cooldown = 1.0
 			return True
 		else:

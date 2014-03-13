@@ -16,6 +16,7 @@ from Enemy import Enemy
 from WpnBlade import WpnBlade
 import MessageScene
 import HUD
+from EntityGroup import EntityGroup
 
 BORDER = 50
 
@@ -23,7 +24,8 @@ class GameScene(Scene):
 	def __init__(self, director, player):
 		Scene.__init__(self, director)
 		self.player = player
-		self.enemy = Enemy(300, 250, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3], player)
+		#self.enemy = Enemy(300, 250, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3], player)
+		self.enemyGroup = EntityGroup([Enemy(300, 250, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3], player)])
 		self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("map_newton_bg.png", Constants.BG_MAP_DIR)
 		# self.collisioBg = self.bg.copy()
@@ -42,7 +44,8 @@ class GameScene(Scene):
 
 	def update(self, time):
 		self.player.controller.update(time, self.collisionBg)
-		self.enemy.controller.update(time, self.collisionBg)
+		self.enemyGroup.update(time, self.collisionBg)
+		#self.enemy.controller.update(time, self.collisionBg)
 		# self.player.update(time, self.collisionBg)
 
 		if self.bullet != None:
@@ -77,6 +80,7 @@ class GameScene(Scene):
 			self.bullet.draw(screen, self.camera)
 
 		self.player.draw(screen, self.camera)
-		self.enemy.draw(screen, self.camera)
+		#self.enemy.draw(screen, self.camera)
+		self.enemyGroup.draw(screen, self.camera)
 		# TODO: move maps and characters to its own layer
 		Scene.draw(self, screen) # draws rest of layers
