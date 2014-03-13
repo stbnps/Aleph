@@ -46,7 +46,7 @@ class WpnBlade(Item):
 			if self.attackAngle > BLADE_SWING_ANGLE:
 				self.attackAngle = 0
 
-			self.attackAngle += BLADE_SWING_SPEED * time
+			self.attackAngle += PLAYER_ATTACK_SPEED * BLADE_SWING_ANGLE * time
 			self.angle += self.attackAngle - (BLADE_SWING_ANGLE / 2)
 
 
@@ -54,5 +54,5 @@ class WpnBlade(Item):
 			self.attackAngle = 0
 
 		# Compensate a weird rotation effect
-		hitler = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
-		self.rect.move_ip((self.rect.w - self.hip) * hitler, (self.rect.h - self.hip) * hitler)
+		offset = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
+		self.rect.move_ip((self.rect.w - self.hip) * offset, (self.rect.h - self.hip) * offset)
