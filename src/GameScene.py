@@ -15,6 +15,7 @@ import Constants
 from Enemy import Enemy
 from WpnBlade import WpnBlade
 import MessageScene
+import HUD
 
 BORDER = 50
 
@@ -33,6 +34,11 @@ class GameScene(Scene):
 		self.bullet = None
 		# self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "wpns2.png", -1, pygame.Rect(343, 341, 30, 30)))
 		self.player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+		
+		self.HUD = HUD.HUD((0, 467), True)
+		hudLayer = Layer(self.director)
+		hudLayer.append(self.HUD)
+		self.layers.append(hudLayer)
 
 	def update(self, time):
 		self.player.controller.update(time, self.collisionBg)
@@ -44,6 +50,7 @@ class GameScene(Scene):
 
 		# self.updateScroll()
 		self.camera.update(self.player)
+		Scene.update(self, time)
 
 	def processEvent(self, event):
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -71,3 +78,5 @@ class GameScene(Scene):
 
 		self.player.draw(screen, self.camera)
 		self.enemy.draw(screen, self.camera)
+		# TODO: move maps and characters to its own layer
+		Scene.draw(self, screen) # draws rest of layers

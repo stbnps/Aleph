@@ -23,6 +23,7 @@ class Director():
 # 		self.scene = GameScene(self, self.player)
 		self.scene = MainMenu(self)
 		self.clock = pygame.time.Clock()
+		self.sceneHasChanged = False
 
 	def loop(self):
 		exitGame = False
@@ -35,6 +36,9 @@ class Director():
 				self.scene.processEvent(event)
 
 			self.scene.update(elapsedTime)
+			if self.sceneHasChanged:
+				self.sceneHasChanged = False
+				continue
 			self.scene.draw(self.screen)
 			pygame.display.flip()
 
@@ -44,4 +48,5 @@ class Director():
 		pygame.event.post(event)
 
 	def setScene(self, scene):
+		self.sceneHasChanged = True
 		self.scene = scene
