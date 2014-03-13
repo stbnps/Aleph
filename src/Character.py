@@ -30,7 +30,7 @@ class Character(Entity):
         self.speedX = 0
         self.speedY = 0
         self.controller = None
-        self.equipedWpn = None
+        self.equippedWpn = None
         self.attacking = False
         self.atk_cooldown = 0  # Starts without cooldown
 
@@ -44,28 +44,28 @@ class Character(Entity):
         rectY = self.rect.move(0, shiftY)
 
         # Not the best way of doing this
-        if self.is_coliding_x(collisionMap, rectX):
+        if self.is_colliding_x(collisionMap, rectX):
             shiftX = 0
-        if self.is_coliding_y(collisionMap, rectY):
+        if self.is_colliding_y(collisionMap, rectY):
             shiftY = 0
 
         self.rect.move_ip(shiftX, shiftY)
 
     def setWeapon(self, weapon):
-        self.equipedWpn = weapon
+        self.equippedWpn = weapon
 
     def update(self, time, collisionMap):
         self.move(time, collisionMap)
-        if self.equipedWpn:
-            self.equipedWpn.update(time, self)
+        if self.equippedWpn:
+            self.equippedWpn.update(time, self)
 
         self.update_attack_cooldown()
 
     def draw(self, screen, camera):
         Entity.draw(self, screen, camera)
 
-        if self.equipedWpn:
-            self.equipedWpn.draw(screen, camera)
+        if self.equippedWpn:
+            self.equippedWpn.draw(screen, camera)
 
     def update_attack_cooldown(self, cooldown_reduction=1):
         """ Reduces time remaining to next attack.
@@ -73,8 +73,8 @@ class Character(Entity):
         if self.atk_cooldown > 0:
             self.atk_cooldown = self.atk_cooldown - cooldown_reduction
 
-    def is_atacking(self):
-        """ Returns true if player is atacking.
+    def is_attacking(self):
+        """ Returns true if player is attacking.
         """
         if self.can_attack() and self.attacking:
             self.atk_cooldown = 10
@@ -101,8 +101,8 @@ class Character(Entity):
         # De momento si es a distancia no puede ser cuerpo a cuerpo.
         return not self.has_melee_weapon()
 
-    def is_coliding_x(self, collisionMap, rectX):
-        """ Returns true if colides in x axis.
+    def is_colliding_x(self, collisionMap, rectX):
+        """ Returns true if collides in x axis.
         """
         return  isSolid(collisionMap, rectX.x, rectX.y) or\
             isSolid(collisionMap, rectX.x, rectX.bottom) or\
@@ -111,8 +111,8 @@ class Character(Entity):
             isSolid(collisionMap, rectX.right, rectX.bottom) or\
             isSolid(collisionMap, rectX.right, rectX.centery)
 
-    def is_coliding_y(self, collisionMap, rectY):
-        """ Returns true if colides in y axis.
+    def is_colliding_y(self, collisionMap, rectY):
+        """ Returns true if collides in y axis.
         """
         return isSolid(collisionMap, rectY.x, rectY.y) or\
             isSolid(collisionMap, rectY.x, rectY.bottom) or\
