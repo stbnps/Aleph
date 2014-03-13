@@ -32,7 +32,7 @@ class Character(Entity):
         self.controller = None
         self.equippedWpn = None
         self.attacking = False
-        self.atk_cooldown = 0  # Starts without cooldown
+        self.atk_cooldown = 1.0  # Starts without cooldown
 
         if not imageName:
             self.rect = pygame.Rect(x, y, 15, 25)
@@ -58,8 +58,7 @@ class Character(Entity):
         self.move(time, collisionMap)
         if self.equippedWpn:
             self.equippedWpn.update(time, self)
-
-        self.update_attack_cooldown()
+			self.update_attack_cooldown(time)
 
     def draw(self, screen, camera):
         Entity.draw(self, screen, camera)
@@ -67,14 +66,16 @@ class Character(Entity):
         if self.equippedWpn:
             self.equippedWpn.draw(screen, camera)
 
-    def update_attack_cooldown(self, cooldown_reduction=1):
-        """ Reduces time remaining to next attack.
-        """
-        if self.atk_cooldown > 0:
-            self.atk_cooldown = self.atk_cooldown - cooldown_reduction
+    def update_attack_cooldown(self, time):
+		""" Reduces time remaining to next attack.
+		"""
+		if self.attacking:
+			self.atk_cooldown -= time*PLAYER_ATTACK_SPEED
+		else:
+			self.atk_cooldown = 0
 
-    def is_attacking(self):
-        """ Returns true if player is attacking.
+    def is_atacking(self):
+        """ Returns true if player is atacking.
         """
         if self.can_attack() and self.attacking:
             self.atk_cooldown = 10
@@ -87,7 +88,11 @@ class Character(Entity):
         """
         # De momento solo tenemos enfriamientos para no atacar chorrecientasmil veces
         # con un solo click.
-        return self.atk_cooldown == 0
+        if self.atk_cooldown <= 0:
+        	self.atk_cooldown = 1.0
+        	return True
+        else:
+        	return False
 
     def has_melee_weapon(self):
         """ Returns true if the player has equipped melee weapons.

@@ -18,7 +18,7 @@ class Director():
 	def __init__(self):
 		pygame.init()
 		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H), 0, 32)
-		pygame.display.set_caption("The white square adventures")
+		pygame.display.set_caption("Aleph")
 		# It's good to have player here because we can preserve it easily between levels
 # 		self.scene = GameScene(self, self.player)
 		self.scene = MainMenu(self)
