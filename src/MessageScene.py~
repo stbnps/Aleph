@@ -3,7 +3,7 @@ from Scene import Scene, Layer
 import GameScene
 from Player import Player
 import MessageBox
-import Resources
+import Util
 from Constants import SCREEN_W ,SCREEN_H
 import math
 
@@ -16,8 +16,8 @@ class MessageScene(Scene):
         self.b = 1
         self.pausedScene = pausedScene
         layer = Layer(director)
-        backgroundImage = Resources.load_image("message_box.png")
-        buttonImage = Resources.load_image("message_box_button.png")
+        backgroundImage = Util.load_image("message_box.png")
+        buttonImage = Util.load_image("message_box_button.png")
         buttonWidth = 372
         style = MessageBox.createMessageBoxStyle(backgroundImage, buttonImage, buttonWidth)
         self.messageBox = MessageBox.MessageBox((SCREEN_W/2 - style['bg'].get_width()/2, SCREEN_H/2 - style['bg'].get_height()/2), style, True)
