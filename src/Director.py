@@ -8,7 +8,6 @@ Created on 03/03/2014
 
 import pygame
 import sys
-from GameScene import *
 from Camera import *
 from Player import Player
 from MainMenu import MainMenu

@@ -55,7 +55,8 @@ class Character(Entity):
 		self.equippedWpn = weapon
 
 	def update(self, time, collisionMap):
-		pass
+		if self.controller:
+			self.controller.update(time, collisionMap)
 
 	def draw(self, screen, camera):
 		Entity.draw(self, screen, camera)
@@ -67,7 +68,7 @@ class Character(Entity):
 		""" Reduces time remaining to next attack.
 		"""
 		if self.attacking:
-			self.atk_cooldown -= time*PLAYER_ATTACK_SPEED
+			self.atk_cooldown -= time * PLAYER_ATTACK_SPEED
 		else:
 			self.atk_cooldown = 0
 

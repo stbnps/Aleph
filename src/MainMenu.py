@@ -1,10 +1,11 @@
 
 import pygame
 from Scene import Scene, Layer
-from GameScene import GameScene
 from Player import Player
 import ImageButton
 from Resources import load_image
+from WpnBlade import WpnBlade
+from LevelTwo import LevelTwo
 
 
 class MainMenu(Scene):
@@ -26,7 +27,8 @@ class MainMenu(Scene):
 
     def loadNewGame(self):
         player = Player(200, 200, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3])
-        scene = GameScene(self.director, player)
+        player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        scene = LevelTwo(self.director, player)
         self.director.setScene(scene)
 
     def draw(self, surface):
