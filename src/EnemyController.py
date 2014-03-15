@@ -6,6 +6,7 @@ import math
 import random
 
 DETECTION_RANGE = 200
+MAX_TIMES_COLLIDED = 10
 
 class EnemyController(Controller):
 
@@ -24,11 +25,11 @@ class EnemyController(Controller):
 	def update(self, time, collisionMap):
 		self.character.speedX = 0
 		self.character.speedY = 0
-		#self.follow_player(time, collisionMap)
+		# self.follow_player(time, collisionMap)
 		self.move_behavior(time, collisionMap)
-		if self.check_melee_hit():		
+		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
-			
+
 		self.character.move(time, collisionMap)
 
 
@@ -42,10 +43,10 @@ class EnemyController(Controller):
 		""" Returns true if the enemy overlaps the player.
 			Note: It has a small 30 u. margin
 		"""
-		overlaps_y = abs(self.player.rect.y - self.character.rect.y) < 30 
+		overlaps_y = abs(self.player.rect.y - self.character.rect.y) < 30
 		overlaps_x = abs(self.player.rect.x - self.character.rect.x) < 30
 		return  overlaps_x and overlaps_y
-	
+
 
 	def detect_player(self, detection_range=DETECTION_RANGE):
 		""" The enemy only detects player in range.
@@ -81,7 +82,7 @@ class EnemyController(Controller):
 	def follow_player(self, time, collisionMap):
 		""" Makes the enemy follow the player if the player is near.
 		"""
-		
+
 		# Calculatelayer relative position
 		delta_x = self.player.rect.x - self.character.rect.x
 		delta_y = self.player.rect.y - self.character.rect.y
@@ -90,11 +91,11 @@ class EnemyController(Controller):
 		if (distance > DETECTION_RANGE):
 			return False
 
-		#Update sprite
+		# Update sprite
 		self.update_pos(delta_x, delta_y)
 
 		# Move enemy
-		if distance > 20:		
+		if distance > 20:
 			coef = float(self.enemy_speed) / distance
 
 			self.character.speedX = delta_x * coef
@@ -121,14 +122,19 @@ class EnemyController(Controller):
 
 		self.character.speedX = self.lastSpeedX
 		self.character.speedY = self.lastSpeedY
-		while self.character.will_collide(time, collisionMap):	
+
+		timesCollided = 0
+
+		while (timesCollided < MAX_TIMES_COLLIDED) and \
+		(self.character.will_collide(time, collisionMap)):
+			timesCollided += 1
 			new_random_move()
 			self.character.speedX = self.lastSpeedX
 			self.character.speedY = self.lastSpeedY
 
 		self.update_pos(self.character.speedX, self.character.speedY)
 		self.character.rotatePosImage(time)
-		
+
 		return True
 
 	def move_behavior(self, time, collisionMap):

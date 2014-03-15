@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Created on 15/03/2014
+Created on 09/03/2014
 
 @author: DaGal
 '''
@@ -10,11 +10,9 @@ from Item import *
 from Constants import *
 import math
 
-class WpnBlade(Item):
+class WpnBow(Item):
 	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
 		Item.__init__(self, x, y, imageName, colorkey, clipRect)
-		self.attackAngle = 0
-		self.hip = math.sqrt(self.rect.w * self.rect.w + self.rect.h * self.rect.h)
 
 	def update(self, time, char):
 		self.rect.clamp_ip(char.rect)
@@ -42,17 +40,4 @@ class WpnBlade(Item):
 			self.flipV = True
 
 		if char.attacking:
-			# Let the mighty sword swing!
-			if self.attackAngle > BLADE_SWING_ANGLE:
-				self.attackAngle = 0
-
-			self.attackAngle += PLAYER_ATTACK_SPEED * BLADE_SWING_ANGLE * time
-			self.angle += self.attackAngle - (BLADE_SWING_ANGLE / 2)
-
-
-		else:
-			self.attackAngle = 0
-
-		# Compensate a weird rotation effect
-		offset = min(abs(math.sin(math.radians(self.angle))), abs(math.cos(math.radians(self.angle)))) / math.sqrt(2)
-		self.rect.move_ip((self.rect.w - self.hip) * offset, (self.rect.h - self.hip) * offset)
+			print "attack"
