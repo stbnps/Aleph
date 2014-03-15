@@ -16,12 +16,16 @@ class EnemyController(Controller):
 		Controller.__init__(self, enemy)
 		self.player = player
 		self.enemy_speed = 0.10
+		self.ttl = 0
+		self.lastSpeedX = 0
+		self.lastSpeedY = 0
 
 
 	def update(self, time, collisionMap):
 		self.character.speedX = 0
 		self.character.speedY = 0
-		self.follow_player(time, collisionMap)
+		#self.follow_player(time, collisionMap)
+		self.move_behavior(time, collisionMap)
 		if self.check_melee_hit():		
 			print "%s man dao una ostia!" % self
 			
@@ -84,7 +88,7 @@ class EnemyController(Controller):
 		distance = math.sqrt(delta_x * delta_x + delta_y * delta_y)
 
 		if (distance > DETECTION_RANGE):
-			return
+			return False
 
 		#Update sprite
 		self.update_pos(delta_x, delta_y)
@@ -97,3 +101,36 @@ class EnemyController(Controller):
 			self.character.speedY = delta_y * coef
 
 			self.character.rotatePosImage(time)
+
+		return True
+
+	def random_move(self, time, collisionMap):
+		def new_random_move():
+			self.ttl = random.randint(10, 100)
+			self.lastSpeedX = random.gauss(0, 0.1)
+			self.lastSpeedY = random.gauss(0, 0.1)
+			distance = math.sqrt(self.lastSpeedX ** 2 + self.lastSpeedY ** 2)
+			coef = float(self.enemy_speed) / distance
+			self.lastSpeedX = self.lastSpeedX * coef
+			self.lastSpeedY = self.lastSpeedY * coef
+
+		if self.ttl == 0:
+			new_random_move()
+		else:
+			self.ttl -= 1
+
+		self.character.speedX = self.lastSpeedX
+		self.character.speedY = self.lastSpeedY
+		while self.character.will_collide(time, collisionMap):	
+			new_random_move()
+			self.character.speedX = self.lastSpeedX
+			self.character.speedY = self.lastSpeedY
+
+		self.update_pos(self.character.speedX, self.character.speedY)
+		self.character.rotatePosImage(time)
+		
+		return True
+
+	def move_behavior(self, time, collisionMap):
+		if not self.follow_player(time, collisionMap):
+			self.random_move(time, collisionMap)
