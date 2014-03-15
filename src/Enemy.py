@@ -9,6 +9,3 @@ class Enemy(Character):
 		Character.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
 		self.controller = EnemyController(self, player)
 		self.rect = pygame.Rect(x, y, 10, 10)
-		
-	def update(self, time, collisionMap):
-		self.controller.update(time, collisionMap)
