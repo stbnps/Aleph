@@ -5,6 +5,7 @@ from Player import Player
 import ImageButton
 from Resources import load_image
 from WpnBlade import WpnBlade
+from WpnBow import WpnBow
 from LevelTwo import LevelTwo
 
 
@@ -26,8 +27,9 @@ class MainMenu(Scene):
         self.layers.append(layer)
 
     def loadNewGame(self):
-        player = Player(200, 200, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3])
-        player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        player = Player(200, 200)
+        # player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        player.setWeapon(WpnBow(player.rect.x, player.rect.y, "items-1.png", None, pygame.Rect(0, 24, 24, 24)))
         scene = LevelTwo(self.director, player)
         self.director.setScene(scene)
 

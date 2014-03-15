@@ -17,8 +17,8 @@ PLAYER_SPEED = 0.25
 TIME_TO_ROTATE_POS = 50
 
 class Player(Character):
-	def __init__(self, x, y, imageName, colorkey, coordsName, numImages, *args):
-		Character.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
+	def __init__(self, x, y, *args):
+		Character.__init__(self, x, y, "player-alt.png", -1, "coordPlayerAlt2.txt", [3, 3, 3, 3])
 		self.controller = PlayerController(self)
 		self.posIndex = POS_DOWN
 		self.posImageIndex = 1
