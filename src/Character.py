@@ -121,3 +121,16 @@ class Character(Entity):
 			isSolid(collisionMap, rectY.right, rectY.y) or\
 			isSolid(collisionMap, rectY.right, rectY.bottom) or\
 			isSolid(collisionMap, rectY.centerx, rectY.bottom)
+
+	def will_collide(self, time, collisionMap):
+		shiftX = self.speedX * time
+		shiftY = self.speedY * time
+		rectX = self.rect.move(shiftX, 0)
+		rectY = self.rect.move(0, shiftY)
+
+		# Not the best way of doing this
+		if self.is_colliding_x(collisionMap, rectX) or \
+		   self.is_colliding_y(collisionMap, rectY):
+			return True
+		else:
+			return False
