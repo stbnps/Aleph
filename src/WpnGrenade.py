@@ -9,13 +9,12 @@ Created on 16/03/2014
 from Weapon import Weapon
 from Constants import *
 import math
-from Bullet import Bullet
 from pygame import Rect
+from ThrowedGrenade import ThrowedGrenade
 
-class WpnRifle(Weapon):
+class WpnGrenade(Weapon):
 	def __init__(self):
-		Weapon.__init__(self, "wpns-modern2.png", -1, Rect(48, 28, 24, 17))
-		self.sheetCoord[0].append(pygame.Rect(82, 25, 26, 20))
+		Weapon.__init__(self, "items-1small.png", None, Rect(110, 120, 9, 11))
 		self.cooldown = 0
 
 	def update(self, time, char, scene):
@@ -23,31 +22,16 @@ class WpnRifle(Weapon):
 
 		# This magic numbers could be offsets specified for each character
 		if char.posIndex == POS_RIGHT:
-			self.angle = 0
 			self.rect.center = (char.rect.right - 4, char.rect.centery + 8)
-			self.flipH = True
-			self.flipV = False
 		elif char.posIndex == POS_LEFT:
-			self.angle = 0
 			self.rect.center = (char.rect.left + 4, char.rect.centery + 6)
-			self.flipH = False
-			self.flipV = False
 		elif char.posIndex == POS_UP:
-			self.angle = -45
-			self.rect.center = (char.rect.right - 2, char.rect.centery + 4)
-			self.flipH = True
-			self.flipV = False
+			self.rect.center = (char.rect.right - 2, char.rect.centery + 8)
 		elif char.posIndex == POS_DOWN:
-			self.angle = -60
-			self.rect.center = (char.rect.left + 2, char.rect.centery + 8)
-			self.flipH = True
-			self.flipV = True
+			self.rect.center = (char.rect.left, char.rect.centery + 8)
 
 		if self.cooldown > 0:
 			self.cooldown -= time
-
-			if self.cooldown < BOW_COOLDOWN * 0.75:
-				self.posImageIndex = 0
 
 		if char.attacking and (self.cooldown <= 0):
 			posX = char.atkX
@@ -57,7 +41,5 @@ class WpnRifle(Weapon):
 			ydist = posY - char.rect.centery
 			mag = math.sqrt(xdist * xdist + ydist * ydist)
 			# mag = abs(xdist) + abs(ydist)
-			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
-										 "bullet.png", -1, Rect(10, 10, 5, 5))])
+			scene.bulletGroup.add([ThrowedGrenade(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, mag)])
 			self.cooldown = BOW_COOLDOWN
-			self.posImageIndex = 1

@@ -14,8 +14,8 @@ from pygame import Rect
 
 class WpnLaser(Weapon):
 	def __init__(self):
-		Weapon.__init__(self, "sw_weapons.png", -1, pygame.Rect(78, 24, 15, 18))
-		self.sheetCoord[0].append(pygame.Rect(132, 21, 16, 20))
+		Weapon.__init__(self, "sw_weapons.png", -1, Rect(78, 24, 15, 18))
+		self.sheetCoord[0].append(Rect(132, 21, 16, 20))
 		self.cooldown = 0
 
 	def update(self, time, char, scene):

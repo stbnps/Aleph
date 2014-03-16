@@ -8,6 +8,7 @@ from WpnBlade import WpnBlade
 from WpnBow import WpnBow
 from WpnRifle import WpnRifle
 from WpnLaser import WpnLaser
+from WpnGrenade import WpnGrenade
 from LevelTwo import LevelTwo
 
 
@@ -33,7 +34,8 @@ class MainMenu(Scene):
         # player.setWeapon(WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
         # player.setWeapon(WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
         # player.setWeapon(WpnRifle())
-        player.setWeapon(WpnLaser())
+        # player.setWeapon(WpnLaser())
+        player.setWeapon(WpnGrenade())
         scene = LevelTwo(self.director, player)
         self.director.setScene(scene)
 
