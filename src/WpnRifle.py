@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Created on 15/03/2014
+Created on 16/03/2014
 
 @author: DaGal
 '''
@@ -12,7 +12,7 @@ import math
 from Bullet import Bullet
 from pygame import Rect
 
-class WpnBow(Item):
+class WpnRifle(Item):
 	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
 		Item.__init__(self, x, y, imageName, colorkey, clipRect)
 		self.cooldown = 0
@@ -32,13 +32,13 @@ class WpnBow(Item):
 			self.flipH = False
 			self.flipV = False
 		elif char.posIndex == POS_UP:
-			self.angle = -25
-			self.rect.center = (char.rect.right - 2, char.rect.centery + 8)
+			self.angle = -45
+			self.rect.center = (char.rect.right - 2, char.rect.centery + 4)
 			self.flipH = True
 			self.flipV = False
 		elif char.posIndex == POS_DOWN:
-			self.angle = -25
-			self.rect.center = (char.rect.left, char.rect.centery + 8)
+			self.angle = -60
+			self.rect.center = (char.rect.left + 2, char.rect.centery + 8)
 			self.flipH = True
 			self.flipV = True
 
@@ -54,5 +54,5 @@ class WpnBow(Item):
 			mag = math.sqrt(xdist * xdist + ydist * ydist)
 			# mag = abs(xdist) + abs(ydist)
 			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
-										 "arrow.png", -1, Rect(88, 28, 16, 7))])
+										 "bullet.png", -1, Rect(10, 10, 5, 5))])
 			self.cooldown = BOW_COOLDOWN
