@@ -34,6 +34,10 @@ class Character(Entity):
 		self.attacking = False
 		self.atk_cooldown = 1.0  # Starts without cooldown
 
+		# To what point is the character trying to attack? Useful for ranged weapons.
+		self.atkX = 0
+		self.atkY = 0
+
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
 

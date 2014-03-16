@@ -9,10 +9,12 @@ Created on 09/03/2014
 from Item import *
 from Constants import *
 import math
+from Bullet import Bullet
 
 class WpnBow(Item):
 	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
 		Item.__init__(self, x, y, imageName, colorkey, clipRect)
+		self.cooldown = 0
 
 	def update(self, time, char, scene):
 		self.rect.clamp_ip(char.rect)
@@ -39,5 +41,17 @@ class WpnBow(Item):
 			self.flipH = True
 			self.flipV = True
 
-		if char.attacking:
-			print "attack"
+		if self.cooldown > 0:
+			self.cooldown -= time
+
+		if char.attacking and (self.cooldown <= 0):
+			posX = char.atkX
+			posY = char.atkY
+
+			xdist = posX - char.rect.centerx
+			ydist = posY - char.rect.centery
+			mag = math.sqrt(xdist * xdist + ydist * ydist)
+			# mag = abs(xdist) + abs(ydist)
+			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
+										 "arrow.png", -1, Rect(88, 28, 16, 7))])
+			self.cooldown = BOW_COOLDOWN
