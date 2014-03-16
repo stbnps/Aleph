@@ -25,7 +25,7 @@ def isSolid(collisionMap, x, y):
 
 class Character(Entity):
 
-	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, *args):
+	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
 		Entity.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
 		self.speedX = 0
 		self.speedY = 0
@@ -34,8 +34,15 @@ class Character(Entity):
 		self.attacking = False
 		self.atk_cooldown = 1.0  # Starts without cooldown
 
+		# To what point is the character trying to attack? Useful for ranged weapons.
+		self.atkX = 0
+		self.atkY = 0
+
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
+
+		# Needed for a better weapon placement
+		self.magicNumbers = magicNumbers
 
 	def move(self, time, scene):
 		collisionMap = scene.collisionBg
@@ -54,6 +61,7 @@ class Character(Entity):
 
 	def setWeapon(self, weapon):
 		self.equippedWpn = weapon
+		weapon.rect.clamp_ip(self.rect)
 
 	def update(self, time, scene):
 		if self.controller:

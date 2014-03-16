@@ -38,6 +38,7 @@ class Entity(Sprite):
 				self.rect = pygame.Rect(x, y, self.sheetCoord[self.posIndex][self.posImageIndex][2], \
 							 self.sheetCoord[self.posIndex][self.posImageIndex][3])
 
+				self.totalTimeToRotate = TIME_TO_ROTATE_POS
 				self.timeLeftToRotate = TIME_TO_ROTATE_POS
 			else:
 				self.numImages = [1]
@@ -60,7 +61,7 @@ class Entity(Sprite):
 			self.timeLeftToRotate -= time
 
 			if self.timeLeftToRotate <= 0:
-				self.timeLeftToRotate = TIME_TO_ROTATE_POS
+				self.timeLeftToRotate = self.totalTimeToRotate
 				self.posImageIndex += 1
 
 				if self.posImageIndex >= self.numImages[self.posIndex]:

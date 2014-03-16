@@ -43,6 +43,10 @@ class PlayerController(Controller):
 		# Look where we are trying to hit:
 		if self.character.attacking:
 			(posX, posY) = pygame.mouse.get_pos()
+
+			self.character.atkX = float(posX) - scene.camera.state.left
+			self.character.atkY = float(posY) - scene.camera.state.top
+
 			posX += (-SCREEN_W - self.character.rect.w) / 2
 			posY += (-SCREEN_H - self.character.rect.h) / 2
 
@@ -56,7 +60,6 @@ class PlayerController(Controller):
 					self.character.posIndex = POS_UP
 				else:
 					self.character.posIndex = POS_DOWN
-
 
 		self.character.move(time, scene)
 

@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
 '''
-Created on 15/03/2014
+Created on 09/03/2014
 
 @author: DaGal
 '''
 
-from Item import *
+from Weapon import Weapon
 from Constants import *
 import math
 
-class WpnBlade(Item):
-	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
-		Item.__init__(self, x, y, imageName, colorkey, clipRect)
+class WpnBlade(Weapon):
+	def __init__(self, imageName=None, colorkey=None, clipRect=None):
+		Weapon.__init__(self, imageName, colorkey, clipRect)
 		self.attackAngle = 0
 		self.hip = math.sqrt(self.rect.w * self.rect.w + self.rect.h * self.rect.h)
 
