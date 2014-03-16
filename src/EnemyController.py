@@ -22,7 +22,8 @@ class EnemyController(Controller):
 		self.lastSpeedY = 0
 
 
-	def update(self, time, collisionMap):
+	def update(self, time, scene):
+		collisionMap = scene.collisionBg
 		self.character.speedX = 0
 		self.character.speedY = 0
 		# self.follow_player(time, collisionMap)
@@ -30,7 +31,7 @@ class EnemyController(Controller):
 		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
 
-		self.character.move(time, collisionMap)
+		self.character.move(time, scene)
 
 
 	def check_melee_hit(self):

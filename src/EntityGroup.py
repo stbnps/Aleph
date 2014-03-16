@@ -11,11 +11,11 @@ from pygame.sprite import Group
 class EntityGroup(Group):
 	def __init__(self, *sprites):
 		Group.__init__(self, *sprites)
-	
-	def update(self, time, collisionBg):
+
+	def update(self, time, scene):
 		for entity in self.sprites():
-			entity.update(time, collisionBg)
-	
+			entity.update(time, scene)
+
 	def draw(self, screen, camera):
 		for entity in self.sprites():
-			entity.draw(screen,camera)
+			entity.draw(screen, camera)

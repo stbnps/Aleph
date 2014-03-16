@@ -20,5 +20,5 @@ class Bullet(Entity):
 
 		print "Bullet created at %f %f with speed %f %f" % (x, y, speedX, speedY)
 
-	def update(self, time):
+	def update(self, time, scene):
 		self.rect.move_ip(self.speedX * time * BULLET_SPEED, self.speedY * time * BULLET_SPEED)
