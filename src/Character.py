@@ -37,7 +37,8 @@ class Character(Entity):
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
 
-	def move(self, time, collisionMap):
+	def move(self, time, scene):
+		collisionMap = scene.collisionBg
 		shiftX = self.speedX * time
 		shiftY = self.speedY * time
 		rectX = self.rect.move(shiftX, 0)
@@ -54,9 +55,9 @@ class Character(Entity):
 	def setWeapon(self, weapon):
 		self.equippedWpn = weapon
 
-	def update(self, time, collisionMap):
+	def update(self, time, scene):
 		if self.controller:
-			self.controller.update(time, collisionMap)
+			self.controller.update(time, scene)
 
 	def draw(self, screen, camera):
 		Entity.draw(self, screen, camera)

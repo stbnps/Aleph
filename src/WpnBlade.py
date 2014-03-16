@@ -16,7 +16,7 @@ class WpnBlade(Item):
 		self.attackAngle = 0
 		self.hip = math.sqrt(self.rect.w * self.rect.w + self.rect.h * self.rect.h)
 
-	def update(self, time, char):
+	def update(self, time, char, scene):
 		self.rect.clamp_ip(char.rect)
 
 		# This magic numbers could be offsets specified for each character

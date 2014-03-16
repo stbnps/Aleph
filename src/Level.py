@@ -32,8 +32,8 @@ class Level(Scene):
 		Scene.update(self, time)
 
 		if self.collisionBg != None:
-			self.player.update(time, self.collisionBg)
-			self.enemyGroup.update(time, self.collisionBg)
+			self.player.update(time, self)
+			self.enemyGroup.update(time, self)
 
 		self.camera.update(self.player)
 

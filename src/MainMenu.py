@@ -28,8 +28,8 @@ class MainMenu(Scene):
 
     def loadNewGame(self):
         player = Player(200, 200)
-        # player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
-        player.setWeapon(WpnBow(player.rect.x, player.rect.y, "items-1.png", None, pygame.Rect(0, 24, 24, 24)))
+        player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        # player.setWeapon(WpnBow(player.rect.x, player.rect.y, "items-1.png", None, pygame.Rect(0, 24, 24, 24)))
         scene = LevelTwo(self.director, player)
         self.director.setScene(scene)
 

@@ -14,7 +14,7 @@ class WpnBow(Item):
 	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
 		Item.__init__(self, x, y, imageName, colorkey, clipRect)
 
-	def update(self, time, char):
+	def update(self, time, char, scene):
 		self.rect.clamp_ip(char.rect)
 
 		# This magic numbers could be offsets specified for each character

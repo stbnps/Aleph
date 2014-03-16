@@ -66,7 +66,7 @@ class Entity(Sprite):
 				if self.posImageIndex >= self.numImages[self.posIndex]:
 					self.posImageIndex = 0
 
-	def update(self, time, *args):
+	def update(self, time, scene):
 		pass
 
 	def draw(self, screen, camera):

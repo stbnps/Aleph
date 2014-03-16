@@ -11,7 +11,7 @@ class PlayerController(Controller):
 		Controller.__init__(self, player)
 		self.player_speed = 0.25
 
-	def update(self, time, collisionMap):
+	def update(self, time, scene):
 		keys = pygame.key.get_pressed()
 		self.character.speedX = 0
 		self.character.speedY = 0
@@ -58,10 +58,10 @@ class PlayerController(Controller):
 					self.character.posIndex = POS_DOWN
 
 
-		self.character.move(time, collisionMap)
-		
+		self.character.move(time, scene)
+
 		if self.character.equippedWpn:
-			self.character.equippedWpn.update(time, self.character)
+			self.character.equippedWpn.update(time, self.character, scene)
 			self.character.update_attack_cooldown(time)
 
 	def processEvent(self, event):
