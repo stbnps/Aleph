@@ -12,7 +12,8 @@ import pygame
 from Scene import Layer, Scene
 from Resources import load_image
 import Constants
-from Enemy import Enemy
+from Wolf import Wolf
+from Newton import Newton
 from WpnBlade import WpnBlade
 import MessageScene
 import HUD
@@ -25,18 +26,18 @@ class LevelTwo(Level):
 		Level.__init__(self, director, player)
 		self.player.rect.x = 200
 		self.player.rect.y = 200
-		self.enemyGroup.add([Enemy(300, 280, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(281, 72, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(422, 57, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(737, 160, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(737, 190, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(300, 280, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(500, 380, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(315, 495, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(217, 662, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(572, 666, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(917, 413, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player),
-							Enemy(896, 851, "newton.png", -1, "coordNewton.txt", [3, 3, 3, 3], player)])
+		self.enemyGroup.add([Wolf(300, 280, self.player),
+							Wolf(281, 72, self.player),
+							Wolf(422, 57, self.player),
+							Wolf(737, 160, self.player),
+							Wolf(737, 190, self.player),
+							Wolf(300, 280, self.player),
+							Wolf(500, 380, self.player),
+							Wolf(315, 495, self.player),
+							Wolf(217, 662, self.player),
+							Wolf(572, 666, self.player),
+							Wolf(917, 413, self.player),
+							Newton(896, 851, self.player)])
 
 		self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("map_newton_bg.png", Constants.BG_MAP_DIR)

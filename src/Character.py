@@ -25,7 +25,7 @@ def isSolid(collisionMap, x, y):
 
 class Character(Entity):
 
-	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, *args):
+	def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
 		Entity.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
 		self.speedX = 0
 		self.speedY = 0
@@ -40,6 +40,9 @@ class Character(Entity):
 
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
+
+		# Needed for a better weapon placement
+		self.magicNumbers = magicNumbers
 
 	def move(self, time, scene):
 		collisionMap = scene.collisionBg
@@ -57,8 +60,8 @@ class Character(Entity):
 		self.rect.move_ip(shiftX, shiftY)
 
 	def setWeapon(self, weapon):
-		weapon.rect.clamp_ip(self.rect)
 		self.equippedWpn = weapon
+		weapon.rect.clamp_ip(self.rect)
 
 	def update(self, time, scene):
 		if self.controller:

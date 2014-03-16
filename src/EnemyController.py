@@ -33,6 +33,10 @@ class EnemyController(Controller):
 
 		self.character.move(time, scene)
 
+		if self.character.equippedWpn:
+			self.character.equippedWpn.update(time, self.character, scene)
+			self.character.update_attack_cooldown(time)
+
 
 	def check_melee_hit(self):
 		""" Returns true when been attacked with a melee weapon.

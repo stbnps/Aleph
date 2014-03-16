@@ -21,25 +21,25 @@ class WpnRifle(Weapon):
 	def update(self, time, char, scene):
 		self.rect.clamp_ip(char.rect)
 
-		# This magic numbers could be offsets specified for each character
+		(rx, ry, lx, ly, ux, uy, dx, dy) = char.magicNumbers
 		if char.posIndex == POS_RIGHT:
 			self.angle = 0
-			self.rect.center = (char.rect.right - 4, char.rect.centery + 8)
+			self.rect.center = (char.rect.right + rx, char.rect.centery + ry)
 			self.flipH = True
 			self.flipV = False
 		elif char.posIndex == POS_LEFT:
 			self.angle = 0
-			self.rect.center = (char.rect.left + 4, char.rect.centery + 6)
+			self.rect.center = (char.rect.left + lx, char.rect.centery + ly)
 			self.flipH = False
 			self.flipV = False
 		elif char.posIndex == POS_UP:
 			self.angle = -45
-			self.rect.center = (char.rect.right - 2, char.rect.centery + 4)
+			self.rect.center = (char.rect.right + ux, char.rect.centery + uy)
 			self.flipH = True
 			self.flipV = False
 		elif char.posIndex == POS_DOWN:
 			self.angle = -60
-			self.rect.center = (char.rect.left + 2, char.rect.centery + 8)
+			self.rect.center = (char.rect.left + dx, char.rect.centery + dy)
 			self.flipH = True
 			self.flipV = True
 
