@@ -57,6 +57,7 @@ class Character(Entity):
 		self.rect.move_ip(shiftX, shiftY)
 
 	def setWeapon(self, weapon):
+		weapon.rect.clamp_ip(self.rect)
 		self.equippedWpn = weapon
 
 	def update(self, time, scene):

@@ -6,15 +6,16 @@ Created on 16/03/2014
 @author: DaGal
 '''
 
-from Item import Item
+from Weapon import Weapon
 from Constants import *
 import math
 from Bullet import Bullet
 from pygame import Rect
 
-class WpnRifle(Item):
-	def __init__(self, x, y, imageName=None, colorkey=None, clipRect=None):
-		Item.__init__(self, x, y, imageName, colorkey, clipRect)
+class WpnRifle(Weapon):
+	def __init__(self):
+		Weapon.__init__(self, "wpns-modern2.png", -1, pygame.Rect(48, 28, 24, 17))
+		self.sheetCoord[0].append(pygame.Rect(82, 25, 26, 20))
 		self.cooldown = 0
 
 	def update(self, time, char, scene):
@@ -45,6 +46,9 @@ class WpnRifle(Item):
 		if self.cooldown > 0:
 			self.cooldown -= time
 
+			if self.cooldown < BOW_COOLDOWN * 0.75:
+				self.posImageIndex = 0
+
 		if char.attacking and (self.cooldown <= 0):
 			posX = char.atkX
 			posY = char.atkY
@@ -56,3 +60,4 @@ class WpnRifle(Item):
 			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
 										 "bullet.png", -1, Rect(10, 10, 5, 5))])
 			self.cooldown = BOW_COOLDOWN
+			self.posImageIndex = 1

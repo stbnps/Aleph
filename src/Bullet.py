@@ -7,15 +7,16 @@ Created on 03/03/2014
 '''
 
 from pygame import Rect
-from Item import Item
+from Weapon import Weapon
 from Character import isSolid, roundToInt
 import math
 
 BULLET_SPEED = 0.3
 
-class Bullet(Item):
+class Bullet(Weapon):
 	def __init__(self, x, y, speedX, speedY, imageName=None, colorkey=None, clipRect=None):
-		Item.__init__(self, x, y, imageName, colorkey, clipRect)
+		Weapon.__init__(self, imageName, colorkey, clipRect)
+		self.rect = Rect(x, y, 0, 0)
 		self.speedX = speedX
 		self.speedY = speedY
 

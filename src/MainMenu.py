@@ -7,6 +7,7 @@ from Resources import load_image
 from WpnBlade import WpnBlade
 from WpnBow import WpnBow
 from WpnRifle import WpnRifle
+from WpnLaser import WpnLaser
 from LevelTwo import LevelTwo
 
 
@@ -29,9 +30,10 @@ class MainMenu(Scene):
 
     def loadNewGame(self):
         player = Player(200, 200)
-        # player.setWeapon(WpnBlade(player.rect.x, player.rect.y, "lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
-        # player.setWeapon(WpnBow(player.rect.x, player.rect.y, "items-1.png", None, pygame.Rect(0, 24, 24, 24)))
-        player.setWeapon(WpnRifle(player.rect.x, player.rect.y, "wpns-modern.png", None, pygame.Rect(48, 28, 24, 17)))
+        # player.setWeapon(WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        # player.setWeapon(WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
+        # player.setWeapon(WpnRifle())
+        player.setWeapon(WpnLaser())
         scene = LevelTwo(self.director, player)
         self.director.setScene(scene)
 
