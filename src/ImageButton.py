@@ -34,7 +34,7 @@ def createImageButtonStyle(image, buttonWidth):
 
 
 class ImageButton(Widget):      
-    def __init__(self,  director, position = (0,0), style = None, visible = True):
+    def __init__(self, director, position = (0,0), style = None, visible = True):
         
         Widget.__init__(self, director, position, style['image-normal'].get_size(), style, visible)
 
