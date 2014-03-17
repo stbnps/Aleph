@@ -45,6 +45,7 @@ class Level(Scene):
 			self.director.setScene(m)
 
 		self.player.controller.processEvent(event)
+		Scene.processEvent(self, event)
 
 	def draw(self, screen):
 		screen.fill(0x000000)

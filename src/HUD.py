@@ -6,6 +6,10 @@ import Constants
 import os
 import Resources
 import ContainerButton
+import pygame
+
+import MessageScene
+from Constants import SCREEN_W , SCREEN_H
 
 
 def createHUDStyle(bgIimage):
@@ -20,7 +24,7 @@ def createHUDStyle(bgIimage):
 UNFINISHED
 '''
 class HUD(Container):
-    def __init__(self, position, visible):
+    def __init__(self, position, visible, player = None):
         bgStyle = createHUDStyle(Resources.load_image("HUD_bg.png"))
         Container.__init__(self, position, bgStyle, visible)
         buttonImage = Resources.load_image('active_button.png')
@@ -30,17 +34,72 @@ class HUD(Container):
         self.rightButton = ImageButton.ImageButton((542, 15), activeButtonStyle)
         Container.addWidget(self, self.leftButton)
         Container.addWidget(self, self.rightButton)
-        self.hidden = False
+        self.hidden = True
+        self.player = player
+        self.originalPosition = self.position;
+        self.lastEvent = None
+        
+        
+    def drawBars(self, ammount, initialColor, colorDecay):
+        healthSurface = pygame.Surface((150, 60), pygame.SRCALPHA, 32)
+        barCount = int(ammount * 1.5)
+        color = initialColor
+        for pos in range(0, barCount, 6) :
+            color = (color[0] + colorDecay[0], color[1] + colorDecay[1], color[2] + colorDecay[2])
+            p = int(pos / 3.6)
+            pygame.draw.rect(healthSurface, color, (pos, 45 - p, 3, 10 + p))
+        return healthSurface
 
+    
+    def drawHealth(self, surface):
+        healthSurface = self.drawBars(100, (225, 128, 0), (0, -4, 0))
+        surface.blit(healthSurface, (self.getPosition()[0] + 20 , self.getPosition()[1] + 65))
+        
+    
+    def drawAmmo(self, surface):
+        armorSurface = self.drawBars(100, (128, 150, 255), (-4, -1, 0))
+        armorSurface = pygame.transform.flip(armorSurface, True, False)
+        surface.blit(armorSurface, (self.getPosition()[0] + 630 , self.getPosition()[1] + 65))
+        
+    def drawItems(self, surface):
+        pass 
+    
+    
+    def processEvent(self, event):
+        self.newEvent = True
+        self.lastEvent = event
+    
+    
+    def checkHide(self):       
+        if self.mouseOver and self.lastEvent.type == pygame.MOUSEBUTTONUP and self.newEvent:
+            self.newEvent = False
+            self.hidden = not self.hidden
+            
+    
                  
     def update(self, time):
         # check if it needs to be hidden
+        self.checkHide()
+        if self.hidden:
+            if self.position[1] < 580:
+                self.position = (self.position[0], self.position[1] + 5)
+            else:
+                self.position = (self.position[0], 580)
+        else:
+            if self.position[1] > self.originalPosition[1]:
+                self.position = (self.position[0], self.position[1] - 5)
+            else:
+                self.position = self.originalPosition
+            
         Container.update(self, time)
     
     def draw(self, surface):
         if self.visible:
             surface.blit(self.style['bg'], self.position)
             Container.draw(self, surface)
+            self.drawHealth(surface)
+            self.drawAmmo(surface)
+            self.drawItems(surface)
 
             
             
