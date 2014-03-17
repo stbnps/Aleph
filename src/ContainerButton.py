@@ -16,9 +16,9 @@ def createContainerButtonStyle(buttonImage, objectImage, buttonWidth):
 
 
 class ContainerButton(ImageButton):      
-    def __init__(self,  position = (0,0), style = None, visible = True):
+    def __init__(self, director, position = (0,0), style = None, visible = True):
         
-        ImageButton.__init__(self, position, style, visible)
+        ImageButton.__init__(self, director, position, style, visible)
 
     
     def draw(self, surface):

@@ -24,14 +24,14 @@ def createHUDStyle(bgIimage):
 UNFINISHED
 '''
 class HUD(Container):
-    def __init__(self, position, visible, player = None):
+    def __init__(self, director, position, visible, player = None):
         bgStyle = createHUDStyle(Resources.load_image("HUD_bg.png"))
-        Container.__init__(self, position, bgStyle, visible)
+        Container.__init__(self, director, position, bgStyle, visible)
         buttonImage = Resources.load_image('active_button.png')
         objectImage = pygame.Surface((2,2))
         activeButtonStyle = ContainerButton.createContainerButtonStyle(buttonImage, objectImage, 78)
-        self.leftButton = ImageButton.ImageButton((180, 15), activeButtonStyle)
-        self.rightButton = ImageButton.ImageButton((542, 15), activeButtonStyle)
+        self.leftButton = ImageButton.ImageButton(self.director, (180, 15), activeButtonStyle)
+        self.rightButton = ImageButton.ImageButton(self.director, (542, 15), activeButtonStyle)
         Container.addWidget(self, self.leftButton)
         Container.addWidget(self, self.rightButton)
         self.hidden = True
@@ -92,6 +92,14 @@ class HUD(Container):
                 self.position = self.originalPosition
             
         Container.update(self, time)
+        
+        '''
+        Yes, this is a nasty hack. We don't have time for refactoring
+        '''
+        if self.mouseOver:
+            self.director.scene.mouseHoveringHUD = True
+        else:
+            self.director.scene.mouseHoveringHUD = False
     
     def draw(self, surface):
         if self.visible:

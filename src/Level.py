@@ -24,10 +24,11 @@ class Level(Scene):
 		self.collisionBg = None
 		self.camera = Camera()
 
-		self.HUD = HUD((0, 467), True)
+		self.HUD = HUD(self.director, (0, 467), True)
 		hudLayer = Layer(self.director)
 		hudLayer.append(self.HUD)
 		self.layers.append(hudLayer)
+		self.mouseHoveringHUD = False
 
 	def update(self, time):
 		Scene.update(self, time)
