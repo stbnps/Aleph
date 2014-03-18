@@ -27,16 +27,7 @@ class EnemyController(Controller):
 		collisionMap = scene.collisionBg
 		self.character.speedX = 0
 		self.character.speedY = 0
-		self.move_behavior(time, collisionMap)
-
-		if len(pygame.sprite.spritecollide(self.character, scene.enemyGroup, False)) > 1:
-			if bool(random.getrandbits(1)):
-				self.character.speedX = -self.character.speedX
-				self.character.speedY = -self.character.speedY
-
-		self.update_pos(self.character.speedX, self.character.speedY)
-		self.character.rotatePosImage(time)
-		self.character.move(time, scene)
+		self.move_behavior(time, collisionMap, scene)
 
 		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
@@ -124,6 +115,18 @@ class EnemyController(Controller):
 
 		return True
 
-	def move_behavior(self, time, collisionMap):
+	def avoid_enemy_overlap(self, scene):
+		if len(pygame.sprite.spritecollide(self.character, scene.enemyGroup, False)) > 1:
+			if bool(random.getrandbits(1)):
+				self.character.speedX = -self.character.speedX
+				self.character.speedY = -self.character.speedY
+
+	def move_behavior(self, time, collisionMap, scene):
 		if not self.follow_player(time, collisionMap):
-			self.random_move(time, collisionMap)
+			self.random_move(time, collisionMap)	
+
+		self.avoid_enemy_overlap(scene)	
+
+		self.update_pos(self.character.speedX, self.character.speedY)
+		self.character.rotatePosImage(time)
+		self.character.move(time, scene)
