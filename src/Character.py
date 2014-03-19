@@ -79,6 +79,7 @@ class Character(Entity):
 	def update(self, time, scene):
 		if self.controller:
 			self.controller.update(time, scene)
+		self.check_died(scene)
 
 	def draw(self, screen, camera):
 		Entity.draw(self, screen, camera)
@@ -154,3 +155,14 @@ class Character(Entity):
 			return True
 		else:
 			return False
+
+	def hit_by_bullet(self,atk=10):
+		"""Called when a bullet its the character
+		"""
+		self.hp = self.hp - atk
+		print "OUCH; a bullet"
+
+	def check_died(self, scene):
+		if self.hp <= 0:
+			scene.enemyGroup.remove(self)
+

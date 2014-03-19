@@ -6,7 +6,7 @@ Created on 03/03/2014
 @author: DaGal
 '''
 
-from pygame import Rect
+from pygame import Rect, sprite
 from Weapon import Weapon
 from Character import isSolid, roundToInt
 import math
@@ -19,6 +19,7 @@ class Bullet(Weapon):
 		self.rect = Rect(x, y, 0, 0)
 		self.speedX = speedX
 		self.speedY = speedY
+		self.atk = 5
 
 		# Important if you want pinpoint accuracy
 		self.floatX = float(self.rect.x)
@@ -34,4 +35,14 @@ class Bullet(Weapon):
 		self.rect.y = roundToInt(self.floatY)
 
 		if isSolid(scene.collisionBg, self.rect.x, self.rect.y):
-			scene.bulletGroup.remove(self)
+			scene.bulletGroup.remove(self)	
+		
+		self.kill_people(scene)
+
+
+	def kill_people(self, scene):
+		hitted_players = sprite.spritecollide(self, scene.enemyGroup, False)
+		#scene.bulletGroup.remove(self)		
+		for player in hitted_players:
+			player.hit_by_bullet(self.atk)	
+		
