@@ -35,7 +35,13 @@ class EnemyController(Controller):
 		if self.character.equippedWpn:
 			self.character.equippedWpn.update(time, self.character, scene)
 			self.character.update_attack_cooldown(time)
+		
+		self.attack()
+		
 
+	def attack(self):
+		if self.collides_with_player() and self.character.can_attack():
+			self.player.receive_attack(self.character.atk) 
 
 	def check_melee_hit(self):
 		""" Returns true when been attacked with a melee weapon.
@@ -47,6 +53,7 @@ class EnemyController(Controller):
 		""" Returns true if the enemy overlaps the player.
 			Note: It has a small 30 u. margin
 		"""
+			
 		overlaps_y = abs(self.player.rect.y - self.character.rect.y) < 30
 		overlaps_x = abs(self.player.rect.x - self.character.rect.x) < 30
 		return  overlaps_x and overlaps_y

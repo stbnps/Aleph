@@ -22,6 +22,12 @@ class Player(Character):
 		self.controller = PlayerController(self, director)
 		self.posIndex = POS_DOWN
 		self.posImageIndex = 1
+		self.hp = 100
+		self.atk = 20
 
 		# Better collisions this way
 		self.rect.inflate_ip(-4, -6)
+
+	def receive_attack(self, atk):
+		self.hp = self.hp - atk;
+		print "OUCH!" + str(self.hp)

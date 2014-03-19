@@ -32,7 +32,9 @@ class Character(Entity):
 		self.controller = None
 		self.equippedWpn = None
 		self.attacking = False
-		self.atk_cooldown = 1.0  # Starts without cooldown
+		self.atk_cooldown = 0.0  # Starts without cooldown
+		self.hp = 40
+		self.atk = 10
 
 		# To what point is the character trying to attack? Useful for ranged weapons.
 		self.atkX = 0
@@ -43,6 +45,17 @@ class Character(Entity):
 
 		# Needed for a better weapon placement
 		self.magicNumbers = magicNumbers
+	
+
+	def get_atk(self):
+		""" Returns the attack power.
+		"""
+		return self.atk
+
+	def get_hp(self):
+		""" Returns Character life points.
+		""" 
+		return self.hp
 
 	def move(self, time, scene):
 		collisionMap = scene.collisionBg
@@ -94,11 +107,7 @@ class Character(Entity):
 		"""
 		# De momento solo tenemos enfriamientos para no atacar chorrecientasmil veces
 		# con un solo click.
-		if self.atk_cooldown <= 0.0:
-			self.atk_cooldown = 1.0
-			return True
-		else:
-			return False
+		return self.atk_cooldown == 0
 
 	def has_melee_weapon(self):
 		""" Returns true if the player has equipped melee weapons.
