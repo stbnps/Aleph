@@ -92,7 +92,7 @@ class Character(Entity):
 		if self.attacking:
 			self.atk_cooldown -= time * PLAYER_ATTACK_SPEED
 		else:
-			self.atk_cooldown = 0
+			self.atk_cooldown = 1.0
 
 	def is_attacking(self):
 		""" Returns true if player is atacking.
@@ -105,9 +105,10 @@ class Character(Entity):
 	def can_attack(self):
 		""" Returns true when the character can attack
 		"""
-		# De momento solo tenemos enfriamientos para no atacar chorrecientasmil veces
-		# con un solo click.
-		return self.atk_cooldown == 0
+		if self.atk_cooldown <= 0.0:
+			return True
+		else:
+			return False
 
 	def has_melee_weapon(self):
 		""" Returns true if the player has equipped melee weapons.
