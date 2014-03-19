@@ -19,7 +19,7 @@ class MessageScene(Scene):
         buttonImage = Resources.load_image("message_box_button.png")
         buttonWidth = 372
         style = MessageBox.createMessageBoxStyle(backgroundImage, buttonImage, buttonWidth)
-        self.messageBox = MessageBox.MessageBox((SCREEN_W / 2 - style['bg'].get_width() / 2, SCREEN_H / 2 - style['bg'].get_height() / 2), style, True)
+        self.messageBox = MessageBox.MessageBox(self.director, (SCREEN_W / 2 - style['bg'].get_width() / 2, SCREEN_H / 2 - style['bg'].get_height() / 2), style, True)
         self.messageBox.button.onMouseDown = lambda: self.popScene()
         self.messageBox.title = title
         self.messageBox.message = message

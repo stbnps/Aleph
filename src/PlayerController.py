@@ -7,8 +7,8 @@ import math
 
 class PlayerController(Controller):
 
-	def __init__(self, player):
-		Controller.__init__(self, player)
+	def __init__(self, player, director):
+		Controller.__init__(self, player, director)
 		self.player_speed = 0.25
 
 	def update(self, time, scene):
@@ -38,7 +38,11 @@ class PlayerController(Controller):
 
 			self.character.rotatePosImage(time)
 
-		self.character.attacking = pygame.mouse.get_pressed()[0]
+		'''
+		Hack to easily tell if the user really wants to attack
+		Having a back pointer to the director becomes usefull in these situations
+		'''
+		self.character.attacking = pygame.mouse.get_pressed()[0] and not self.director.scene.mouseHoveringHUD
 
 		# Look where we are trying to hit:
 		if self.character.attacking:

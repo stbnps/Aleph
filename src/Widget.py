@@ -4,7 +4,7 @@ from pygame import Rect
 
 class Widget():
     
-    def __init__(self, position = (0,0), size = (100,20), style = None, visible = True, parent = None):
+    def __init__(self, director, position = (0,0), size = (100,20), style = None, visible = True, parent = None):
                 
         self.position = position
         self.size = size           
@@ -20,6 +20,7 @@ class Widget():
         self.onMouseDown = None    
         
         self.parent = parent 
+        self.director = director
 
         
     def processEvent(self, event):

@@ -21,7 +21,7 @@ class MainMenu(Scene):
         newGameImage = load_image("new_game.png")
         buttonWidth = 214
         style = ImageButton.createImageButtonStyle(newGameImage, buttonWidth)
-        self.newGameButton = ImageButton.ImageButton((60, 110), style)
+        self.newGameButton = ImageButton.ImageButton(self.director, (60, 110), style)
         # Next Scene, we could do just self.newGameButton.onMouseDown = self.loadNewGame
         # put this way loadNewGame can take parameters too
         self.newGameButton.onMouseDown = lambda: self.loadNewGame()
@@ -30,7 +30,7 @@ class MainMenu(Scene):
         self.layers.append(layer)
 
     def loadNewGame(self):
-        player = Player(200, 200)
+        player = Player(200, 200, self.director)
         # player.setWeapon(WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
         # player.setWeapon(WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
         player.setWeapon(WpnRifle())

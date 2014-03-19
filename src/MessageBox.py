@@ -20,9 +20,9 @@ def createMessageBoxStyle(bgIimage, buttonImage, buttonWidth):
     return style 
 
 class MessageBox(Container):
-    def __init__(self, position, style, visible):
-        Container.__init__(self, position, style, visible)
-        self.button = ImageButton.ImageButton((14, 248), style)
+    def __init__(self, director, position, style, visible):
+        Container.__init__(self, director, position, style, visible)
+        self.button = ImageButton.ImageButton(self.director, (14, 248), style)
         Container.addWidget(self, self.button)
         self.title = 'Title'
         self.message = 'Message'
