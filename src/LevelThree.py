@@ -19,6 +19,7 @@ import MessageScene
 import HUD
 from EntityGroup import EntityGroup
 from Level import Level
+from LevelFour import LevelFour
 
 class LevelThree(Level):
 	def __init__(self, director, player):
@@ -42,3 +43,10 @@ class LevelThree(Level):
 
 		self.bg = load_image("mapa_h.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("mapa_h_bg.png", Constants.BG_MAP_DIR)
+		
+	def processEvent(self, event):
+		if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+			nextLevel = LevelFour(self.director, self.player)
+			self.director.setScene(nextLevel)
+			
+		Level.processEvent(self, event)	

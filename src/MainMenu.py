@@ -9,7 +9,7 @@ from WpnBow import WpnBow
 from WpnRifle import WpnRifle
 from WpnLaser import WpnLaser
 from WpnGrenade import WpnGrenade
-from LevelTwo import LevelTwo
+from LevelOneA import LevelOneA
 
 
 class MainMenu(Scene):
@@ -36,7 +36,7 @@ class MainMenu(Scene):
         player.setWeapon(WpnRifle())
         # player.setWeapon(WpnLaser())
         # player.setWeapon(WpnGrenade())
-        scene = LevelTwo(self.director, player)
+        scene = LevelOneA(self.director, player)
         self.director.setScene(scene)
 
     def draw(self, surface):

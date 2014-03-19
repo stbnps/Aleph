@@ -37,7 +37,6 @@ class Entity(Sprite):
 
 				self.rect = pygame.Rect(x, y, self.sheetCoord[self.posIndex][self.posImageIndex][2], \
 							 self.sheetCoord[self.posIndex][self.posImageIndex][3])
-
 				self.totalTimeToRotate = TIME_TO_ROTATE_POS
 				self.timeLeftToRotate = TIME_TO_ROTATE_POS
 			else:
@@ -75,6 +74,6 @@ class Entity(Sprite):
 			# screen.blit(pygame.transform.flip(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), self.flipH, False), camera.apply(self))
 			screen.blit(pygame.transform.flip(pygame.transform.rotate(\
 				self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]), self.angle), \
-				self.flipH, self.flipV), camera.apply(self))
+				self.flipH, self.flipV), camera.apply(self))										
 		else:
 			pygame.draw.rect(screen, 0xFFFFFF, camera.apply(self))

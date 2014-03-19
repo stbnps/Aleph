@@ -18,7 +18,10 @@ class Level(Scene):
 		Scene.__init__(self, director)
 		self.player = player
 		self.enemyGroup = EntityGroup([])
-		self.bulletGroup = EntityGroup([])
+		self.bulletGroup = EntityGroup([])	
+		self.groups = []
+		self.groups.append(self.enemyGroup)
+		self.groups.append(self.bulletGroup)		
 
 		self.bg = None
 		self.collisionBg = None
@@ -35,8 +38,8 @@ class Level(Scene):
 
 		if self.collisionBg != None:
 			self.player.update(time, self)
-			self.enemyGroup.update(time, self)
-			self.bulletGroup.update(time, self)
+			for group in self.groups:
+				group.update(time, self)
 
 		self.camera.update(self.player)
 
@@ -53,9 +56,10 @@ class Level(Scene):
 
 		if self.bg:
 			screen.blit(self.bg, self.camera.state)
-
-		self.enemyGroup.draw(screen, self.camera)
-		self.player.draw(screen, self.camera)
-		self.bulletGroup.draw(screen, self.camera)
+			
+		self.player.draw(screen, self.camera)	
+		for group in self.groups:
+			group.draw(screen, self.camera)
 		# TODO: move maps and characters to its own layer
 		Scene.draw(self, screen)  # draws rest of layers
+		

@@ -38,6 +38,7 @@ class HUD(Container):
         self.player = player
         self.originalPosition = self.position;
         self.lastEvent = None
+	self.newEvent = False
         
         
     def drawBars(self, ammount, initialColor, colorDecay):
@@ -71,7 +72,7 @@ class HUD(Container):
     
     
     def checkHide(self):       
-        if self.mouseOver and self.lastEvent.type == pygame.MOUSEBUTTONUP and self.newEvent:
+        if self.mouseOver and self.newEvent and self.lastEvent.type == pygame.MOUSEBUTTONUP:
             self.newEvent = False
             self.hidden = not self.hidden
             
