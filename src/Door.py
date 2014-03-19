@@ -16,7 +16,6 @@ class Door(Entity):
 		self.active = active
 		
 	def update(self, time, scene):
-		if pygame.sprite.spride
 		if self.active:
 			self.posImageIndex = 1	
 		
