@@ -16,3 +16,6 @@ class Weapon(Entity):
 		if clipRect:
 			self.rect = Rect(0, 0, clipRect.w, clipRect.h)
 			self.sheetCoord = [[clipRect]]
+
+	def update(self, time, char, scene):
+		pass

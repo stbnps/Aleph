@@ -32,19 +32,22 @@ class Character(Entity):
 		self.controller = None
 		self.equippedWpn = None
 		self.attacking = False
-		self.atk_cooldown = 0.0  # Starts without cooldown
+		self.atk_delay = 1.0  # Starts with cooldown. Trust me, it's better.
 		self.hp = 40
 		self.atk = 10
 
 		# To what point is the character trying to attack? Useful for ranged weapons.
 		self.atkX = 0
 		self.atkY = 0
+		
+		self.just_attacked = False
 
 		if not imageName:
 			self.rect = pygame.Rect(x, y, 15, 25)
 
 		# Needed for a better weapon placement
 		self.magicNumbers = magicNumbers
+		self.atk_speed = PLAYER_ATTACK_SPEED
 	
 
 	def get_atk(self):
@@ -90,26 +93,27 @@ class Character(Entity):
 	def update_attack_cooldown(self, time):
 		""" Reduces time remaining to next attack.
 		"""
+		
+		self.just_attacked = False
+		
 		if self.attacking:
-			self.atk_cooldown -= time * PLAYER_ATTACK_SPEED
+			self.atk_delay -= time * self.atk_speed
 		else:
-			self.atk_cooldown = 1.0
+			self.atk_delay = 1.0
+			
+		if self.atk_delay <= 0.0:
+			self.just_attacked = True
+			self.atk_delay = 1.0
 
 	def is_attacking(self):
 		""" Returns true if player is atacking.
 		"""
-		if self.can_attack() and self.attacking:
-			return True
-		else:
-			return False
+		return self.can_attack() and self.attacking
 
 	def can_attack(self):
 		""" Returns true when the character can attack
 		"""
-		if self.atk_cooldown <= 0.0:
-			return True
-		else:
-			return False
+		return self.just_attacked
 
 	def has_melee_weapon(self):
 		""" Returns true if the player has equipped melee weapons.

@@ -12,6 +12,7 @@ from Character import Character
 from PlayerController import PlayerController
 import pygame
 from Constants import POS_DOWN
+from Constants import *
 
 PLAYER_SPEED = 0.25
 TIME_TO_ROTATE_POS = 50
@@ -27,6 +28,7 @@ class Player(Character):
 
 		# Better collisions this way
 		self.rect.inflate_ip(-4, -6)
+		self.atk_speed = PLAYER_ATTACK_SPEED
 
 	def receive_attack(self, atk):
 		self.hp = self.hp - atk;
