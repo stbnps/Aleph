@@ -27,7 +27,7 @@ class Level(Scene):
 		self.collisionBg = None
 		self.camera = Camera()
 
-		self.HUD = HUD(self.director, (0, 467), True, player)
+		self.HUD = HUD(self.director, (0, 467), True)
 		hudLayer = Layer(self.director)
 		hudLayer.append(self.HUD)
 		self.layers.append(hudLayer)
