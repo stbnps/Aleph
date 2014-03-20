@@ -31,6 +31,8 @@ class EnemyController(Controller):
 
 		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
+			
+		self.character.attacking = True
 
 		if self.character.equippedWpn:
 			self.character.equippedWpn.update(time, self.character, scene)
@@ -41,7 +43,7 @@ class EnemyController(Controller):
 
 	def attack(self):
 		if self.collides_with_player() and self.character.can_attack():
-			self.player.receive_attack(self.character.atk) 
+			self.player.receive_attack(self.character.atk)
 
 	def check_melee_hit(self):
 		""" Returns true when been attacked with a melee weapon.
