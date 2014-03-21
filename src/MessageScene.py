@@ -27,6 +27,9 @@ class MessageScene(Scene):
         layer.append(self.messageBox)
         self.layers.append(layer)
 
+    def set_message(self, text):
+        self.messageBox.message = text
+
     def popScene(self):
         self.director.setScene(self.pausedScene)
 

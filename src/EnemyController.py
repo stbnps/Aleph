@@ -31,6 +31,7 @@ class EnemyController(Controller):
 
 		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
+			self.character.hp = self.character.hp - self.player.atk
 			
 		self.character.attacking = True
 
@@ -40,7 +41,6 @@ class EnemyController(Controller):
 		
 		self.attack()
 		
-
 	def attack(self):
 		if self.collides_with_player() and self.character.can_attack():
 			self.player.receive_attack(self.character.atk)
