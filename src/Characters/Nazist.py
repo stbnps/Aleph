@@ -7,7 +7,7 @@ Created on 16/03/2014
 '''
 
 from Enemy import Enemy
-from WpnRifle import WpnRifle
+from Weapons.WpnRifle import WpnRifle
 
 class Nazist(Enemy):
 	def __init__(self, x, y, player):

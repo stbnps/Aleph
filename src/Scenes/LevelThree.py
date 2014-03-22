@@ -6,20 +6,16 @@ Created on 15/02/2014
 @author: DaGal
 '''
 
+
 from Camera import *
-from Bullet import Bullet
-import pygame
-from Scene import Layer, Scene
-from Resources import load_image
-import Constants
-from Mr_H import Mr_H
-from Nazist import Nazist
-from WpnBlade import WpnBlade
-import MessageScene
-import HUD
-from EntityGroup import EntityGroup
+from Characters.Mr_H import Mr_H
+from Characters.Nazist import Nazist
 from Level import Level
 from LevelFour import LevelFour
+from Resources import load_image
+
+import Constants
+import pygame
 
 class LevelThree(Level):
 	def __init__(self, director, player):

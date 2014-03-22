@@ -8,7 +8,7 @@ Created on 03/03/2014
 
 from pygame import Rect, sprite
 from Weapon import Weapon
-from Character import isSolid, roundToInt
+from Characters.Character import isSolid, roundToInt
 import math
 
 BULLET_SPEED = 0.3

@@ -6,14 +6,15 @@ Created on 15/02/2014
 @author: DaGal
 '''
 
-from Camera import *
 import pygame
-from Resources import load_image
 import Constants
-from Wolf import Wolf
-from Newton import Newton
-from LevelThree import LevelThree
-from Level import Level
+from Camera import *
+
+from Resources import load_image
+from Characters.Wolf import Wolf
+from Characters.Newton import Newton
+from Scenes.LevelThree import LevelThree
+from Scenes.Level import Level
 
 
 class LevelTwo(Level):
