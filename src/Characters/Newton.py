@@ -7,7 +7,7 @@ Created on 16/03/2014
 '''
 
 from Enemy import Enemy
-from WpnGrenade import WpnGrenade
+from Weapons.WpnGrenade import WpnGrenade
 
 class Newton(Enemy):
 	def __init__(self, x, y, player):

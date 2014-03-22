@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
 
+
 from Camera import *
-from Bullet import Bullet
-import pygame
-from Scene import Layer, Scene
+from Level import Level
 from Resources import load_image
 import Constants
-from Enemy import Enemy
-from WpnBlade import WpnBlade
-import MessageScene
-import HUD
-from EntityGroup import EntityGroup
-from Level import Level
 
 class LevelFour(Level):
 	def __init__(self, director, player):

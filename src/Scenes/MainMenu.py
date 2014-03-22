@@ -1,18 +1,20 @@
 
-import pygame
-from Scene import Scene, Layer
-from Player import Player
-import ImageButton
+from Characters.Player import Player
 from Resources import load_image
-from WpnBlade import WpnBlade
-from WpnBow import WpnBow
-from WpnRifle import WpnRifle
-from WpnLaser import WpnLaser
-from WpnGrenade import WpnGrenade
-from LevelOneA import LevelOneA
+from Scenes.Layer import Layer
+from Scenes.LevelOneA import LevelOneA
+from Scenes.Scene import Scene
+from Ui import ImageButton
+from Weapons.WpnBlade import WpnBlade
+from Weapons.WpnBow import WpnBow
+from Weapons.WpnGrenade import WpnGrenade
+from Weapons.WpnLaser import WpnLaser
+from Weapons.WpnRifle import WpnRifle
+import pygame
 
 
 class MainMenu(Scene):
+
     def __init__(self, director):
         Scene.__init__(self, director)
         layer = Layer(director)
@@ -21,7 +23,8 @@ class MainMenu(Scene):
         newGameImage = load_image("new_game.png")
         buttonWidth = 214
         style = ImageButton.createImageButtonStyle(newGameImage, buttonWidth)
-        self.newGameButton = ImageButton.ImageButton(self.director, (60, 110), style)
+        self.newGameButton = ImageButton.ImageButton(
+            self.director, (60, 110), style)
         # Next Scene, we could do just self.newGameButton.onMouseDown = self.loadNewGame
         # put this way loadNewGame can take parameters too
         self.newGameButton.onMouseDown = lambda: self.loadNewGame()
@@ -31,11 +34,12 @@ class MainMenu(Scene):
 
     def loadNewGame(self):
         player = Player(200, 200, self.director)
-        player.setWeapon(WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
+        player.setWeapon(
+            WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
         # player.setWeapon(WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
-        #player.setWeapon(WpnRifle())
+        # player.setWeapon(WpnRifle())
         # player.setWeapon(WpnLaser())
-        #player.setWeapon(WpnGrenade())
+        # player.setWeapon(WpnGrenade())
         scene = LevelOneA(self.director, player)
         self.director.setScene(scene)
 

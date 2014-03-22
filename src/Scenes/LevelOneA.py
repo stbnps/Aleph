@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from Camera import *
-import pygame
-from Resources import load_image
 import Constants
+import pygame
+from Camera import *
+from Resources import load_image
 from EntityGroup import EntityGroup
 from Level import Level
 from LevelTwo import LevelTwo

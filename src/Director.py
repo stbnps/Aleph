@@ -6,11 +6,9 @@ Created on 03/03/2014
 @author: DaGal
 '''
 
-import pygame
-import sys
 from Camera import *
-from Player import Player
-from MainMenu import MainMenu
+from Scenes.MainMenu import MainMenu
+import pygame
 
 class Director():
 
