@@ -3,7 +3,7 @@
 
 from Camera import *
 from Level import Level
-from Resources import load_image
+from Resources import *
 import Constants
 
 class LevelFour(Level):
@@ -15,9 +15,13 @@ class LevelFour(Level):
 		self.bg = load_image("map_page_img.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("map_page_bg.png", Constants.BG_MAP_DIR)
 
-	#def processEvent(self, event):
-		#if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-			#nextLevel = LevelOne(self.director, self.player)
-			#self.director.setScene(nextLevel)
+		load_music("level_four.s3m")
+		pygame.mixer.music.set_volume(0.5)
+		pygame.mixer.music.play(loops=-1)
 
-		#Level.processEvent(self, event)
+	# def processEvent(self, event):
+		# if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+			# nextLevel = LevelOne(self.director, self.player)
+			# self.director.setScene(nextLevel)
+
+		# Level.processEvent(self, event)

@@ -10,7 +10,7 @@ import pygame
 import Constants
 from Camera import *
 
-from Resources import load_image
+from Resources import *
 from Characters.Wolf import Wolf
 from Characters.Newton import Newton
 from Scenes.LevelThree import LevelThree
@@ -39,6 +39,10 @@ class LevelTwo(Level):
         self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
         self.collisionBg = load_image(
             "map_newton_bg.png", Constants.BG_MAP_DIR)
+
+        load_music("level_two.s3m")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(loops=-1)
 
     def processEvent(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:

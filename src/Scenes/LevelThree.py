@@ -12,7 +12,7 @@ from Characters.Mr_H import Mr_H
 from Characters.Nazist import Nazist
 from Level import Level
 from LevelFour import LevelFour
-from Resources import load_image
+from Resources import *
 
 import Constants
 import pygame
@@ -39,10 +39,14 @@ class LevelThree(Level):
 
 		self.bg = load_image("mapa_h.png", Constants.MAP_DIR)
 		self.collisionBg = load_image("mapa_h_bg.png", Constants.BG_MAP_DIR)
-		
+
+		load_music("level_three.xm")
+		pygame.mixer.music.set_volume(0.5)
+		pygame.mixer.music.play(loops=-1)
+
 	def processEvent(self, event):
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
 			nextLevel = LevelFour(self.director, self.player)
 			self.director.setScene(nextLevel)
-			
-		Level.processEvent(self, event)	
+
+		Level.processEvent(self, event)

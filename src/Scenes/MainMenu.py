@@ -1,6 +1,6 @@
 
 from Characters.Player import Player
-from Resources import load_image
+from Resources import *
 from Scenes.Layer import Layer
 from Scenes.LevelOneA import LevelOneA
 from Scenes.Scene import Scene
@@ -29,8 +29,12 @@ class MainMenu(Scene):
         # put this way loadNewGame can take parameters too
         self.newGameButton.onMouseDown = lambda: self.loadNewGame()
         layer.append(self.newGameButton)
-
         self.layers.append(layer)
+
+        load_music("menu.xm")
+        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.play(loops=-1)
+
 
     def loadNewGame(self):
         player = Player(200, 200, self.director)

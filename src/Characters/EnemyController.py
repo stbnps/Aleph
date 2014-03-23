@@ -32,15 +32,15 @@ class EnemyController(Controller):
 		if self.check_melee_hit():
 			print "%s man dao una ostia!" % self
 			self.character.hp = self.character.hp - self.player.atk
-			
-		self.character.attacking = True
+
+		# self.character.attacking = True
 
 		if self.character.equippedWpn:
 			self.character.equippedWpn.update(time, self.character, scene)
 			self.character.update_attack_cooldown(time)
-		
+
 		self.attack()
-		
+
 	def attack(self):
 		if self.collides_with_player() and self.character.can_attack():
 			self.player.receive_attack(self.character.atk)
@@ -55,7 +55,7 @@ class EnemyController(Controller):
 		""" Returns true if the enemy overlaps the player.
 			Note: It has a small 30 u. margin
 		"""
-			
+
 		overlaps_y = abs(self.player.rect.y - self.character.rect.y) < 30
 		overlaps_x = abs(self.player.rect.x - self.character.rect.x) < 30
 		return  overlaps_x and overlaps_y
@@ -91,6 +91,10 @@ class EnemyController(Controller):
 
 			self.character.speedX = delta_x * coef
 			self.character.speedY = delta_y * coef
+			self.character.attacking = False
+		else:
+			self.character.attacking = True
+
 
 		return True
 
@@ -132,9 +136,9 @@ class EnemyController(Controller):
 
 	def move_behavior(self, time, collisionMap, scene):
 		if not self.follow_player(time, collisionMap):
-			self.random_move(time, collisionMap)	
+			self.random_move(time, collisionMap)
 
-		self.avoid_enemy_overlap(scene)	
+		self.avoid_enemy_overlap(scene)
 
 		self.update_pos(self.character.speedX, self.character.speedY)
 		self.character.rotatePosImage(time)

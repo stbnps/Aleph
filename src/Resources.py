@@ -1,15 +1,14 @@
-
 import pygame
 import os
 import Constants
 
 # Memory
-loadedImages = {}
+loadedResources = {}
 
 def load_image(name, path=Constants.IMAGE_DIR, colorkey=None):
 	fullname = os.path.join(path , name)
 
-	image = loadedImages.get(fullname)
+	image = loadedResources.get(fullname)
 	if image:
 		return image
 
@@ -27,9 +26,26 @@ def load_image(name, path=Constants.IMAGE_DIR, colorkey=None):
 	else:
 		image = image.convert_alpha()
 
-	loadedImages[fullname] = image
+	loadedResources[fullname] = image
 	return image
 
 
+def load_music(name, path=Constants.MUSIC_DIR):
+	fullname = os.path.join(path, name)
+
+	music = loadedResources.get(fullname)
+
+	if music:
+		return music
+
+	try:
+		music = pygame.mixer.music.load(fullname)
+	except pygame.error, message:
+		print "Cannot load music: ", fullname
+		raise SystemExit, message
+
+	loadedResources[fullname] = music
+	return music
+
 def clearResources():
-	loadedImages.clear()
+	loadedResources.clear()
