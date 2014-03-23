@@ -8,7 +8,7 @@ Created on 16/03/2014
 
 from pygame import Rect
 from Bullet import Bullet
-from Character import isSolid, roundToInt
+from Characters.Character import isSolid, roundToInt
 from Explosion import Explosion
 
 GRENADE_SPEED = 0.3

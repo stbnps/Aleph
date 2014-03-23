@@ -6,7 +6,7 @@ Created on 16/03/2014
 @author: DaGal
 '''
 
-from WpnBite import WpnBite
+from Weapons.WpnBite import WpnBite
 from Enemy import Enemy
 
 class Wolf(Enemy):

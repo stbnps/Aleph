@@ -6,12 +6,13 @@ Created on 15/03/2014
 @author: DaGal
 '''
 
-from Scene import Scene, Layer
+import pygame
+from Scene import Scene 
+from Layer import Layer
+from MessageScene import MessageScene
 from EntityGroup import EntityGroup
 from Camera import Camera
-from HUD import HUD
-import pygame
-from MessageScene import MessageScene
+from Ui.HUD import HUD
 
 
 class Level(Scene):
