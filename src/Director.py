@@ -13,6 +13,7 @@ import pygame
 class Director():
 
 	def __init__(self):
+		pygame.mixer.pre_init(frequency=44100)
 		pygame.init()
 		self.screen = pygame.display.set_mode((SCREEN_W, SCREEN_H), 0, 32)
 		pygame.display.set_caption("Aleph")

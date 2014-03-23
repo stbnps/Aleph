@@ -8,7 +8,8 @@ MAP_DIR = '../media/maps/compiled_maps/'
 BG_MAP_DIR = '../media/maps/background_maps/'
 SPRITES_DIR = "../media/sprites/"
 FONTS_DIR = "../media/fonts/"
-
+MUSIC_DIR = "../media/music/"
+SOUND_DIR = "../media/sound/"
 
 SCREEN_W = 800
 SCREEN_H = 600
