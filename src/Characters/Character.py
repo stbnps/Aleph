@@ -103,8 +103,8 @@ class Character(Entity):
             self.atk_delay -= time * self.atk_speed
         else:
             self.atk_delay = 1.0
-            if self.has_melee_weapon():
-                self.equippedWpn.stopSound()
+            # if self.has_melee_weapon():
+                # self.equippedWpn.stopSound()
 
         if self.atk_delay <= 0.0:
             self.just_attacked = True

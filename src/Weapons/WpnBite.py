@@ -11,5 +11,5 @@ from pygame import Rect
 
 class WpnBite(Weapon):
 	def __init__(self, imageName=None, colorkey=None, clipRect=None, *args):
-		Weapon.__init__(self)
+		Weapon.__init__(self, sound="wolf_bite.wav")
 		self.melee = True
