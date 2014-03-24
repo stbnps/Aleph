@@ -13,6 +13,9 @@ from Characters.Nazist import Nazist
 from Level import Level
 from LevelFour import LevelFour
 from Resources import *
+from Weapons.WpnGrenade import WpnGrenade
+from Weapons.WpnRifle import WpnRifle
+
 
 import Constants
 import pygame
@@ -43,6 +46,8 @@ class LevelThree(Level):
 		load_music("level_three.xm")
 		pygame.mixer.music.set_volume(0.25)
 		pygame.mixer.music.play(loops=-1)
+
+		player.setWeapons([WpnGrenade(), WpnRifle()])
 
 	def processEvent(self, event):
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:

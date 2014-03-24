@@ -8,6 +8,7 @@ from LevelTwo import LevelTwo
 from Level import Level
 
 
+
 class LevelOneB(Level):
 
     def __init__(self, director, player):
@@ -15,7 +16,7 @@ class LevelOneB(Level):
         self.player.rect.x = 381
         self.player.rect.y = 610
         # self.enemyGroup.add([Legionnaire(987, 768, self.player),
-                                                #Legionnaire(1083, 768, self.player),
+                                                # Legionnaire(1083, 768, self.player),
                                                 # Legionnaire(1119, 768,
                                                 # self.player)])
 

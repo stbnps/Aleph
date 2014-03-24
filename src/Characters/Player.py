@@ -33,6 +33,10 @@ class Player(Character):
         self.rect.inflate_ip(-4, -6)
         self.atk_speed = PLAYER_ATTACK_SPEED
 
+        self.selectedWpnNum = 0
+        self.totalWpns = 0
+        self.weapons = []
+
     def receive_attack(self, atk):
         self.hp = self.hp - atk
         print "OUCH!" + str(self.hp)
@@ -40,3 +44,8 @@ class Player(Character):
     def check_died(self, scene):
         if self.hp <= 0:
             scene.game_over()
+
+    def setWeapons(self, weapons):
+        self.weapons = weapons
+        self.totalWpns = len(weapons)
+        self.setWeapon(weapons[self.selectedWpnNum])

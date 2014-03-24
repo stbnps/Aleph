@@ -5,6 +5,9 @@ from Camera import *
 from Level import Level
 from Resources import *
 import Constants
+from Weapons.WpnBlade import WpnBlade
+from Weapons.WpnLaser import WpnLaser
+
 
 class LevelFour(Level):
 	def __init__(self, director, player):
@@ -18,6 +21,9 @@ class LevelFour(Level):
 		load_music("level_four.s3m")
 		pygame.mixer.music.set_volume(0.5)
 		pygame.mixer.music.play(loops=-1)
+
+		player.setWeapons([WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42), "sthswng1.wav", 0.2), \
+						  WpnLaser()])
 
 	# def processEvent(self, event):
 		# if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:

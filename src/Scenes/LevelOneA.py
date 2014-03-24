@@ -8,6 +8,8 @@ from EntityGroup import EntityGroup
 from Level import Level
 from LevelTwo import LevelTwo
 from Door import Door
+from Weapons.WpnBlade import WpnBlade
+from Weapons.WpnBow import WpnBow
 
 
 class LevelOneA(Level):
@@ -33,6 +35,9 @@ class LevelOneA(Level):
         load_music("level_one.it")
         pygame.mixer.music.set_volume(1)
         pygame.mixer.music.play(loops=-1)
+
+        player.setWeapons([WpnBlade("wpns2.png", -1, pygame.Rect(344, 342, 28, 28), "blade_swing.wav", 0.5), \
+                          WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24))])
 
     def processEvent(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
