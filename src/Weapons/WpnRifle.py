@@ -14,7 +14,7 @@ from pygame import Rect
 
 class WpnRifle(Weapon):
 	def __init__(self):
-		Weapon.__init__(self, "wpns-modern2.png", -1, Rect(48, 28, 24, 17))
+		Weapon.__init__(self, "wpns-modern2.png", -1, Rect(48, 28, 24, 17), "bullet_shot.ogg", 0.5)
 		self.sheetCoord[0].append(pygame.Rect(82, 25, 26, 20))
 		self.cooldown = 0
 
@@ -61,3 +61,4 @@ class WpnRifle(Weapon):
 										 "bullet.png", -1, Rect(10, 10, 5, 5))])
 			self.cooldown = BOW_COOLDOWN
 			self.posImageIndex = 1
+			self.playSound()

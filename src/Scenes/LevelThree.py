@@ -41,7 +41,7 @@ class LevelThree(Level):
 		self.collisionBg = load_image("mapa_h_bg.png", Constants.BG_MAP_DIR)
 
 		load_music("level_three.xm")
-		pygame.mixer.music.set_volume(0.5)
+		pygame.mixer.music.set_volume(0.25)
 		pygame.mixer.music.play(loops=-1)
 
 	def processEvent(self, event):

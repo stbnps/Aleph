@@ -35,14 +35,16 @@ class Bullet(Weapon):
 		self.rect.y = roundToInt(self.floatY)
 
 		if isSolid(scene.collisionBg, self.rect.x, self.rect.y):
-			scene.bulletGroup.remove(self)	
-		
+			scene.bulletGroup.remove(self)
+
 		self.kill_people(scene)
 
 
 	def kill_people(self, scene):
 		hitted_players = sprite.spritecollide(self, scene.enemyGroup, False)
-		#scene.bulletGroup.remove(self)		
+		# scene.bulletGroup.remove(self)
 		for player in hitted_players:
-			player.hit_by_bullet(self.atk)	
-		
+			player.hit_by_bullet(self.atk)
+			# A bullet should not be capable of going through an infinite amount of bodies
+			scene.bulletGroup.remove(self)
+

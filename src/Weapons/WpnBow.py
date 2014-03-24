@@ -14,7 +14,7 @@ from pygame import Rect
 
 class WpnBow(Weapon):
 	def __init__(self, imageName=None, colorkey=None, clipRect=None):
-		Weapon.__init__(self, imageName, colorkey, clipRect)
+		Weapon.__init__(self, imageName, colorkey, clipRect, "bow_shot.wav")
 		self.cooldown = 0
 
 	def update(self, time, char, scene):
@@ -56,3 +56,4 @@ class WpnBow(Weapon):
 			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
 										 "arrow.png", -1, Rect(88, 28, 16, 7))])
 			self.cooldown = BOW_COOLDOWN
+			self.playSound()

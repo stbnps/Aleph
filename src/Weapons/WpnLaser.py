@@ -14,7 +14,7 @@ from pygame import Rect
 
 class WpnLaser(Weapon):
 	def __init__(self):
-		Weapon.__init__(self, "sw_weapons.png", -1, Rect(78, 24, 15, 18))
+		Weapon.__init__(self, "sw_weapons.png", -1, Rect(78, 24, 15, 18), "laser_shot.wav", 0.5)
 		self.sheetCoord[0].append(Rect(132, 21, 16, 20))
 		self.cooldown = 0
 
@@ -61,3 +61,4 @@ class WpnLaser(Weapon):
 										 "sw_weapons.png", -1, Rect(87, 349, 18, 5))])
 			self.cooldown = BOW_COOLDOWN
 			self.posImageIndex = 1
+			self.playSound()

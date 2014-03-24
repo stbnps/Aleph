@@ -39,10 +39,11 @@ class MainMenu(Scene):
     def loadNewGame(self):
         player = Player(200, 200, self.director)
         player.setWeapon(
-            WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42)))
-        # player.setWeapon(WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
-        # player.setWeapon(WpnRifle())
-        # player.setWeapon(WpnLaser())
+        # WpnBlade("wpns2.png", -1, pygame.Rect(344, 342, 28, 28), "blade_swing.wav", 0.5))
+        # WpnBlade("lightsaber.png", -1, pygame.Rect(128, 77, 42, 42), "sthswng1.wav", 0.2))
+        # WpnBow("items-1.png", None, pygame.Rect(0, 24, 24, 24)))
+        # WpnRifle())
+        WpnLaser())
         # player.setWeapon(WpnGrenade())
         scene = LevelOneA(self.director, player)
         self.director.setScene(scene)
