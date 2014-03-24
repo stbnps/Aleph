@@ -47,5 +47,23 @@ def load_music(name, path=Constants.MUSIC_DIR):
 	loadedResources[fullname] = music
 	return music
 
+
+def load_sound(name, path=Constants.SOUND_DIR):
+	fullname = os.path.join(path, name)
+
+	sound = loadedResources.get(fullname)
+
+	if sound:
+		return sound
+
+	try:
+		sound = pygame.mixer.Sound(fullname)
+	except pygame.error, message:
+		print "Cannot load sound: ", fullname
+		raise SystemExit, message
+
+	loadedResources[fullname] = sound
+	return sound
+
 def clearResources():
 	loadedResources.clear()

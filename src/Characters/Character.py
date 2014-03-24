@@ -97,9 +97,14 @@ class Character(Entity):
         self.just_attacked = False
 
         if self.attacking:
+            if self.atk_delay == 1.0 and self.has_melee_weapon():
+                self.equippedWpn.playSound()
+
             self.atk_delay -= time * self.atk_speed
         else:
             self.atk_delay = 1.0
+            if self.has_melee_weapon():
+                self.equippedWpn.stopSound()
 
         if self.atk_delay <= 0.0:
             self.just_attacked = True
@@ -118,8 +123,7 @@ class Character(Entity):
     def has_melee_weapon(self):
         """ Returns true if the player has equipped melee weapons.
         """
-        # De momento siempre tenemos la espadita.
-        return True
+        return self.equippedWpn and self.equippedWpn.melee
 
     def has_distance_weapon(self):
         """ Returns true if the player has equipped distance weapons.

@@ -11,10 +11,11 @@ from Constants import *
 import math
 
 class WpnBlade(Weapon):
-	def __init__(self, imageName=None, colorkey=None, clipRect=None):
-		Weapon.__init__(self, imageName, colorkey, clipRect)
+	def __init__(self, imageName=None, colorkey=None, clipRect=None, sound=None, soundVolume=1):
+		Weapon.__init__(self, imageName, colorkey, clipRect, sound, soundVolume)
 		self.attackAngle = 0
 		self.hip = math.sqrt(self.rect.w * self.rect.w + self.rect.h * self.rect.h)
+		self.melee = True
 
 	def update(self, time, char, scene):
 		self.rect.clamp_ip(char.rect)

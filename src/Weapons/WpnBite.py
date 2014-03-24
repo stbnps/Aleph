@@ -12,3 +12,4 @@ from pygame import Rect
 class WpnBite(Weapon):
 	def __init__(self, imageName=None, colorkey=None, clipRect=None, *args):
 		Weapon.__init__(self)
+		self.melee = True
