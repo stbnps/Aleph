@@ -15,6 +15,9 @@ from Characters.Wolf import Wolf
 from Characters.Newton import Newton
 from Scenes.LevelThree import LevelThree
 from Scenes.Level import Level
+from Weapons.WpnBlade import WpnBlade
+from Weapons.WpnRifle import WpnRifle
+
 
 
 class LevelTwo(Level):
@@ -43,6 +46,9 @@ class LevelTwo(Level):
         load_music("level_two.s3m")
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(loops=-1)
+
+        player.setWeapons([WpnBlade("wpns2.png", -1, pygame.Rect(440, 278, 26, 26), "blade_swing.wav", 0.5), \
+                          WpnRifle()])
 
     def processEvent(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
