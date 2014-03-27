@@ -39,6 +39,7 @@ class Player(Character):
 
     def receive_attack(self, atk):
         self.hp = self.hp - atk
+        self.director.scene.danger = True
         print "OUCH!" + str(self.hp)
 
     def check_died(self, scene):

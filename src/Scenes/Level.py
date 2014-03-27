@@ -35,9 +35,16 @@ class Level(Scene):
         hudLayer.append(self.HUD)
         self.layers.append(hudLayer)
         self.mouseHoveringHUD = False
+        
+        self.danger = False
+        self.dangerLevel = 0
 
     def update(self, time):
         Scene.update(self, time)
+        
+        if self.danger:
+            self.dangerLevel = 210
+            self.danger = False
 
         if self.collisionBg != None:
             self.player.update(time, self)
@@ -53,6 +60,14 @@ class Level(Scene):
 
         self.player.controller.processEvent(event)
         Scene.processEvent(self, event)
+        
+    def drawDanger(self, screen):
+        if self.dangerLevel > 0:    
+            s = pygame.Surface((1000,750))  # the size of your rect
+            s.set_alpha(self.dangerLevel)                # alpha level
+            s.fill((255, 0, 0))           # this fills the entire surface
+            screen.blit(s, (0,0))
+            self.dangerLevel -= 10
 
     def draw(self, screen):
         screen.fill(0x000000)
@@ -63,6 +78,7 @@ class Level(Scene):
         self.player.draw(screen, self.camera)
         for group in self.groups:
             group.draw(screen, self.camera)
+        self.drawDanger(screen);
         # TODO: move maps and characters to its own layer
         Scene.draw(self, screen)  # draws rest of layers
 
