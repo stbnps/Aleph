@@ -7,6 +7,9 @@ from Constants import *
 
 
 class Enemy(Character):
+	"""
+	Contains logic for all kinds of enemies.
+	"""
 
     def __init__(self, x, y, imageName, colorkey, coordsName, numImages, player, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
         Character.__init__(
@@ -16,5 +19,8 @@ class Enemy(Character):
         self.atk_speed = ENEMY_ATTACK_SPEED
 
     def check_died(self, scene):
+    	"""
+    	Check whether the enemy has died.
+    	"""
         if self.hp <= 0:
             scene.enemyGroup.remove(self)

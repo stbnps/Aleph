@@ -3,31 +3,43 @@
 from Constants import *
 
 class Controller():
+	"""
+	Abstract class that contains the logic to control a Character behavior.
+	"""
 
 	def __init__(self, character, director = None):
 		self.character = character
 		self.director = director
 
 	def update(self, time, scene):
+		"""
+		Updates the state.
+		"""
 		pass
 
 	def processEvent(self, event):
+		"""
+		Processes a pygame event.
+		"""
 		pass
 
-	def update_pos(self, delta_x, delta_y):
-		if delta_x > 0:
-			if abs(delta_x) > abs(delta_y):
+	def update_pos(self, speed_x, speed_y):
+		"""
+		Sets position of the sprite given Character's speed.
+		"""
+		if speed_x > 0:
+			if abs(speed_x) > abs(speed_y):
 				self.character.posIndex = POS_RIGHT
 			else:
-				if delta_y > 0:
+				if speed_y > 0:
 					self.character.posIndex = POS_DOWN
 				else:
 					self.character.posIndex = POS_UP
 		else:
-			if abs(delta_x) > abs(delta_y):
+			if abs(speed_x) > abs(speed_y):
 				self.character.posIndex = POS_LEFT
 			else:
-				if delta_y > 0:
+				if speed_y > 0:
 					self.character.posIndex = POS_DOWN
 				else:
 					self.character.posIndex = POS_UP

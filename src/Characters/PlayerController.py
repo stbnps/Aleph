@@ -6,12 +6,18 @@ from Constants import *
 import math
 
 class PlayerController(Controller):
+	"""
+	This class contains the logic to manage main Player's behavior.
+	"""
 
 	def __init__(self, player, director):
 		Controller.__init__(self, player, director)
 		self.player_speed = 0.25
 
 	def update(self, time, scene):
+		"""
+		Updates the state of the Player.
+		"""
 		keys = pygame.key.get_pressed()
 		self.character.speedX = 0
 		self.character.speedY = 0
@@ -72,6 +78,12 @@ class PlayerController(Controller):
 			self.character.update_attack_cooldown(time)
 
 	def processEvent(self, event):
-		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and (self.character.totalWpns > 0):
-			self.character.selectedWpnNum = (self.character.selectedWpnNum + 1) % self.character.totalWpns
+		"""
+		Process pygame events.
+		"""
+		if event.type == pygame.MOUSEBUTTONDOWN and \
+		   event.button == 3 and \
+		   (self.character.totalWpns > 0):
+			self.character.selectedWpnNum = \
+				(self.character.selectedWpnNum + 1) % self.character.totalWpns
 			self.character.setWeapon(self.character.weapons[self.character.selectedWpnNum])

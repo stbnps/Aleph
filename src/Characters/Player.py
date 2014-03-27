@@ -18,6 +18,9 @@ TIME_TO_ROTATE_POS = 50
 
 
 class Player(Character):
+    """
+    Contains logic for main Player.
+    """
 
     def __init__(self, x, y, director):
         Character.__init__(self, x, y, "player-alt.png", -1,
@@ -38,14 +41,23 @@ class Player(Character):
         self.weapons = []
 
     def receive_attack(self, atk):
+        """
+        Reacts to an attack.
+        """
         self.hp = self.hp - atk
         print "OUCH!" + str(self.hp)
 
     def check_died(self, scene):
+        """
+        Checks whether the Player has died.
+        """
         if self.hp <= 0:
             scene.game_over()
 
     def setWeapons(self, weapons):
+        """
+        Sets player's weapons.
+        """
         self.weapons = weapons
         self.totalWpns = len(weapons)
         self.setWeapon(weapons[self.selectedWpnNum])

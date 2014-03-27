@@ -11,6 +11,9 @@ from Weapons.WpnRifle import WpnRifle
 
 
 class Mr_H(Enemy):
+	"""
+	Contains logic for Mr_H enemy.
+	"""
 
     def __init__(self, x, y, player):
         Enemy.__init__(self, x, y, "mr_h.png", -1, "coordMr_h.txt", [
