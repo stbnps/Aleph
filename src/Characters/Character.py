@@ -7,11 +7,16 @@ import os
 
 
 def roundToInt(f):
-    # Is there some workaround for this stupid thing?
+    """
+    Rounds a float and casts it to int.
+    """
     return int(round(f))
 
 
 def isSolid(collisionMap, x, y):
+    """
+    Checks whether a point (x, y) is collidable.
+    """
     x = roundToInt(x)
     y = roundToInt(y)
 
@@ -24,6 +29,9 @@ def isSolid(collisionMap, x, y):
 
 
 class Character(Entity):
+    """
+    Contains logic for each character in the game.
+    """
 
     def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
         Entity.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
@@ -51,16 +59,21 @@ class Character(Entity):
         self.atk_speed = PLAYER_ATTACK_SPEED
 
     def get_atk(self):
-        """ Returns the attack power.
+        """ 
+        Returns the attack power.
         """
         return self.atk
 
     def get_hp(self):
-        """ Returns Character life points.
+        """ 
+        Returns Character life points.
         """
         return self.hp
 
     def move(self, time, scene):
+        """
+        Moves the character according to the speed and the and time elapsed.
+        """
         collisionMap = scene.collisionBg
         shiftX = self.speedX * time
         shiftY = self.speedY * time
@@ -76,10 +89,16 @@ class Character(Entity):
         self.rect.move_ip(shiftX, shiftY)
 
     def setWeapon(self, weapon):
+        """
+        Equips the given weapon.
+        """
         self.equippedWpn = weapon
         weapon.rect.clamp_ip(self.rect)
 
     def update(self, time, scene):
+        """
+        Updates state of the character.
+        """
         if self.controller:
             self.controller.update(time, scene)
         self.check_died(scene)
@@ -91,7 +110,8 @@ class Character(Entity):
             self.equippedWpn.draw(screen, camera)
 
     def update_attack_cooldown(self, time):
-        """ Reduces time remaining to next attack.
+        """ 
+        Reduces time remaining to next attack.
         """
 
         self.just_attacked = False
@@ -111,28 +131,33 @@ class Character(Entity):
             self.atk_delay = 1.0
 
     def is_attacking(self):
-        """ Returns true if player is atacking.
+        """ 
+        Returns true if player is atacking.
         """
         return self.can_attack() and self.attacking
 
     def can_attack(self):
-        """ Returns true when the character can attack
+        """ 
+        Returns true when the character can attack
         """
         return self.just_attacked
 
     def has_melee_weapon(self):
-        """ Returns true if the player has equipped melee weapons.
+        """ 
+        Returns true if the player has equipped melee weapons.
         """
         return self.equippedWpn and self.equippedWpn.melee
 
     def has_distance_weapon(self):
-        """ Returns true if the player has equipped distance weapons.
+        """ 
+        Returns true if the player has equipped distance weapons.
         """
         # De momento si es a distancia no puede ser cuerpo a cuerpo.
         return not self.has_melee_weapon()
 
     def is_colliding_x(self, collisionMap, rectX):
-        """ Returns true if collides in x axis.
+        """ 
+        Returns true if collides in x axis.
         """
         return  isSolid(collisionMap, rectX.x, rectX.y) or\
             isSolid(collisionMap, rectX.x, rectX.bottom) or\
@@ -142,7 +167,8 @@ class Character(Entity):
             isSolid(collisionMap, rectX.right, rectX.centery)
 
     def is_colliding_y(self, collisionMap, rectY):
-        """ Returns true if collides in y axis.
+        """ 
+        Returns true if collides in y axis.
         """
         return isSolid(collisionMap, rectY.x, rectY.y) or\
             isSolid(collisionMap, rectY.x, rectY.bottom) or\
@@ -152,6 +178,9 @@ class Character(Entity):
             isSolid(collisionMap, rectY.centerx, rectY.bottom)
 
     def will_collide(self, time, collisionMap):
+        """
+        Checks whether a player will collide in the next frame with the present speed.
+        """
         shiftX = self.speedX * time
         shiftY = self.speedY * time
         rectX = self.rect.move(shiftX, 0)
@@ -165,10 +194,14 @@ class Character(Entity):
             return False
 
     def hit_by_bullet(self, atk=10):
-        """Called when a bullet its the character
+        """
+        Called when a bullet its the character.
         """
         self.hp = self.hp - atk
         print "OUCH; a bullet"
 
     def check_died(self, scene):
+        """
+        Abstract method that checks whether the Character has died.
+        """
         pass
