@@ -15,9 +15,9 @@ class Mr_H(Enemy):
 	Contains logic for Mr_H enemy.
 	"""
 
-    def __init__(self, x, y, player):
-        Enemy.__init__(self, x, y, "mr_h.png", -1, "coordMr_h.txt", [
+	def __init__(self, x, y, player):
+		Enemy.__init__(self, x, y, "mr_h.png", -1, "coordMr_h.txt", [
                        3, 3, 3, 3], player, (0, 10, 6, 10, 6, 4, 6, 8))
 
-        # Maybe another kind of weapon?
-        self.setWeapon(WpnRifle())
+		# Maybe another kind of weapon?
+		self.setWeapon(WpnRifle())
