@@ -26,18 +26,18 @@ class LevelThree(Level):
 		self.player.rect.x = 766
 		self.player.rect.y = 82
 
-		self.enemyGroup.add([Nazist(640, 140, self.player),
-							Nazist(640, 176, self.player),
-							Nazist(688, 18, self.player),
-							Nazist(524, 51, self.player),
-							Nazist(524, 140, self.player),
-							Nazist(345, 46, self.player),
-							Nazist(345, 70, self.player),
-							Nazist(345, 100, self.player),
-							Nazist(140, 145, self.player),
-							Nazist(140, 175, self.player),
-							Nazist(185, 10, self.player),
-							Mr_H(27, 48, self.player)])
+		self.enemyGroup.add([Nazist(640, 140, self.player, director),
+							Nazist(640, 176, self.player, director),
+							Nazist(688, 18, self.player, director),
+							Nazist(524, 51, self.player, director),
+							Nazist(524, 140, self.player, director),
+							Nazist(345, 46, self.player, director),
+							Nazist(345, 70, self.player, director),
+							Nazist(345, 100, self.player, director),
+							Nazist(140, 145, self.player, director),
+							Nazist(140, 175, self.player, director),
+							Nazist(185, 10, self.player, director),
+							Mr_H(27, 48, self.player, director)])
 
 
 		self.bg = load_image("mapa_h.png", Constants.MAP_DIR)

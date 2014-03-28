@@ -17,8 +17,8 @@ class EnemyController(Controller):
 	current_direction = POS_UP
 	previous_x = 0
 
-	def __init__(self, enemy, player):
-		Controller.__init__(self, enemy)
+	def __init__(self, enemy, player, director):
+		Controller.__init__(self, enemy, director)
 		self.player = player
 		self.enemy_speed = 0.10
 		self.ttl = 0
@@ -84,6 +84,26 @@ class EnemyController(Controller):
 
 		return distance < detection_range
 
+	def checkRaytracing(self):
+
+		collisionMap_mask = pygame.mask.from_surface(self.director.scene.collisionBg)
+		
+
+		s = pygame.Surface((800,600))
+
+		pygame.draw.line(s, (255,255,255), \
+			(self.player.rect.x + self.director.scene.camera.state.x, \
+		     self.player.rect.y + self.director.scene.camera.state.y), \
+			(self.character.rect.x + self.director.scene.camera.state.x, \
+		     self.character.rect.y + self.director.scene.camera.state.y))
+
+		line_mask = pygame.mask.from_surface(s)
+		
+		overlap = collisionMap_mask.overlap_area(line_mask, (self.director.scene.camera.state.x, self.director.scene.camera.state.y))
+		print overlap
+		if overlap > 3:
+			return False
+		return True
 
 	def follow_player(self, time, collisionMap):
 		""" 
@@ -97,6 +117,11 @@ class EnemyController(Controller):
 
 		if (distance > DETECTION_RANGE):
 			return False
+		
+		# Detect if the player is visible using raytracing
+		if not self.checkRaytracing():
+			return False
+		
 
 		# Move enemy
 		if distance > 20:

@@ -26,18 +26,18 @@ class LevelTwo(Level):
         Level.__init__(self, director, player)
         self.player.rect.x = 200
         self.player.rect.y = 200
-        self.enemyGroup.add([Wolf(300, 280, self.player),
-                             Wolf(281, 72, self.player),
-                             Wolf(422, 57, self.player),
-                             Wolf(737, 160, self.player),
-                             Wolf(737, 190, self.player),
-                             Wolf(300, 280, self.player),
-                             Wolf(500, 380, self.player),
-                             Wolf(315, 495, self.player),
-                             Wolf(217, 662, self.player),
-                             Wolf(572, 666, self.player),
-                             Wolf(917, 413, self.player),
-                             Newton(896, 851, self.player)])
+        self.enemyGroup.add([Wolf(300, 280, self.player, director),
+                             Wolf(281, 72, self.player, director),
+                             Wolf(422, 57, self.player, director),
+                             Wolf(737, 160, self.player, director),
+                             Wolf(737, 190, self.player, director),
+                             Wolf(300, 280, self.player, director),
+                             Wolf(500, 380, self.player, director),
+                             Wolf(315, 495, self.player, director),
+                             Wolf(217, 662, self.player, director),
+                             Wolf(572, 666, self.player, director),
+                             Wolf(917, 413, self.player, director),
+                             Newton(896, 851, self.player, director)])
 
         self.bg = load_image("map_newton_img.png", Constants.MAP_DIR)
         self.collisionBg = load_image(

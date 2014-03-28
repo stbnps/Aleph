@@ -33,8 +33,9 @@ class Character(Entity):
     Contains logic for each character in the game.
     """
 
-    def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
+    def __init__(self, x, y, imageName=None, colorkey=None, coordsName=None, numImages=None, director = None, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), *args):
         Entity.__init__(self, x, y, imageName, colorkey, coordsName, numImages)
+        self.director = None
         self.speedX = 0
         self.speedY = 0
         self.controller = None

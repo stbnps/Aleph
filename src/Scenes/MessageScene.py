@@ -36,6 +36,7 @@ class MessageScene(Scene):
     def popScene(self):
         self.director.setScene(self.pausedScene)
 
+
     '''
     The teacher wont allow us the use of any "external library" so I tried to 
     implement a simple convolution, sadly it runs extremely slow
