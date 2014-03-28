@@ -88,24 +88,32 @@ class Level(Scene):
         
         surf = self.director.screen
 
-        collisionMap_mask = pygame.mask.from_surface(self.collisionBg)
-        surf_mask = pygame.mask.from_surface(surf)
-        overlap = collisionMap_mask.overlap_area(surf_mask, (0, 0))
-        print overlap
+        collisionBg = self.collisionBg.convert()
+        collisionBg.set_colorkey((0,0,0))              
+        collisionMap_mask = pygame.mask.from_surface(collisionBg)
+        
 
-        s = pygame.Surface((800,600), masks=collisionMap_mask)
-        pygame.draw.rect(s, (255,0,0), (0,0,800,600))
+        s = pygame.Surface((800,600))
         #s = pygame.Surface.convert(collisionMap_mask)
-
-        self.director.screen.blit(self.collisionBg, (self.camera.state.x,self.camera.state.y))
+        s.fill((0,0,0))
+        
 
         for bicho in self.enemyGroup:
             if bicho.controller.detect_player():
-                pygame.draw.line(surf, (255,255,255), \
+                pygame.draw.line(s, (255,255,255), \
                 (self.player.rect.x + self.camera.state.x, \
                  self.player.rect.y + self.camera.state.y), \
                 (bicho.rect.x + self.camera.state.x, \
-                 bicho.rect.y + self.camera.state.y))
+                 bicho.rect.y + self.camera.state.y), 3)
+        
+        s.convert()
+        s.set_colorkey((0,0,0))
+        line_mask = pygame.mask.from_surface(s)
+        overlap = collisionMap_mask.overlap_area(line_mask , (self.camera.state.x, self.camera.state.y))
+        print overlap
+        screen.blit(self.collisionBg, (self.camera.state.x,self.camera.state.y))
+        screen.blit(s, (0,0))
+        
 
     def draw(self, screen):
         screen.fill(0x000000)
@@ -113,12 +121,13 @@ class Level(Scene):
         if self.bg:
             screen.blit(self.bg, self.camera.state)
 
+        if Constants.DEBUG:
+            self.drawRaytracing(screen)
         self.player.draw(screen, self.camera)
         for group in self.groups:
             group.draw(screen, self.camera)
         self.drawDanger(screen);
-        if Constants.DEBUG:
-            self.drawRaytracing(screen)
+        
         # TODO: move maps and characters to its own layer
         Scene.draw(self, screen)  # draws rest of layers
 
