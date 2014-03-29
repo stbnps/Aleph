@@ -11,6 +11,7 @@ Created on 03/03/2014
 from Character import Character
 from PlayerController import PlayerController
 from Constants import *
+import pygame
 
 PLAYER_SPEED = 0.25
 TIME_TO_ROTATE_POS = 50
@@ -33,6 +34,7 @@ class Player(Character):
         self.shieldRegenDelay = 0
         self.atk = 20
         self.director = director
+        self.mask = pygame.mask.from_surface(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]))
 
         # Better collisions this way
         self.rect.inflate_ip(-4, -6)
