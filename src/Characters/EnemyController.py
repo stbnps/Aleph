@@ -170,7 +170,7 @@ class EnemyController(Controller):
 		lineSurface.set_colorkey((0,0,0))
 		line_mask = pygame.mask.from_surface(lineSurface)
 		overlap = line_mask.overlap_area(collisionMap_mask , (0, 0))
-# 		print overlap
+		print overlap
 
 
 		if overlap > 10:
