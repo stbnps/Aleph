@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from pygame import Rect
+from pygame import Rect, event, USEREVENT
 from Enemy import Enemy
 from Weapons.WpnBlade import WpnBlade
+from Events import *
 
 class Page(Enemy):
     def __init__(self, x, y, player, director):
@@ -10,3 +11,10 @@ class Page(Enemy):
         self.setWeapon(WpnBlade("lightsaber.png", -1, Rect(128, 209, 42, 42), "sthswng1.wav", 0.2))
         self.hp = 150
 
+    def check_died(self, scene):
+        """
+        Check whether this enemy has died.
+        """
+        if self.hp <= 0:
+            scene.enemyGroup.remove(self)
+            event.post(event.Event(USEREVENT, code=PAGEDEAD))
