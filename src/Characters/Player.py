@@ -24,14 +24,15 @@ class Player(Character):
 
     def __init__(self, x, y, director):
         Character.__init__(self, x, y, "player-alt.png", -1,
-                           "coordPlayerAlt2.txt", [3, 3, 3, 3], (-4, 10, 4, 6, -2, 4, 2, 8))
+                           "coordPlayerAlt2.txt", [3, 3, 3, 3], director, (-4, 10, 4, 6, -2, 4, 2, 8))
         self.controller = PlayerController(self, director)
         self.posIndex = POS_DOWN
         self.posImageIndex = 1
         self.hp = 100
         self.atk = 20
         self.director = director
-
+        self.mask = pygame.mask.from_surface(self.sheet.subsurface(self.sheetCoord[self.posIndex][self.posImageIndex]))
+        
         # Better collisions this way
         self.rect.inflate_ip(-4, -6)
         self.atk_speed = PLAYER_ATTACK_SPEED
