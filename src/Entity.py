@@ -44,7 +44,9 @@ class Entity(Sprite):
 				self.posIndex = 0
 				self.posImageIndex = 0
 				self.rect = self.sheet.get_rect()
-				self.sheetCoord = [[self.rect]]
+				self.rect.x = x
+				self.rect.y = y
+				self.sheetCoord = [[self.sheet.get_rect()]]
 				self.timeLeftToRotate = None
 		else:
 			self.sheet = None
