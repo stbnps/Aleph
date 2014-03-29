@@ -14,12 +14,12 @@ import math
 BULLET_SPEED = 0.3
 
 class Bullet(Weapon):
-	def __init__(self, x, y, speedX, speedY, imageName=None, colorkey=None, clipRect=None):
+	def __init__(self, x, y, speedX, speedY, imageName=None, colorkey=None, clipRect=None, damage=10):
 		Weapon.__init__(self, imageName, colorkey, clipRect)
 		self.rect = Rect(x, y, 0, 0)
 		self.speedX = speedX
 		self.speedY = speedY
-		self.atk = 5
+		self.atk = damage
 
 		# Important if you want pinpoint accuracy
 		self.floatX = float(self.rect.x)

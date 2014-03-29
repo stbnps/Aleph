@@ -115,6 +115,6 @@ class HUD(Container):
         if self.visible:
             surface.blit(self.style['bg'], self.position)
             Container.draw(self, surface)
-            self.drawHealth(self.player.hp * 2, surface)
-            self.drawAmmo((self.player.hp - 50) * 2, surface)
+            self.drawHealth(self.player.hp, surface)
+            self.drawAmmo(self.player.shield, surface)
             self.drawItems(surface)

@@ -87,20 +87,20 @@ class EnemyController(Controller):
 	def checkRaytracing(self):
 
 		collisionBg = self.director.scene.collisionBg.convert()
-		collisionBg.set_colorkey((0,0,0))              
+		collisionBg.set_colorkey((0, 0, 0))
 		collisionMap_mask = pygame.mask.from_surface(collisionBg)
-		
-		lineSurface = pygame.Surface((800,600))
-		lineSurface.fill((0,0,0))
-		
-		pygame.draw.line(lineSurface, (255,255,255), \
+
+		lineSurface = pygame.Surface((800, 600))
+		lineSurface.fill((0, 0, 0))
+
+		pygame.draw.line(lineSurface, (255, 255, 255), \
                 (self.player.rect.x + self.director.scene.camera.state.x, \
                  self.player.rect.y + self.director.scene.camera.state.y), \
                 (self.character.rect.x + self.director.scene.camera.state.x, \
                  self.character.rect.y + self.director.scene.camera.state.y), 3)
-		
+
 		lineSurface.convert()
-		lineSurface.set_colorkey((0,0,0))
+		lineSurface.set_colorkey((0, 0, 0))
 		line_mask = pygame.mask.from_surface(lineSurface)
 		overlap = line_mask.overlap_area(collisionMap_mask , (self.director.scene.camera.state.x, self.director.scene.camera.state.y))
 # 		print overlap
@@ -123,11 +123,15 @@ class EnemyController(Controller):
 		# Check if the player is too far away
 		if (distance > DETECTION_RANGE):
 			return False
+
+		"""
+		This feature was deactivated due to in-game lag.
 		
 		# Detect if the player is visible using raytracing
 		if not self.checkRaytracing():
 			return False
-		
+		"""
+
 
 		# Move enemy
 		if distance > 20:

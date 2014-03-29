@@ -15,5 +15,5 @@ class Newton(Enemy):
 	"""
 
 	def __init__(self, x, y, player, director):
-		Enemy.__init__(self, x, y, "newton.png", -1, "coordNewton.txt", [3, 3, 3, 3], player, director)
+		Enemy.__init__(self, x, y, "newton.png", -1, "coordNewton.txt", [3, 3, 3, 3], player, director=director)
 		self.setWeapon(WpnGrenade())

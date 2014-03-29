@@ -13,7 +13,7 @@ class Nazist(Enemy):
 	"""
 	Contains logic for Nazist enemy.
 	"""
-	
+
 	def __init__(self, x, y, player, director):
-		Enemy.__init__(self, x, y, "nazist.png", -1, "coordNazist.txt", [3, 3, 3, 3], player, director, (0, 10, 6, 10, 6, 4, 6, 8))
+		Enemy.__init__(self, x, y, "nazist.png", -1, "coordNazist.txt", [3, 3, 3, 3], player, (0, 10, 6, 10, 6, 4, 6, 8), director)
 		self.setWeapon(WpnRifle())

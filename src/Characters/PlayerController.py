@@ -77,6 +77,16 @@ class PlayerController(Controller):
 			self.character.equippedWpn.update(time, self.character, scene)
 			self.character.update_attack_cooldown(time)
 
+
+		# This piece of code is responsible for the shield regeneration
+		self.character.shieldRegenDelay -= time
+		if self.character.shieldRegenDelay <= 0:
+			self.character.shieldRegenDelay = 0
+			self.character.shield += SHIELD_REGEN_RATE * time
+
+			if self.character.shield > 100:
+				self.character.shield = 100
+
 	def processEvent(self, event):
 		"""
 		Process pygame events.

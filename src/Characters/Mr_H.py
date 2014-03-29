@@ -17,7 +17,7 @@ class Mr_H(Enemy):
 
 	def __init__(self, x, y, player, director):
 		Enemy.__init__(self, x, y, "mr_h.png", -1, "coordMr_h.txt", [
-                       3, 3, 3, 3], player, director, (0, 10, 6, 10, 6, 4, 6, 8))
+                       3, 3, 3, 3], player, (0, 10, 6, 10, 6, 4, 6, 8), director)
 
 		# Maybe another kind of weapon?
 		self.setWeapon(WpnRifle())
