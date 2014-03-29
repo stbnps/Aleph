@@ -6,7 +6,7 @@ Created on 16/03/2014
 @author: DaGal
 '''
 
-from pygame import Rect
+from pygame import Rect, sprite
 from Bullet import Bullet
 from Characters.Character import isSolid, roundToInt
 from Explosion import Explosion
@@ -44,6 +44,19 @@ class ThrowedGrenade(Bullet):
 		if self.timeToBoom <= 0:
 			scene.bulletGroup.remove(self)
 			scene.bulletGroup.add(Explosion(self.rect.x, self.rect.y))
+
+			# Kill people!
+			originalRect = self.rect.copy()
+			self.rect.inflate_ip(80, 80)  # 80x80 area damage
+			enemies_hit = sprite.spritecollide(self, scene.enemyGroup, False)
+
+			for enemy in enemies_hit:
+				enemy.hit_by_bullet(50)
+
+			if sprite.collide_rect(self, scene.player):
+				scene.player.receive_attack(50)
+
+			self.rect = originalRect  # Restore the real rect
 
 		self.timeToStop -= time
 

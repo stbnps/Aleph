@@ -17,6 +17,7 @@ from Scenes.LevelThree import LevelThree
 from Scenes.Level import Level
 from Weapons.WpnBlade import WpnBlade
 from Weapons.WpnRifle import WpnRifle
+from Events import *
 
 
 
@@ -52,6 +53,10 @@ class LevelTwo(Level):
 
     def processEvent(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            nextLevel = LevelThree(self.director, self.player)
+            self.director.setScene(nextLevel)
+
+        if event.type == pygame.USEREVENT and event.code == NEWTONDEAD:
             nextLevel = LevelThree(self.director, self.player)
             self.director.setScene(nextLevel)
 

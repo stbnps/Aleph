@@ -15,5 +15,5 @@ class Wolf(Enemy):
 	"""
 
 	def __init__(self, x, y, player, director):
-		Enemy.__init__(self, x, y, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player, director)
+		Enemy.__init__(self, x, y, "wolves.png", -1, "coordWolves.txt", [3, 3, 3, 3], player, director=director)
 		self.equippedWpn = WpnBite()

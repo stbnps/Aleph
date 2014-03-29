@@ -15,6 +15,7 @@ from LevelFour import LevelFour
 from Resources import *
 from Weapons.WpnGrenade import WpnGrenade
 from Weapons.WpnRifle import WpnRifle
+from Events import *
 
 
 import Constants
@@ -51,6 +52,10 @@ class LevelThree(Level):
 
 	def processEvent(self, event):
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+			nextLevel = LevelFour(self.director, self.player)
+			self.director.setScene(nextLevel)
+
+		if event.type == pygame.USEREVENT and event.code == MRHDEAD:
 			nextLevel = LevelFour(self.director, self.player)
 			self.director.setScene(nextLevel)
 
