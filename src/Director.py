@@ -28,6 +28,7 @@ class Director():
 
 		while not exitGame:
 			elapsedTime = self.clock.tick(60)
+			# print "Elapsed time: " + str(elapsedTime)
 
 			for event in pygame.event.get():
 				exitGame = event.type == pygame.QUIT

@@ -61,7 +61,7 @@ class Player(Character):
             self.hp = self.hp - atk
             self.director.scene.danger = True
 
-        print "OUCH! HP:" + str(self.hp) + " SH:" + str(self.shield)
+        # print "OUCH! HP:" + str(self.hp) + " SH:" + str(self.shield)
 
     def check_died(self, scene):
         """

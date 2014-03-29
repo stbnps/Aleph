@@ -85,28 +85,95 @@ class EnemyController(Controller):
 		return distance < detection_range
 
 	def checkRaytracing(self):
+		""" 
+		Checks if the enemy sees the player. Not very efficient implementation as it processes the whole screen.
+		"""
 
-		collisionBg = self.director.scene.collisionBg.convert()
-		collisionBg.set_colorkey((0, 0, 0))
+		collisionBg = self.director.scene.collisionBg
+		collisionBg.set_colorkey((0,0,0))              
 		collisionMap_mask = pygame.mask.from_surface(collisionBg)
-
-		lineSurface = pygame.Surface((800, 600))
-		lineSurface.fill((0, 0, 0))
-
-		pygame.draw.line(lineSurface, (255, 255, 255), \
+		
+		lineSurface = pygame.Surface((800,600))
+# 		lineSurface.fill((0,0,0))
+		
+		pygame.draw.line(lineSurface, (255,255,255), \
                 (self.player.rect.x + self.director.scene.camera.state.x, \
                  self.player.rect.y + self.director.scene.camera.state.y), \
                 (self.character.rect.x + self.director.scene.camera.state.x, \
                  self.character.rect.y + self.director.scene.camera.state.y), 3)
-
-		lineSurface.convert()
-		lineSurface.set_colorkey((0, 0, 0))
+		
+# 		lineSurface.convert()
+		lineSurface.set_colorkey((0,0,0))
 		line_mask = pygame.mask.from_surface(lineSurface)
-		overlap = line_mask.overlap_area(collisionMap_mask , (self.director.scene.camera.state.x, self.director.scene.camera.state.y))
+		overlap = line_mask.overlap(collisionMap_mask , (self.director.scene.camera.state.x, self.director.scene.camera.state.y))
 # 		print overlap
 
 
-		if overlap > 0:
+		if overlap is not None:
+			return False
+		return True
+	
+	
+	def checkRaytracing_subSurface(self):
+		""" 
+		Checks if the enemy sees the player.
+		It only takes into account the region which corners are the player and the enemy.
+		"""
+
+		px = self.player.rect.x
+		py = self.player.rect.y
+		
+		ex = self.character.rect.x
+		ey = self.character.rect.y
+		
+		sx = ex
+		sy = ey
+		sw = abs(px - ex) + 1 # + 1 to keep checking it when player and enemy are on same line
+		sh = abs(py - ey) + 1
+		
+# 		if sw == 0:
+# 			sw = 1
+# 		if sh == 0:
+# 			sh = 1
+		
+# 		print "sx: " + str(sx)
+# 		print "sy: " + str(sy)
+# 		print "sw: " + str(sw)
+# 		print "sh: " + str(sh)
+		
+		odd = 0
+		line = [0, 0, sw, sh]
+		
+		if px < ex:
+			sx = px
+			odd += 1
+		
+		if py < ey:
+			sy = py
+			odd += 1
+		
+		if odd == 1:
+			line = [sw, 0, 0, sh]
+
+		collisionBg = self.director.scene.collisionBg.subsurface(pygame.Rect(sx, sy, sw, sh)).copy()
+		collisionBg.set_colorkey((0,0,0))              
+		collisionMap_mask = pygame.mask.from_surface(collisionBg)
+		
+		lineSurface = pygame.Surface((sw,sh))
+# 		lineSurface.fill((0,0,0))
+		
+		pygame.draw.line(lineSurface, (255,255,255), (line[0], line[1]), (line[2], line[3]), 3)
+		if sw == 1 or sh == 1:
+			lineSurface.fill((255,255,255))
+		
+# 		lineSurface.convert()
+		lineSurface.set_colorkey((0,0,0))
+		line_mask = pygame.mask.from_surface(lineSurface)
+		overlap = line_mask.overlap_area(collisionMap_mask , (0, 0))
+# 		print overlap
+
+
+		if overlap > 10:
 			return False
 		return True
 
@@ -124,13 +191,11 @@ class EnemyController(Controller):
 		if (distance > DETECTION_RANGE):
 			return False
 
-		"""
-		This feature was deactivated due to in-game lag.
-		
+
 		# Detect if the player is visible using raytracing
-		if not self.checkRaytracing():
+		if not self.checkRaytracing_subSurface():
 			return False
-		"""
+
 
 
 		# Move enemy
