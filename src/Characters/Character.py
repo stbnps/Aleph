@@ -41,7 +41,7 @@ class Character(Entity):
         self.controller = None
         self.equippedWpn = None
         self.attacking = False
-        self.atk_delay_reset = 1.0 # Character dependent delay time
+        self.atk_delay_reset = 1.0  # Character dependent delay time
         self.atk_delay = self.atk_delay_reset  # Starts with cooldown. Trust me, it's better.
         self.hp = 40
         self.atk = 10
@@ -117,13 +117,14 @@ class Character(Entity):
         """
 
         if self.attacking and self.atk_delay <= 0:
-                self.equippedWpn.playSound()
+                if self.has_melee_weapon():
+                    self.equippedWpn.playSound()
                 self.atk_delay = self.atk_delay_reset
 
 
         if self.atk_delay > 0.0:
             self.atk_delay -= time * self.atk_speed
-            
+
 
     def is_attacking(self):
         """ 
@@ -191,7 +192,7 @@ class Character(Entity):
     # Just in case we miss some refactoring
 #     def hit_by_bullet(self, atk):
 #         self.receive_attack(atk)
-    
+
     def receive_attack(self, atk=10):
         """
         Called when a bullet its the character.
