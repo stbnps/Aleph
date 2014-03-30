@@ -25,10 +25,16 @@ class Director():
 
 	def loop(self):
 		exitGame = False
+		fg = 0.0
+		ft = 0.0
 
 		while not exitGame:
 			elapsedTime = self.clock.tick(60)
-			# print "Elapsed time: " + str(elapsedTime)
+			fg += 1
+
+			if elapsedTime > 16:
+				ft += 1
+				# print "Frames below 60 fps: " + str(100 * ft / fg) + "%"
 
 			for event in pygame.event.get():
 				exitGame = event.type == pygame.QUIT

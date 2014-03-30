@@ -35,8 +35,11 @@ class EnemyController(Controller):
 		self.character.speedY = 0
 		self.move_behavior(time, collisionMap, scene)
 
+		if self.character.damageCooldown > 0:
+			self.character.damageCooldown -= time
+
 		if self.check_melee_hit():
-			print "%s man dao una ostia!" % self
+			self.character.damageCooldown = 255
 			self.character.hp = self.character.hp - self.player.atk
 
 		# self.character.attacking = True
@@ -90,20 +93,20 @@ class EnemyController(Controller):
 		"""
 
 		collisionBg = self.director.scene.collisionBg
-		collisionBg.set_colorkey((0,0,0))              
+		collisionBg.set_colorkey((0, 0, 0))
 		collisionMap_mask = pygame.mask.from_surface(collisionBg)
-		
-		lineSurface = pygame.Surface((800,600))
+
+		lineSurface = pygame.Surface((800, 600))
 # 		lineSurface.fill((0,0,0))
-		
-		pygame.draw.line(lineSurface, (255,255,255), \
+
+		pygame.draw.line(lineSurface, (255, 255, 255), \
                 (self.player.rect.x + self.director.scene.camera.state.x, \
                  self.player.rect.y + self.director.scene.camera.state.y), \
                 (self.character.rect.x + self.director.scene.camera.state.x, \
                  self.character.rect.y + self.director.scene.camera.state.y), 3)
-		
+
 # 		lineSurface.convert()
-		lineSurface.set_colorkey((0,0,0))
+		lineSurface.set_colorkey((0, 0, 0))
 		line_mask = pygame.mask.from_surface(lineSurface)
 		overlap = line_mask.overlap(collisionMap_mask , (self.director.scene.camera.state.x, self.director.scene.camera.state.y))
 # 		print overlap
@@ -112,70 +115,69 @@ class EnemyController(Controller):
 		if overlap is not None:
 			return False
 		return True
-	
-	
+
+
 	def checkRaytracing_subSurface(self):
 		""" 
 		Checks if the enemy sees the player.
 		It only takes into account the region which corners are the player and the enemy.
 		"""
 
-		px = self.player.rect.x
-		py = self.player.rect.y
-		
-		ex = self.character.rect.x
-		ey = self.character.rect.y
-		
+		px = self.player.rect.centerx
+		py = self.player.rect.centery
+
+		ex = self.character.rect.centerx
+		ey = self.character.rect.centery
+
 		sx = ex
 		sy = ey
-		sw = abs(px - ex) + 1 # + 1 to keep checking it when player and enemy are on same line
+		sw = abs(px - ex) + 1  # + 1 to keep checking it when player and enemy are on same line
 		sh = abs(py - ey) + 1
-		
+
 # 		if sw == 0:
 # 			sw = 1
 # 		if sh == 0:
 # 			sh = 1
-		
+
 # 		print "sx: " + str(sx)
 # 		print "sy: " + str(sy)
 # 		print "sw: " + str(sw)
 # 		print "sh: " + str(sh)
-		
+
 		odd = 0
 		line = [0, 0, sw, sh]
-		
+
 		if px < ex:
 			sx = px
 			odd += 1
-		
+
 		if py < ey:
 			sy = py
 			odd += 1
-		
+
 		if odd == 1:
 			line = [sw, 0, 0, sh]
 
 		collisionBg = self.director.scene.collisionBg.subsurface(pygame.Rect(sx, sy, sw, sh)).copy()
-		collisionBg.set_colorkey((0,0,0))              
+		collisionBg.set_colorkey((0, 0, 0))
 		collisionMap_mask = pygame.mask.from_surface(collisionBg)
-		
-		lineSurface = pygame.Surface((sw,sh))
+
+		lineSurface = pygame.Surface((sw, sh))
 # 		lineSurface.fill((0,0,0))
-		
-		pygame.draw.line(lineSurface, (255,255,255), (line[0], line[1]), (line[2], line[3]), 3)
-		if sw == 1 or sh == 1:
-			lineSurface.fill((255,255,255))
-		
+
+		if sw <= 3 or sh <= 3:
+			lineSurface.fill((255, 255, 255))
+		else:
+			pygame.draw.line(lineSurface, (255, 255, 255), (line[0], line[1]), (line[2], line[3]), 3)
+
 # 		lineSurface.convert()
-		lineSurface.set_colorkey((0,0,0))
+		lineSurface.set_colorkey((0, 0, 0))
 		line_mask = pygame.mask.from_surface(lineSurface)
 		overlap = line_mask.overlap_area(collisionMap_mask , (0, 0))
-		print overlap
+		# print overlap
 
 
-		if overlap > 10:
-			return False
-		return True
+		return overlap <= 10
 
 	def follow_player(self, time, collisionMap):
 		""" 
@@ -189,14 +191,13 @@ class EnemyController(Controller):
 
 		# Check if the player is too far away
 		if (distance > DETECTION_RANGE):
+			self.character.attacking = False
 			return False
-
 
 		# Detect if the player is visible using raytracing
 		if not self.checkRaytracing_subSurface():
+			self.character.attacking = False
 			return False
-
-
 
 		# Move enemy
 		if distance > 20:
