@@ -49,6 +49,8 @@ class PlayerController(Controller):
 		Having a back pointer to the director becomes usefull in these situations
 		'''
 		self.character.attacking = pygame.mouse.get_pressed()[0] and not self.director.scene.mouseHoveringHUD
+		
+
 
 		# Look where we are trying to hit:
 		if self.character.attacking:

@@ -41,7 +41,8 @@ class Character(Entity):
         self.controller = None
         self.equippedWpn = None
         self.attacking = False
-        self.atk_delay = 1.0  # Starts with cooldown. Trust me, it's better.
+        self.atk_delay_reset = 1.0 # Character dependent delay time
+        self.atk_delay = self.atk_delay_reset  # Starts with cooldown. Trust me, it's better.
         self.hp = 40
         self.atk = 10
 
@@ -115,21 +116,14 @@ class Character(Entity):
         Reduces time remaining to next attack.
         """
 
-        self.just_attacked = False
-
-        if self.attacking:
-            if self.atk_delay == 1.0 and self.has_melee_weapon():
+        if self.attacking and self.atk_delay <= 0:
                 self.equippedWpn.playSound()
+                self.atk_delay = self.atk_delay_reset
 
+
+        if self.atk_delay > 0.0:
             self.atk_delay -= time * self.atk_speed
-        else:
-            self.atk_delay = 1.0
-            # if self.has_melee_weapon():
-                # self.equippedWpn.stopSound()
-
-        if self.atk_delay <= 0.0:
-            self.just_attacked = True
-            self.atk_delay = 1.0
+            
 
     def is_attacking(self):
         """ 
@@ -141,7 +135,7 @@ class Character(Entity):
         """ 
         Returns true when the character can attack
         """
-        return self.just_attacked
+        return self.atk_delay <= 0.0
 
     def has_melee_weapon(self):
         """ 
@@ -194,7 +188,11 @@ class Character(Entity):
         else:
             return False
 
-    def hit_by_bullet(self, atk=10):
+    # Just in case we miss some refactoring
+#     def hit_by_bullet(self, atk):
+#         self.receive_attack(atk)
+    
+    def receive_attack(self, atk=10):
         """
         Called when a bullet its the character.
         """

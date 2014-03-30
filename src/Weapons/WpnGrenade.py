@@ -41,5 +41,5 @@ class WpnGrenade(Weapon):
 			ydist = posY - char.rect.centery
 			mag = math.sqrt(xdist * xdist + ydist * ydist)
 			# mag = abs(xdist) + abs(ydist)
-			scene.bulletGroup.add([ThrowedGrenade(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, mag)])
+			scene.bulletGroup.add([ThrowedGrenade(char, char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, mag)])
 			self.cooldown = BOW_COOLDOWN

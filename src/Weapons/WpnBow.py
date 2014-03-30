@@ -53,7 +53,7 @@ class WpnBow(Weapon):
 			ydist = posY - char.rect.centery
 			mag = math.sqrt(xdist * xdist + ydist * ydist)
 			# mag = abs(xdist) + abs(ydist)
-			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
+			scene.bulletGroup.add([Bullet(char, char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
 										 "arrow.png", -1, Rect(88, 28, 16, 7))])
 			self.cooldown = BOW_COOLDOWN
 			self.playSound()

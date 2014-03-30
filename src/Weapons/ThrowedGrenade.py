@@ -16,8 +16,8 @@ MAX_THROW_DISTANCE = 150
 TIME_TO_BOOM = 2000
 
 class ThrowedGrenade(Bullet):
-	def __init__(self, x, y, speedX, speedY, throwDistance):
-		Bullet.__init__(self, x, y, speedX, speedY, "items-1small.png", None, Rect(110, 120, 9, 11))
+	def __init__(self,creator, x, y, speedX, speedY, throwDistance):
+		Bullet.__init__(self, creator, x, y, speedX, speedY, "items-1small.png", None, Rect(110, 120, 9, 11))
 		self.rect = Rect(x, y, 0, 0)
 		self.speedX = speedX
 		self.speedY = speedY
@@ -32,6 +32,7 @@ class ThrowedGrenade(Bullet):
 
 		self.timeToStop = throwDistance / GRENADE_SPEED
 		self.timeToBoom = TIME_TO_BOOM
+		self.atk = 70
 
 	def update(self, time, scene):
 		self.floatX += self.speedX * time * GRENADE_SPEED
@@ -48,13 +49,17 @@ class ThrowedGrenade(Bullet):
 			# Kill people!
 			originalRect = self.rect.copy()
 			self.rect.inflate_ip(80, 80)  # 80x80 area damage
+			
 			enemies_hit = sprite.spritecollide(self, scene.enemyGroup, False)
 
 			for enemy in enemies_hit:
-				enemy.hit_by_bullet(50)
+				# Friendly fire
+				if self.creator.__class__.__name__ == enemy.__class__.__name__:
+					continue
+				enemy.receive_attack(self.atk)
 
 			if sprite.collide_rect(self, scene.player):
-				scene.player.receive_attack(50)
+				scene.player.receive_attack(self.atk)
 
 			self.rect = originalRect  # Restore the real rect
 

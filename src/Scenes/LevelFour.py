@@ -42,9 +42,9 @@ class LevelFour(Level):
 
         self.page = Page(408, 135, self.player, director)
         self.enemyGroup.add([FutureSoldier(141, 1084, self.player, director),
-                             FutureSoldier(316, 1084, self.player, director),
-                             FutureSoldier(141, 926, self.player, director),
-                             FutureSoldier(316, 926, self.player, director),
+#                              FutureSoldier(316, 1084, self.player, director),
+#                              FutureSoldier(141, 926, self.player, director),
+                            FutureSoldier(316, 926, self.player, director),
                              FutureSoldier(686, 1260, self.player, director),
                              FutureSoldier(508, 988, self.player, director),
                              FutureSoldier(537, 1450, self.player, director),

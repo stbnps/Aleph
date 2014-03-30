@@ -10,5 +10,5 @@ class Legionnaire(Enemy):
         self.setWeapon(WpnBlade("wpns2.png", -1, Rect(344, 342, 28, 28), "blade_swing.wav", 0.5))
 
         self.alive = True
-        self.hp = 20
+        self.hp = 30
 

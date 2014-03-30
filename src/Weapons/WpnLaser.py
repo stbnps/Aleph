@@ -57,8 +57,8 @@ class WpnLaser(Weapon):
 			ydist = posY - char.rect.centery
 			mag = math.sqrt(xdist * xdist + ydist * ydist)
 			# mag = abs(xdist) + abs(ydist)
-			scene.bulletGroup.add([Bullet(char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
-										 "sw_weapons.png", -1, Rect(87, 349, 18, 5), damage=20)])
+			scene.bulletGroup.add([Bullet(char, char.rect.centerx, char.rect.centery, xdist / mag , ydist / mag, \
+										 "sw_weapons.png", -1, Rect(87, 349, 18, 5), damage=40)])
 			self.cooldown = BOW_COOLDOWN
 			self.posImageIndex = 1
 			self.playSound()

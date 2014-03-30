@@ -28,13 +28,13 @@ class LevelThree(Level):
 		self.player.rect.y = 82
 
 		self.enemyGroup.add([Nazist(640, 140, self.player, director),
-							Nazist(640, 176, self.player, director),
-							Nazist(688, 18, self.player, director),
+# 							Nazist(640, 176, self.player, director),
+# 							Nazist(688, 18, self.player, director),
 							Nazist(524, 51, self.player, director),
-							Nazist(524, 140, self.player, director),
+# 							Nazist(524, 140, self.player, director),
 							Nazist(345, 46, self.player, director),
 							Nazist(345, 70, self.player, director),
-							Nazist(345, 100, self.player, director),
+# 							Nazist(345, 100, self.player, director),
 							Nazist(140, 145, self.player, director),
 							Nazist(140, 175, self.player, director),
 							Nazist(185, 10, self.player, director),

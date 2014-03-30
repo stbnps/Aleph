@@ -7,7 +7,9 @@ Created on 16/03/2014
 '''
 
 from Enemy import Enemy
+from Character import Character
 from Weapons.WpnGrenade import WpnGrenade
+from RangeController import RangeController
 from pygame import event, USEREVENT
 from Events import *
 
@@ -18,7 +20,10 @@ class Newton(Enemy):
 
 	def __init__(self, x, y, player, director):
 		Enemy.__init__(self, x, y, "newton.png", -1, "coordNewton.txt", [3, 3, 3, 3], player, director=director)
+		self.controller = RangeController(self, player, director)
 		self.setWeapon(WpnGrenade())
+		self.atk_delay_reset = 2.0
+		self.hp = 150
 
 
 	def check_died(self, scene):

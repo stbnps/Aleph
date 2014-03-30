@@ -23,6 +23,7 @@ class Mr_H(Enemy):
 
 		# Maybe another kind of weapon?
 		self.setWeapon(WpnRifle())
+		self.hp = 200
 
 
 	def check_died(self, scene):

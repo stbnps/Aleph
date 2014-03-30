@@ -14,12 +14,13 @@ import math
 BULLET_SPEED = 0.3
 
 class Bullet(Weapon):
-	def __init__(self, x, y, speedX, speedY, imageName=None, colorkey=None, clipRect=None, damage=10):
+	def __init__(self, creator, x, y, speedX, speedY, imageName=None, colorkey=None, clipRect=None, damage=10):
 		Weapon.__init__(self, imageName, colorkey, clipRect)
-		self.rect = Rect(x, y, 0, 0)
+		self.rect = Rect(x, y, 10, 10)
 		self.speedX = speedX
 		self.speedY = speedY
 		self.atk = damage
+		self.creator = creator
 
 		# Important if you want pinpoint accuracy
 		self.floatX = float(self.rect.x)
@@ -41,10 +42,17 @@ class Bullet(Weapon):
 
 
 	def kill_people(self, scene):
+		if sprite.collide_rect(self, scene.player) and not self.creator.__class__.__name__ == scene.player.__class__.__name__:
+				scene.player.receive_attack(self.atk)
+				scene.bulletGroup.remove(self)
 		hitted_players = sprite.spritecollide(self, scene.enemyGroup, False)
 		# scene.bulletGroup.remove(self)
 		for player in hitted_players:
-			player.hit_by_bullet(self.atk)
+			# Friendly fire
+			if self.creator.__class__.__name__ == player.__class__.__name__:
+				continue
+			player.receive_attack(self.atk)
 			# A bullet should not be capable of going through an infinite amount of bodies
 			scene.bulletGroup.remove(self)
+			break
 

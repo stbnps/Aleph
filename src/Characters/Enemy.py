@@ -2,7 +2,7 @@
 
 from Character import Character
 import pygame
-from EnemyController import EnemyController
+from MeleeController import MeleeController
 from Constants import *
 
 def blit_mask(source, dest, destpos, mask, maskrect):
@@ -23,7 +23,7 @@ class Enemy(Character):
 
 	def __init__(self, x, y, imageName, colorkey, coordsName, numImages, player, magicNumbers=(0, 0, 0, 0, 0, 0, 0, 0), director=None, *args):
 		Character.__init__(self, x, y, imageName, colorkey, coordsName, numImages, magicNumbers, director)
-		self.controller = EnemyController(self, player, director)
+		self.controller = MeleeController(self, player, director)
 		self.rect = pygame.Rect(x, y, 10, 10)
 		self.atk_speed = ENEMY_ATTACK_SPEED
 		self.damageCooldown = 0
@@ -35,18 +35,23 @@ class Enemy(Character):
 		if self.hp <= 0:
 			scene.enemyGroup.remove(self)
 
-	def hit_by_bullet(self, atk=10):
+	def receive_attack(self, atk=10):
 		"""
 		Called when a bullet hits the enemy.
 		"""
-		Character.hit_by_bullet(self, atk)
+		Character.receive_attack(self, atk)
 		self.damageCooldown = 255
+		
+	def update(self, time, scene):
+		if self.damageCooldown > 0:
+			self.damageCooldown -= 15	
+		Character.update(self, time, scene)
 
 
 	def draw(self, screen, camera):
 		Character.draw(self, screen, camera)
 
-		if self.damageCooldown > 0:
+		if self.damageCooldown > 0:			
 			damageRect = pygame.Rect(0, 0, self.sheetCoord[self.posIndex][self.posImageIndex][2], self.sheetCoord[self.posIndex][self.posImageIndex][3])
 			damageSurface = pygame.Surface((damageRect.w, damageRect.h))
 			damageSurface.fill((255, 0, 0))

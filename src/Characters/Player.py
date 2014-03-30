@@ -43,6 +43,7 @@ class Player(Character):
         self.selectedWpnNum = 0
         self.totalWpns = 0
         self.weapons = []
+        
 
     def receive_attack(self, atk):
         """
@@ -61,7 +62,7 @@ class Player(Character):
             self.hp = self.hp - atk
             self.director.scene.danger = True
 
-        # print "OUCH! HP:" + str(self.hp) + " SH:" + str(self.shield)
+#         print "OUCH! HP:" + str(self.hp) + " SH:" + str(self.shield)
 
     def check_died(self, scene):
         """
